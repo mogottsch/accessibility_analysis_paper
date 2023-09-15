@@ -19,60 +19,44 @@ the shortest path from the origin to the destination.
 
 \subsubsection{Dijkstra}
 \label{subsubsec:dijkstra}
-The most straightforward approach to compute the shortest paths in a graph is
-the Dijkstra algorithm \cite{dijkstra1959note}. The Dijkstra algorithm operates
-on a graph \( G = (V, E) \), where \( V \) is the set of nodes and \( E \) is
-the set of edges. Each edge \( e \in E \) has a weight
-\( w(e) \in \mathbb{R}\). The graph data structure is general enough to
-represent a wide range of problems, including road networks and public
-transport networks.
+The most straightforward approach to compute the shortest paths in a graph is the Dijkstra algorithm \cite{dijkstra1959note}.
+The Dijkstra algorithm operates on a graph \( G = (V, E) \), where \( V \) is the set of nodes and \( E \) is the set of edges.
+Each edge \( e \in E \) has a weight \( w(e) \in \mathbb{R}\). The graph data structure is general enough to represent a wide range of problems, including road networks and public transport networks.
 
-Dijkstra's algorithm initiates at a designated start node \( s \in V \) and
-employs a priority queue to systematically determine the shortest path to each
-subsequent node \( v \in V \). Initially, the distance to the start node \( s
-\) is set to zero, while the distances to all other nodes are set to infinity.
-In each iteration, the algorithm dequeues the node \( u \) with the smallest
-known distance from the priority queue. It then examines each outgoing edge \(
-e = (u, v) \) from \( u \), updating the distance to \( v \) if a shorter path
-through \( u \) is discovered. Specifically, if
-\( \text{dist}(u) + w(e) < \text{dist}(v) \), then \( \text{dist}(v) \) is
-updated to \( \text{dist}(u) + w(e) \), and \( v \) is enqueued into the
-priority queue for future exploration. The node \( u \) is marked as visited by
-adding it to the set \( V_{\text{visited}} \).
+Dijkstra's algorithm initiates at a designated start node \( s \in V \) and employs a priority queue to systematically determine the shortest path to each subsequent node \( v \in V \).
+Initially, the distance to the start node \( s \) is set to zero, while the distances to all other nodes are set to infinity.
+In each iteration, the algorithm dequeues the node \( u \) with the smallest known distance from the priority queue.
+It then examines each outgoing edge \( e = (u, v) \) from \( u \), updating the distance to \( v \) if a shorter path through \( u \) is discovered.
+Specifically, if \( \text{dist}(u) + w(e) < \text{dist}(v) \), then \( \text{dist}(v) \) is updated to \( \text{dist}(u) + w(e) \), and \( v \) is enqueued into the priority queue for future exploration.
+The node \( u \) is marked as visited by adding it to the set \( V_{\text{visited}} \).
 
-However, this simple approach has multiple problems. Firstly, the Dijkstra
-algorithm is not able to handle multiple criteria. Secondly, the runtime of
-Dijkstra's algorithm is \( O(|E| + |V| \log |V|) \), which is too slow for
-large graphs.
+
+However, this simple approach has multiple problems.
+Firstly, the Dijkstra algorithm is not able to handle multiple criteria.
+Secondly, the runtime of Dijkstra's algorithm is \( O(|E| + |V| \log |V|) \), which is too slow for large graphs.
+
 
 \subsubsection{MLC}
 \label{subsubsec:mlc}
 
-The Multi-Label Correcting (MLC) \shortcite{hansenBicriterionPathProblems1980}
-extends Dijkstra's algorithm to handle multiple criteria. Concerning the inputs,
-the only difference between Dijkstra's algorithm and MLC is that the edges in
-the graph has vectors as weights instead of scalars \( w(e) \in \mathbb{R}^k \).
+The Multi-Label Correcting (MLC) \shortcite{hansenBicriterionPathProblems1980} extends Dijkstra's algorithm to handle multiple criteria.
+Concerning the inputs, the only difference between Dijkstra's algorithm and MLC is that the edges in the graph has vectors as weights instead of scalars \( w(e) \in \mathbb{R}^k \).
 
 
 
 
-One of the most prominent routing algorithms for public transport is the Round
-based Public Transit Optimized Router algorithm (RAPTOR)
-\cite{dellingRoundBasedPublicTransit2015}, which is also used by R5. The RAPTOR
-algorithm (Round-Based Public Transit Optimized Router) is designed to compute
-all Pareto-optimal journeys in a dynamic public transit network. Unlike
-traditional Dijkstra-based algorithms, RAPTOR operates in rounds, looking at
-each route (such as a bus line) in the network at most once per round. This
-makes it highly efficient and capable of handling fully dynamic scenarios,
-including delays and cancellations.
-In order to allow intermediate transfers between trips, e.g. walking between
-stops, RAPTOR uses a transitively closed transfer graph. More precisely RAPTOR
-takes a graph as an input whose nodes are stops and whose edges represent
-transfers without a schedule, meaning that the transfer can be made at any time.
+
+One of the most prominent routing algorithms for public transport is the Round based Public Transit Optimized Router algorithm (RAPTOR) \cite{dellingRoundBasedPublicTransit2015}, which is also used by R5.
+The RAPTOR algorithm (Round-Based Public Transit Optimized Router) is designed to compute all Pareto-optimal journeys in a dynamic public transit network.
+Unlike traditional Dijkstra-based algorithms, RAPTOR operates in rounds, looking at each route (such as a bus line) in the network at most once per round.
+This makes it highly efficient and capable of handling fully dynamic scenarios, including delays and cancellations.
+In order to allow intermediate transfers between trips, e.g.
+walking between stops, RAPTOR uses a transitively closed transfer graph.
+More precisely RAPTOR takes a graph as an input whose nodes are stops and whose edges represent transfers without a schedule, meaning that the transfer can be made at any time.
 The original RAPTOR papers suggests no method to compute the transfer graph.
 Theoretically, this graph is enough to constitute all possible journeys.
-However, in practice, it can be very challenging to compute the graph and it
-can be very large.
+However, in practice, it can be very challenging to compute the graph and it can be very large.
+
 
 To overcome problem of RAPTOR \cite{dellingComputingMultimodalJourneys2013}
 introduce Multimodal Multicriteria RAPTOR (MCR). MC
