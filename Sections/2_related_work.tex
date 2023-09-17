@@ -16,12 +16,42 @@ the shortest path from the origin to the destination.
 \subsection{Routing Algorithms}
 \label{subsec:routing_algorithms}
 
+The primary goal of routing algorithms is to identify the optimal path between a designated origin and a specific destination.
+Typically, this is captured using a graph representation:
+\[ G = (V, E) \]
+where $V$ represents a set of nodes (or locations) and $E$ encapsulates the set of edges, which correspond to connections between these nodes.
 
+For each edge \( e \in E \), there's an associated weight \( w(e) \in \mathbb{R} \) that characterizes the cost of traversing it.
+This cost might be determined by factors such as distance or travel time.
+Consequently, the shortest path can be expressed as:
+\[ \langle v_0, e_0, v_1, e_1, \dots, v_n \rangle \]
+Here, \( v_0 \) denotes the origin, \( v_n \) the destination, and the edges must connect the nodes in the sequence:
+\[ e_i = (v_i, v_{i+1}) \quad \text{for} \quad i \in \{0, \dots, n-1\} \]
+In accessibility contexts, the primary concern frequently revolves around determining the accumulated cost, \( d(v_n) \), to reach the destination rather than the actual path.
+
+In more complex real-world scenarios, the problem often encompasses multiple objectives, such as considering both time and monetary cost of travel.
+Under these circumstances, the edge weight is represented as a vector:
+\[ w(e) \in \mathbb{R}^k \]
+where \( k \) stands for the total objectives count.
+Unlike the simpler single-objective case with a singular optimal path, the multi-objective scenario yields a Pareto set, constituting several optimal routes.
+
+The value of these paths is depicted using a label:
+\[ l \in \mathbb{R}^k \]
+where \( l_i \in \mathbb{R} \) denotes the value for the \( i \)-th objective.
+This label can be thought of as a multidimensional extension of \( d(v_n) \) from the single-objective scenario.
+The Pareto set associated with destination node \( v_n \) is often termed as a bag, expressed as \( B(v_n) \), comprising labels that are not dominated by each other.
+Domination is defined as follows: \( l' \) dominates \( l \) if \( l'_i \leq l_i \) for all \( i \in \{1, \dots, k\} \) and \( l'_i < l_i \) for at least one \( i \in \{1, \dots, k\} \).
+Intuitively, this means that \( l' \) is at least as good as \( l \) in all objectives and strictly better in at least one objective.
+
+The goal of routing algorithms used in accessibility analysis is finding the distance in the single objective case and the bag in the multi objective case.
+For accessibility analysis routing algorithms are often altered to not find the optimal path(s) between two nodes, referred to as one-to-one query, but the path from a single origin to all other nodes in the network, which we call one-to-all query.
+
+% short introduction (with advantages)
+% algorithm
+% advantages/disadvantages
 \subsubsection{Dijkstra}
 \label{subsubsec:dijkstra}
 The most straightforward approach to compute the shortest paths in a graph is the Dijkstra algorithm \cite{dijkstra1959note}.
-The Dijkstra algorithm operates on a graph \( G = (V, E) \), where \( V \) is the set of nodes and \( E \) is the set of edges.
-Each edge \( e \in E \) has a weight \( w(e) \in \mathbb{R}\). The graph data structure is general enough to represent a wide range of problems, including road networks and public transport networks.
 
 Dijkstra's algorithm initiates at a designated start node \( s \in V \) and employs a priority queue to systematically determine the shortest path to each subsequent node \( v \in V \).
 Initially, the distance to the start node \( s \) is set to zero, while the distances to all other nodes are set to infinity.
@@ -29,36 +59,189 @@ In each iteration, the algorithm dequeues the node \( u \) with the smallest kno
 It then examines each outgoing edge \( e = (u, v) \) from \( u \), updating the distance to \( v \) if a shorter path through \( u \) is discovered.
 Specifically, if \( \text{dist}(u) + w(e) < \text{dist}(v) \), then \( \text{dist}(v) \) is updated to \( \text{dist}(u) + w(e) \), and \( v \) is enqueued into the priority queue for future exploration.
 The node \( u \) is marked as visited by adding it to the set \( V_{\text{visited}} \).
+Depending on the goal, the algorithm terminates either when the destination node is dequeued (one-to-one) or when the priority queue is empty (one-to-all).
 
 
 However, this simple approach has multiple problems.
 Firstly, the Dijkstra algorithm is not able to handle multiple criteria.
 Secondly, the runtime of Dijkstra's algorithm is \( O(|E| + |V| \log |V|) \), which is too slow for large graphs.
 
-
 \subsubsection{MLC}
 \label{subsubsec:mlc}
 
-The Multi-Label Correcting (MLC) \shortcite{hansenBicriterionPathProblems1980} extends Dijkstra's algorithm to handle multiple criteria.
-Concerning the inputs, the only difference between Dijkstra's algorithm and MLC is that the edges in the graph has vectors as weights instead of scalars \( w(e) \in \mathbb{R}^k \).
+The Multi-Label-Correcting (MLC) \shortcite{hansenBicriterionPathProblems1980} algorithm is an extension of Dijkstra's algorithm to handle multi-objective scenarios.
+As mentioned in Section \ref{subsec:routing_algorithms} in the multi-objective case we try to find the bag of the destination node.
+Specifically, for \(k\) criteria, each node \(v\) retains a bag of \(k\)-dimensional labels. Such a list encapsulates a set of Pareto-optimal paths from the starting node to \(v\).
+Similarly to Dijkstra's algorithm, MLC initializes all nodes with an empty bag, except for the start node, which is initialized with a label of \( (0, \dots, 0) \in \mathbb{R}^k \).
+Each iteration extracts the lexicographically smallest label, as opposed to selecting the node with the minimum distance.
+When a label is extracted and \(v\) is its corresponding node, updates are made for all connected edges \( (v, w) \).
+The update process consists of comparing a newly generated tentative label against all labels within the bag of \(w\).
+This new label is only inserted into the bag if it isn't dominated by any existing label.
+Conversely, any label now dominated by the new entry is removed.
+Each time a label is inserted into a bag, it is also inserted into the priority queue.
+The algorithm terminates when the priority queue is empty.
+
+The major drawback of the MLC algorithm is its runtime, which is even slower than Dijkstra's algorithm, because each node can be visited multiple times.
 
 
+\subsubsection{Graph-based Algorithms in Public Transport}
+\label{subsubsec:graph_based_algorithms_in_public_transport}
 
 
+In the context of accessibility analysis the previously mentioned algorithms can be used directly for walking, cycling and driving networks.
+%To do so the network is represented as a graph and the edge weights are set to the travel time.
+%It is also possible to represent multi-modal networks as a graph, connecting the different graphs with transfer edges.
+%These transfer edges repre
+However, public transport networks pose a challenge, since they contain time-dependent information, such as the departure time of a trip.
+To overcome this challenge two different approaches are commonly used, the time-expanded and the time-dependent approach, as explained by \cite{muller-hannemannTimetableInformationModels2007}.
+While enabling the use of graph-based algorithms, both approaches still suffer from the previously mentioned runtime problems Dijkstra's algorithm and MLC have.
 
-One of the most prominent routing algorithms for public transport is the Round based Public Transit Optimized Router algorithm (RAPTOR) \cite{dellingRoundBasedPublicTransit2015}, which is also used by R5.
-The RAPTOR algorithm (Round-Based Public Transit Optimized Router) is designed to compute all Pareto-optimal journeys in a dynamic public transit network.
+\subsubsection{RAPTOR}
+\label{subsubsec:raptor}
+
+To overcome the runtime problems of graph-based approaches, \cite{dellingRoundBasedPublicTransit2015} introduce one of the most prominent routing algorithms for public transport, called Round based Public Transit Optimized Router algorithm (RAPTOR). % which is also used by R5
 Unlike traditional Dijkstra-based algorithms, RAPTOR operates in rounds, looking at each route (such as a bus line) in the network at most once per round.
-This makes it highly efficient and capable of handling fully dynamic scenarios, including delays and cancellations.
-In order to allow intermediate transfers between trips, e.g.
-walking between stops, RAPTOR uses a transitively closed transfer graph.
-More precisely RAPTOR takes a graph as an input whose nodes are stops and whose edges represent transfers without a schedule, meaning that the transfer can be made at any time.
-The original RAPTOR papers suggests no method to compute the transfer graph.
-Theoretically, this graph is enough to constitute all possible journeys.
-However, in practice, it can be very challenging to compute the graph and it can be very large.
+
+As RAPTOR does not operate on a graph, we first introduce the problem statement.
+Raptor operates on a scheduled network consisting of routes \(r\), trips \(t\), stops \(p\), and stop times that associate trips with stops.
+% Next paragraph should probably be handled in the method
+% Here it is important to understand the differences between what we consider as a route in RAPTOR and other algorithms and what is considered as a route in GTFS data. In GTFS data, a route can have multiple different stop sequences, let's call them paths. For example, it is almost always the case that the path and the reversed path are associated with the same route. Therefore, it is not straightforward to convert GTFS routes into routes that can be used in RAPTOR.
+A route is associated with a sequence of stops \(stops(r) = \langle p_1, \dots, p_n \rangle\).
+A route has multiple trips ordered by their departure time \(trips(r) = \langle t_1, \dots, t_m \rangle\).
+One trip associates arrival and departure times with each stop of the route, denoted by \(arrivalTime(t, s) \in \mathbb{N}\) and \(departureTime(t, s) \in \mathbb{N}\) respectively.
+% talk about time representation?
+Trips of the same must not overtake each other, formally:
+\[departureTime(t_i, p_j) \leq arrivalTime(t_{i+1}, p_j)\]
+for all \(i \in \{1, \dots, m-1\}\) and \(j \in \{1, \dots, n\}\).
+Each stop \(p\) has a minimal exchange time \(\tau_{ch}(p) \in N\) associated with it.
+Often, the exchange time is set to a fixed time \(\tau_{ch}(p) = \tau_{ch}\) for all stops \(p\).
+When transferring from a trip \(t\) to another trip \(t'\) within at a stop \(p\), the exchange time has to be smaller than the difference in arrival and departure time of the two trips, formally:
+\[arrivalTime(t, p) + \tau_{ch}(p) \leq departureTime(t', p) \]
+In addition to transfer within stops, RAPTOR also allows footpaths.
+Footpaths allow transferring from one stop to another without using public transport, therefore, they are time-independent.
+Each footpath is associated with a travel time \(l(p, p')\).
+The input of the RAPTOR algorithm, in addition to the previously described scheduled network, are source stop \(p_s\), and, in the case of a one-to-one query, target stop \(p_t\), as well as, the departure time at the source stop \(\tau\).
+
+% Initialization: (l.2-l.8)
+RAPTOR operates in rounds.
+Before the first round, some variables are initialized.
+We denote the earliest possible arrival time at iteration \(i\) with \(\tau_i(p)\) and the best earliest possible arrival time over the course of all iterations with \(\tau^\star(p)\).
+For the source stop, \(\tau_p\), we set \(\tau_0(p) =\tau\) and \(\tau^\star(p) = \tau\).
+For all other stops, we set \(\tau_0 = \infty\) and \(\tau^\star = \infty\).
+In addition, we initialize a set of marked nodes \(M\) to only contain the source stop \(p_s\) and a set of marked route-stop pairs, denoted by \(Q\), to the empty set.
+A route-stop pair is simply a tuple that contains a route and one of its stops.
+The set of marked stops will contain all stops whose earliest possible arrival time has been updated in the current round.
+Similarly, the set of marked route-stop pairs contains the routes of the marked stops, together with the earliest stop of that route that has been marked.
 
 
-To overcome problem of RAPTOR \cite{dellingComputingMultimodalJourneys2013}
-introduce Multimodal Multicriteria RAPTOR (MCR). MC
+% Summary of steps
+Each round consists of three major steps.
+In the first step, the routes that have to be iterated are collected.
+In the second step, the routes are iterated by "hopping" on their trips.
+And in the third stage, potential footpaths are explored.
 
-ULTRA
+% Step 1: (l.9 - l.20)
+First, we clear the set of marked route-stop pairs \(Q\).
+Then we check the routes that are connected to each marked stop.
+For each of these routes, we store the route-stop pair in \(Q\).
+However, the routes in \(Q\) should be unique.
+If there are two marked stops that are connected to the same route, we choose the stop that is earlier in the sequence of stops of that route.
+Now, we clear the set of marked stops.
+
+% Step  2: (l.21-l.33)
+We iterate the route-stop pairs in \(Q\).
+The following step can be regarded as hopping on the earliest possible trip that we can catch of that route at that stop.
+For each route-stop \((r,p)\) pair, we iterate over the stops in \(r\) in the sequence that is associated with \(r\), beginning with \(p\).
+We check for the earliest possible trip that we can catch regarding the last arrival time at the current stop \(\tau_{k-1}(p)\) and the minimum exchange time \(\tau_{ch}(p)\).
+If there is a trip that is possible to catch, we save it as the current trip \(t_{curr}\) and continue to iterate the stops of the route \(r\).
+Now that we are on a trip, we have to check whether we need to update the earliest possible arrival time of the current stop \(\tau_k(p)\) and \(\tau^\star(p)\) by comparing the stop time of the current trip with the best earliest arrival time of that stop \(\tau^\star(p)\), formally:
+\[\tau_k(p) = \min\{\tau_k(p), arrivalTime(t_{curr}, p)\}\]
+Here one optimization comes into play.
+%We can also keep in mind the best earliest possible arrival time of the target stop \(\tau^\star(p_t)\).
+%Whenever the current stop time is later than that, our current trip won't contribute to finding a faster route to the target stop, and we disregard the potential update.
+In the case an update is necessary, we also add the current stop \(p\) to the marked stops.
+
+% Step 3: (l.34-l.40)
+Lastly, we check all marked stops for potential footpaths.
+Remember: the marked stops are those for which the earliest possible arrival time was updated in this iteration.
+For each footpath that is connected to a marked stop, we check whether the earliest possible arrival time of the other stop could be improved by the footpath.
+If that is the case, we update the earliest arrival times and also mark that stop.
+
+% Stopping criterion: (l.40-l.42)
+If no stops are marked, then there are no new routes to iterate, and the algorithm stops.
+
+After termination \[\tau_k(p)\] contains the earliest possible arrival time at stop \(p\) with at most \(k\) transfers.
+
+\begin{figure}
+    \centering
+    \includegraphics{Figures/related_work/raptor.pdf}
+    \caption{Iterating a route in RAPTOR}
+    \label{fig:raptor}
+\end{figure}
+
+% RATPOR algorithm end
+One limitation of RAPTOR is the transfer graph, which is used to represent footpaths.
+The transfer graph has to be transitively closed, which means that each node has to be connected with an edge to all other nodes that can be reached from that node.
+This has the advantage that in the algorithm we only have to check for direct neighbors of a stop, which is very fast.
+In practice, there are many possibilities how the transfer graph could look.
+First, we should note that a realistic transfer graph should be derived from a street network, as passengers should be able to walk from one stop to another using sidewalks.
+To keep the transfer graph small, one could limit the maximum walking distance.
+However, this may remove optimal journeys from the search space.
+Therefore, finding a fitting transfer graph is challenging.
+
+Through its round-based nature, RAPTOR is able to optimize for two criteria at the same time.
+However, RAPTOR cannot incorporate more criteria and one of the criteria will always be the number of transfers.
+
+
+\subsubsection{McRAPTOR}
+\label{subsubsec:mcraptor}
+
+McRAPTOR \cite{dellingRoundBasedPublicTransit2015} is an extension of RAPTOR that allows an arbitrary number of criteria.
+Like MLC, McRAPTOR also uses the notion of bags containing non-dominating labels.
+McRAPTOR does not pose any restrictions on how the objectives are updated during the algorithm.
+
+The algorithm of McRAPTOR only requires slight modifications to the algorithm of RAPTOR.
+In the initialization step, each stop \(p\) is assigned an empty bag, except the source stop \(p_s\), which is assigned a bag containing a starting label.
+The starting label can be defined as an input, but is usually \((\tau, 0, 0, \dots, 0)\), where \(\tau\) is the departure time at the source stop.
+
+When iterating over the route-stop pairs \((r, p\), McRAPTOR creates a route bag that contains all labels that are in the current bag of \(p\).
+In addition labels in the route bag are associated with a trip.
+During creation of the route bag, each label in the route bag is associated with the first trip that is possible to catch according to the labels earliest arrival time at the current stop \(p\).
+Then the route is processed, stop by stop, just like in RAPTOR.
+At each stop the labels in the route bag are updated according to the current trip.
+This update must include updating the earliest arrival time, but can also include updates to other criteria.
+After the route has been processed, the route bag is merged into the bag of the current stop.
+Merging a bag \(B_1\) into a bag \(B_2\) means that all labels in \(B_1\) that are not dominated by any label in \(B_2\) are added to \(B_2\) and all labels in \(B_2\) that are dominated by a label in \(B_1\) are removed from \(B_2\).
+After the route bag has been merged into the bag of the current stop, the bag of the current stop is merged into the route bag.
+Lastly, the trips that are associated with the labels in the route bag are updated according to the labels earliest arrival time at the current stop.
+
+Each time a label is added to a stop bag, this stop is marked.
+If no stop is marked after a round, the algorithm terminates.
+
+Note that McRAPTOR allows updates to the route bags at any time during processing.
+When and how the route bag should be updated fully depends on the objective and what it represents.
+
+While McRAPTOR has a slower runtime than RAPTOR it is still magnitudes faster than MLC.
+However, McRAPTOR still suffers from the same problem as RAPTOR, namely that the transfer graph is hard to compute.
+
+
+\subsubsection{MCR}
+\label{subsubsec:mcr}
+
+
+To overcome problem of RAPTOR \cite{dellingComputingMultimodalJourneys2013} introduce Multimodal Multicriteria RAPTOR (MCR).
+MCR modifies McRAPTOR so that the transfer graph must not be transitively closed.
+
+This allows us to use the street network as the transfer graph, which has the benefit that during the traversal of the tranfer graph the objectives can be updated.
+This is important if we multiple modes of transfer, that contain free-floating vehicle sharing systems.
+For example, consider the following case.
+For an optimal journey a passenger has to first walk five minutes to a free-floating bicycle, with which the passenger then travels to the next stop.
+There is no way to represent this in RAPTOR, because the specifics of the transfer depend on the current label, which is unknown before running the algorithm.
+Therefore it is not possible to precompute the transfer graph.
+
+MCR is very similar to RAPTOR.
+It only replaces the footpath traversal step through MLC.
+% TODO: continue her
+
+\subsubsection{ULTRA}
+\label{subsubsec:ultra}
