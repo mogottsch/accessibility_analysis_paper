@@ -8,6 +8,120 @@
 \label{subsec:accessibility_analysis}
 
 
+Traditional mobility-based planning primarily focuses on reducing congestion and facilitating movement, often prioritizing automobile travel \cite{proffittAccessibilityPlanningAmerican2019}.
+However, this approach is becoming more and more out-of-date, as modern challenges like reducing emissions of greenhouse gases require a more holistic approach.
+This is where accessibility-based planning comes into play, which focuses planning cities in a way to provide residents with access to important services \cite{proffittAccessibilityPlanningAmerican2019}.
+
+\cite{geursAccessibilityEvaluationLanduse2004a} describe four types of accessibility-based planning: (more info here...)
+
+
+\begin{table}[ht]
+\centering
+\caption{Categories of Accessibility-Based Planning Measures}
+\label{tab:accessibility_measures}
+\begin{tabular}{|l|l|l|}
+\hline
+Category & Focus & Examples \\ 
+\hline
+Infrastructure-Based & 
+  \begin{tabular}[c]{@{}l@{}}
+    - Traffic performance \\
+    analysis \\ 
+    - Service level of \\
+    infrastructure
+  \end{tabular} & 
+  \begin{tabular}[c]{@{}l@{}}
+    - Level of congestion \\ 
+    - Average travel speed
+  \end{tabular} \\ 
+\hline
+  \begin{tabular}[c]{@{}l@{}}
+      Location-Based \\
+      or Place-Based
+  \end{tabular} & 
+  \begin{tabular}[c]{@{}l@{}}
+    - Level of accessibility\\
+    to locations \\ 
+    - w.r.t. time \& cost
+  \end{tabular} & 
+  \begin{tabular}[c]{@{}l@{}}
+    - number of jobs within\\
+    30 minutes \\
+  \end{tabular} \\ 
+\hline
+Person-Based & 
+  \begin{tabular}[c]{@{}l@{}}
+    - Individual travel time \\ 
+  \end{tabular} & 
+  \begin{tabular}[c]{@{}l@{}}
+    - Individual's travel time \\ 
+      between activities
+  \end{tabular} \\ 
+\hline
+Utility-Based & 
+  \begin{tabular}[c]{@{}l@{}}
+    - Economic benefits \\ 
+  \end{tabular} & 
+  \begin{tabular}[c]{@{}l@{}}
+    - Transportation investments \\ 
+    returns
+  \end{tabular} \\ 
+\hline
+\end{tabular}
+\end{table}
+
+% ----INTRO OF 15 MINUTE CITY ----
+
+The X-minute city metric is a location-based accessibility metric, which is derived from the concept of the 15-minute city.
+
+The 15-minute city concept was first introduced by Carlos Moreno, a professor at the Sorbonne University in Paris \cite{morenoIntroducing15MinuteCity2021}.
+It was popularized by the mayor of Paris, Anne Hidalgo, who made it a central part of her re-election campaign \cite{gongadzeParisVision15Minute2023}.
+
+The concept of the 15-minute city is that all the things a person needs to live a good life should be accessible within 15 minutes of walking or cycling.
+
+% advantages
+cultivate stronger social relationsips, because people are more likely to meet \cite{allamProximityBasedPlanning15Minute2020}
+a kind of social distancing, because of primarily traveling by walking or cycling \cite{allamProximityBasedPlanning15Minute2020}
+a more environmentally sustainable mode of transport in cities, which contributes to SDG 11 \& 13 \cite{allamProximityBasedPlanning15Minute2020} \cite{papasUrbanMobilityEvolution2023}
+
+reduced traffic resulting in economic benefits \cite{allamProximityBasedPlanning15Minute2020} \cite{papasUrbanMobilityEvolution2023}
+% we could find more benefits of reduced traffic
+
+developing cities around the 15-minute city concept reduces social inequalities, as walking is free \cite{weng15minuteWalkableNeighborhoods2019b} \cite{gustafsonExaminingSpatialChange2022}
+therefore, when incorporating other fare-based modes of transport such as bicycle sharing, it is important to consider the fares and their impact (thats why we do multi-objective stuff)
+
+% --- AS A METRIC
+Some quantitative studies measured the degree to which cities are 15-minute cities, by introducing metrics that build upon the concept of the 15-minute city.
+For example, \cite{olivariAreItalianCities2023} the NExt proXimity Index (NEXI), which consists of two parts: the NEXI-Minutes and the NEXI-Global.
+The NEXI-minutes is defined over a set of categories, such as education, entertainment or groceries.
+For each category the NEXI-minutes is defined as the time required to reach the nearest facility of that category.
+
+The NEXI-Global is insipred by the Walk Score methodology \cite{WalkScoreMethodology} it is the weighted sum of scores assigned to each category, where the scores depend on the time required to reach the nearest facility of that category.
+
+... explain more about NEXI paper.
+
+
+
+% ---- IMPORTANCE OF MULTIMOALITY & INTERMODALITY ----
+
+"Results show that bicycles significantly reduce the average transfer times, the average path length of passengers’ trips and the Gini coefficient of an urban public transport network" \cite{yangImpactPublicBicyclesharing2018}.
+
+Public transport frequency is significantly positively correlated with the number of bicycle trips, especially short and medium distance trips up to 3 km \cite{radzimskiExploringRelationshipBikesharing2021a}.
+
+\cite{murphyRoleBicyclesharingCity2015} conduct a questionnaire, which shows that 39\% of bicycle sharing users (in Dublin) use bicycle sharing in conjunction with another mode of transport. Of those, 91.5\% use public transport, which indicates that bicycle sharing is synergetic with public transport.
+
+\cite{fishmanBikeShareSynthesis2013} perform a literature review on bicycle sharing in general and find that bicycle sharing is synergetic with public transport.
+
+\cite{maBicycleSharingPublic2015} run a linear regression with data ...
+in which the number of passengers of public transport is regressed on the number of bicycle sharing trips.
+They find a positive correlation between the two and conclude that bicycle sharing and public transport are complementary.
+As a possible reason for this, they state that bicycle sharing can be used to solve the first and last mile problem.
+
+"Through an extensive experimental study, it's demonstrated that allowing unrestricted walking considerably reduces travel times compared to scenarios where walking is limited." \cite{wagnerPublicTransitRouting2017}
+
+Fact: Computing with unrestricted walking takes way longer to compute. \cite{wagnerPublicTransitRouting2017}
+
+
 ...
 In order to assess the accessibility from a given origin to one or multiple
 points of interest, a routing algorithm is required. The routing algorithm finds
@@ -187,6 +301,7 @@ In practice, there are many possibilities how the transfer graph could look.
 First, we should note that a realistic transfer graph should be derived from a street network, as passengers should be able to walk from one stop to another using sidewalks.
 To keep the transfer graph small, one could limit the maximum walking distance.
 However, this may remove optimal journeys from the search space.
+In general, creating the transfer graph requires some amount of preprocessing.
 Therefore, finding a fitting transfer graph is challenging.
 
 Through its round-based nature, RAPTOR is able to optimize for two criteria at the same time.
@@ -231,17 +346,92 @@ However, McRAPTOR still suffers from the same problem as RAPTOR, namely that the
 
 To overcome problem of RAPTOR \cite{dellingComputingMultimodalJourneys2013} introduce Multimodal Multicriteria RAPTOR (MCR).
 MCR modifies McRAPTOR so that the transfer graph must not be transitively closed.
+This enables MCR to directly use the street network as an input and therefore no preprocessing is necessary.
 
 This allows us to use the street network as the transfer graph, which has the benefit that during the traversal of the tranfer graph the objectives can be updated.
-This is important if we multiple modes of transfer, that contain free-floating vehicle sharing systems.
+This is important if we want multiple modes of transfer, that contain free-floating vehicle sharing systems.
 For example, consider the following case.
 For an optimal journey a passenger has to first walk five minutes to a free-floating bicycle, with which the passenger then travels to the next stop.
 There is no way to represent this in RAPTOR, because the specifics of the transfer depend on the current label, which is unknown before running the algorithm.
-Therefore it is not possible to precompute the transfer graph.
+Therefore, it is not possible to precompute the transfer graph.
 
 MCR is very similar to RAPTOR.
 It only replaces the footpath traversal step through MLC.
 % TODO: continue her
 
+The authors find that the bottleneck of MCR is the MLC step.
+Therefore, they employ a technique called contraction \shortcite{geisbergerExactRoutingLarge2012} to speed up MLC.
+Contraction is a preprocessing technique that reduces the size of the graph by removing nodes and adding shortcut edges.
+
+As previously mentioned, MCR is able to use the street network as the transfer graph and requires no preprocessing.
+However, when comparing the runtime of a simple query of MCR and McRAPTOR, MCR is slower, as MLC on the street network takes much more time than just checking the neighbors of a stop in the transfer graph.
+Generally using MCR or McRAPTOR is a trade-off of runtime and preprocessing time.
+
+
 \subsubsection{ULTRA}
 \label{subsubsec:ultra}
+
+\cite{baumUnLimitedTRAnsfersMultiModal2019} propose another algorithm building on MCR, called UnLimited TRAnsfers for Multi-Modal Route Planning (ULTRA).
+ULTRA capitalizes on the observation that extensive exploration of the transfer graph is often unnecessary for transfers between public transport trips, but is more crucial for initial and final transfers.
+Therefore, they propose a preprocessing step that computes intermediate transfers that contribute to optimal journeys on the transfer graph.
+They then use these precomputed transfers as the transfer graph for RAPTOR.
+To account for initial and final transfers, ULTRA employs the Bucket Contraction-Hierarchies (Bucket-CH) algorithm \cite{geisbergerContractionHierarchiesFaster2008}, an efficient one-to-many approach, together with RAPTOR.
+
+While ULTRA demonstrates a runtime improvement over MCR, it is limited to optimizing only time and the number of transfers.
+Using ULTRA in an accessibility analysis setting is also unsuitable, because ULTRA runs a reverse Bucket-CH query from the end node to all stops, to compute potential final transfers.
+This means that ULTRA, unlike MCR, is incompatible with one-to-many queries.
+
+\subsubsection{McTB}
+\label{subsubsec:mctb}
+
+% addresses the problem that ULTRA is not suitable for more than two objectives
+% However, only allows for a very specific third objective and not general ones
+\cite{potthoffFastMultimodalJourney2021}
+
+\subsubsection{ULTRA-PHAST}
+\label{subsubsec:ultra-phast}
+
+% addresses the problem that ULTRA is incompatible for one-to-many queries
+% However, does not allow for multiple objectives
+
+
+\subsection{Public Transport Data}
+\label{subsec:public_transport_data}
+
+In order to run routing algorithms for public transport networks in practice, a common data format is needed.
+
+The General Transit Feed Specification (GTFS) \shortcite{ReferenceGeneralTransit} serves as a standardized format for public transportation schedules and associated geographic details.
+It is divided into two main components: GTFS Schedule and GTFS Realtime.
+GTFS Realtime provides live transit updates.
+On the other hand, GTFS Schedule offers information about routes, schedules, fares, and geographic transit details.
+
+For our study and tool, we focus solely on GTFS Schedule and omit considerations related to GTFS Realtime.
+
+Central to the GTFS format are several core concepts.
+A \textit{route} defines the overall path taken by a particular public transport service, identified by attributes like name, ID, and the mode of transport such as bus or subway.
+A \textit{trip} refers to a specific run of a vehicle along a route, distinguishing between different timings or sequences of service on the same route.
+A \textit{stop} is a specific point along a route where passengers embark or disembark.
+Stops have unique IDs, names, and geographical coordinates.
+\textit{Stop times} specify when a vehicle is expected to be at a particular stop during its trip.
+This data pinpoints both the arrival and departure timings at each stop.
+
+GTFS data is often distributed in plain text (.txt) files which are bundled together and compressed into a .zip file.
+This packaging makes it both compact for distribution and straightforward for developers to parse and use.
+
+In essence, GTFS provides a comprehensive overview of a transit agency's service, covering both the spatial aspects of transit and the temporal aspects.
+
+\subsection{Street Network Data}
+\label{subsec:street_network_data}
+
+Just as GTFS provides a standardized format for public transport schedules, the need for a consistent data format for street network information is addressed by OpenStreetMap (OSM) \shortcite{OpenStreetMap}.
+
+OSM is a collaborative initiative that offers freely available geographic data.
+This data captures various features on the Earth's surface, including roads, trails, establishments, railway stations, and more.
+
+In the context of street networks, potentially used by routing algorithms, OSM represents roads and paths using interconnected nodes and ways.
+Nodes specify distinct geographical coordinates, defined by latitude and longitude, while ways connect these nodes to delineate linear structures or area boundaries.
+Importantly, these ways have meta-data assigned to them containing information about what vehicles can travel along them and how long they are.
+
+In addition, OSM offers vast amounts of data about points of interest, potentially useful in accessibility analysis.
+
+OSM is extensive, regularly updated, and most importantly freely available, which makes it indispensable for projects seeking reproducibility and generalizability.

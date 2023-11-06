@@ -1,0 +1,36 @@
+As RAPTOR does not operate on a graph, we first introduce the problem statement.
+Raptor operates on a scheduled network consisting of routes \(r\), trips \(t\), stops \(p\), and stop times that associate trips with stops.
+% Next paragraph should probably be handled in the method
+% Here it is important to understand the differences between what we consider as a route in RAPTOR and other algorithms and what is considered as a route in GTFS data. In GTFS data, a route can have multiple different stop sequences, let's call them paths. For example, it is almost always the case that the path and the reversed path are associated with the same route. Therefore, it is not straightforward to convert GTFS routes into routes that can be used in RAPTOR.
+A route is a sequence of stops \(r = \langle p_1, \dots, p_n \rangle\).
+A route can have multiple trips.
+One trip associates arrival and departure times with each stop of the route.
+Trips must not overtake another trip's departure time for the same route.
+Stops are where passengers can get on and off trips.
+Each stop \(p\) has a minimal exchange time \(\tau_{ch}(p)\) associated with it.
+Often, the exchange time is set to a fixed time \(\tau_{ch}(p) = \tau_{ch}\) for all stops \(p\).
+When transferring from one trip to another within one stop, the exchange time has to be smaller than the difference in arrival and departure time of the two trips.
+In addition to transfer within stops, RAPTOR also allows footpaths.
+Footpaths connect stops with each other and have a travel time \(l(p, p')\) associated with them.
+
+The input of the RAPTOR algorithm, in addition to the previously described scheduled network, are source and target stops \(p_s\), \(p_t\) and the departure time at the source stop \(\tau\).
+Initialization: (l.2-l.8)
+RAPTOR operates in rounds. Before the first round, some variables are initialized.
+We denote the earliest possible arrival time at iteration \(i\) with \(\tau_i(p)\) and the best earliest possible arrival time over the course of all iterations with \(\tau^\star(p)\). For the source stop, \(\tau_p\), we set \(\tau_0(p)\) and \(\tau^\star(p) = \tau\). For all other stops, we set \(\tau_0 = \infty\) and \(\tau^\star = \infty\).
+In addition, we initialize a set of marked nodes to only contain the source stop \(p_s\) and a set of marked route-stop pairs, denoted by \(Q\), to the empty set. A route-stop pair is simply a tuple that contains a route and one of its stops.
+
+Each round consists of three major steps. In the first step, the routes that have to be iterated are collected. In the second step, the routes are iterated by "hopping" on their trips. And in the third stage, potential footpaths are explored.
+
+Step 1: (l.9 - l.20)
+First, we clear the set of marked route-stop pairs \(Q\). Then we check the routes that are connected to each marked stop. For each of these routes, we store the route-stop pair in \(Q\). However, the routes in \(Q\) should be unique. If there are two marked stops that are connected to the same route, we prefer the stop that is earlier in the sequence of stops of that route. Now, we clear the set of marked stops.
+
+Step  2: (l.21-l.33)
+We iterate the route-stop pairs in \(Q\). The following step can be regarded as hopping on the earliest possible trip that we can catch of that route at that stop. For each route-stop \((r,p)\) pair, we iterate over the stops in \(r\) in the sequence that is associated with \(r\), beginning with \(p\). We check for the earliest possible that we can catch regarding the last arrival time at the current stop \(\tau_{k-1}(p)\) and the minimum exchange time \(\tau_{ch}(p)\). When there is a trip that we can catch, we hop on the trip and continue to iterate the stops of the route \(r\). Now that we are on a trip, we have to check if we can update the earliest possible arrival times \(\tau_k(p)\) and \(\tau^\star(p)\) of the current stop by comparing the stop time of the current trip with the best earliest arrival time of that stop \(\tau^\star(p)\). Here one optimization comes into play. We can also keep in mind the best earliest possible arrival time of the target stop \(\tau^\star(p_t)\). Whenever the current stop time is later than that, our current trip won't contribute to finding a faster route to the target stop, and we disregard the potential update. When we do update the earliest arrival times of the current stop, we also add it to the marked stops.
+> The pseudo-code of the original paper is not quite clear how the iteration of the stops in the route \(r\) starts. At the beginning, they initialize the \(t\) to \(\bot\) (undefined). But then in the second if statement (l.29), they use \(t\) to get the departure time of the current trip and stop. I assume that this would return \(\infty\), if \(t=\bot\), because otherwise the algorithm does not work.
+
+Step 3: (l.34-l.40)
+Lastly, we check all marked stops for potential footpaths. Remember: the marked stops are those for which the earliest possible arrival time was updated in this iteration. For each footpath that is connected to a marked stop, we check whether the earliest possible arrival time of the other stop could be improved by the footpath. If that is the case, we update the earliest arrival times and also mark that stop.
+> Here the pseudo-code, as well as, the explanations in the original paper are quite unclear and potentially faulty. First, the pseudo-code of the original paper always marks the other stop of the footpath, regardless of whether an update was made or not. This is definitely not necessary. Second, only the earliest arrival time \(\tau_k(p)\) is updated, but not the best earliest arrival time \(\tau^\star(p)\), which does not make sense. Also, the previous improvement of considering \(\tau^\star(p_t)\) is not used here, even though it is the same situation.
+
+Stopping criterion: (l.40-l.42)
+If no stops are marked, then there are no new routes to iterate, and the algorithm stops.
