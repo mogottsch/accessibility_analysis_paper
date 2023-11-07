@@ -1,0 +1,51 @@
+\clearpage
+\section{Experiment}
+\label{sec:experiment}
+
+To answer the question how competetive sustainable modes of transport are in comparison to the traditional mode of travel by car, we run an experiment in the city of Cologne.
+We do so by calculating the X-minute city metric for hexagons all over Cologne.
+
+
+\subsection{Data}
+\label{subs:data}
+
+\subsubsection{Data Collection}
+\label{subs:data_collection}
+
+Our tool requires several datasets as an input: public transport schedules represented by GTFS files, street networks through OSM files, and data that represents free-floating vehicle sharing.
+Notably, both GTFS and OSM data can be accessed publicly and can be easily explored, downloaded and preprocessed with the help of our tool.
+
+For GTFS data, we rely on the Mobility Database \shortcite{MobilityDatabase}.
+This database serves as an open-source repository containing links to publicly available GTFS feeds globally, standing as the subsequent version of TransitFeeds \shortcite{OpenMobilityDataPublicTransit}.
+
+To use OSM data in practice various tools and services have been developed.
+Among these we use, pyrosm \shortcite{Pyrosm} which is a Python library designed specifically for reading OSM data in different formats and conducting data processing operations.
+Through pyrosm, we can automatically fetch data from sources like Geofabrik \cite{GeofabrikDownloadServer} and BBBike \cite{BBBikeExtractsOpenStreetMap}, which are two of the most popular OSM data providers.
+
+Using the combination of these resources, our tool ensures easy access to up-to-date GTFS and OSM data.
+This allows for easy reproducibility of our results, as well as, the possibility to use our tool for other cities.
+
+\subsubsection{Data Preperation}
+\label{subs:data_preperation}
+
+Our tool is able to trim GTFS data to a specific bounding box.
+This is especially useful for country-size GTFS feeds.
+
+The GTFS data is also cleaned and converted into a format that is more suitable for RAPTOR.
+
+Specifically, there are two major incompatibilities between the GTFS specification and RAPTOR's notion of routes and trips.
+Firstly, each trip belonging to a single route in RAPTOR visits the same stops in the same order.
+It is not possible that a trip skips some stops that another trip of the same route visits, much less use a completely different sequence of routes.
+In GTFS routes do allow that, as they are much more a group of trips that is presented to the rider under the same name or identifier.
+Secondly, GTFS trips allow visiting the same stop multiple times, which is not allowed in RAPTOR.
+
+To overcome these difference our tool splits up routes into smaller routes, that follow the same sequence of stops.
+Additionally, it also removes circular trips, altogether.
+
+Similarly, our tool is also able to extract an actual graph from the OSM network.
+To do so it utilizes pyrosm.
+After extracting the graph from the OSM network, the graph is trimmed to the convex hull of the GTFS stop extended by a small buffer zone.
+As a last cleaning step, we remove all nodes, that are not part of the largest weakly connected component.
+A weakly connected component is a subgraph in which, if all directed edges were treated as undirected, any two vertices from the subgraph would be connected.
+Multiple weakly connected components in graphs derived from OSM data, mostly happen at the border of the considered area and can be neglected.
+

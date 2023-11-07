@@ -4,8 +4,8 @@
 
 Our method is split into to two parts, the routing algorithm and the accessibility analysis tool.
 
-\subsection{Accessibility Analysis}
-\label{subs:accessibility_analysis}
+\subsection{Metric}
+\label{subsec:metric}
 
 To evaluate the accessibility in cities, we employ a metric that is an implementation of the 15-minute city concept. The concept measures how fast the access to a variety of important amenities is.
 To measure this, we categorize amenities into seven essential services: grocery, education, health, banks, parks, sustenance, and shops.
@@ -45,6 +45,7 @@ This metric is critical in assessing the performance of a neighborhood or a city
 
 By leveraging this metric, we aim to help city planners to create urban environments that prioritize sustainability, enhance the well-being of residents, and reduce dependency on vehicular transport, thus contributing to the broader goals of efficient urban planning and improved quality of urban life.
 
+% ---- START section about alternative modes
 % explain different modes - maybe(?) this belongs to related work
 Traditionally, the 15-minute city concept is applied to walking and or cycling and ignores other modes of transport.
 Some researchers, in the context of location-based metrics, even go as far to only calculate the bee-line distance to the nearest amenity and ignore the street network altogether \cite{gastnerOptimalDesignSpatial2006}, while most only consider walking \cite{olivariAreItalianCities2023, nicolettiDisadvantagedCommunitiesHave2023}.
@@ -56,20 +57,9 @@ The car mode will serve as a baseline metric and show how competitive more susta
 Adding potentially fare-based modes of transport poses a challenge, as we need to consider the cost of the trip.
 Ignoring the cost of the trip could potentially lead to a misrepresentation of accesibility, as a trip with a high cost might be inaccessible to some people.
 To account for this, we will calculate Pareto sets that balance the minimum travel time and the cost of the trip.
+% ---- END section about alternative modes
 
-% explain input
-To calculate the metric, we first define an area of interest - a city or a neighborhood.
-The output of our tools is a grid of hexagons, each assigned a value representing the maximum travel time to the nearest amenity of the least accessible category.
-The hexagons are generated using the H3 library \shortcite{H3H3} and can be of any resolution.
-Although we recommend a resolution of 9, which corresponds to a hexagon edge length of roughly 200 meters, as it is a good compromise between accuracy and computation time.
 
-The underlying street network needs to be larger than the area of interest.
-Otherwise, border regions will have a lower accessibility than they should, as the street network is incomplete.
-
-We also filter out uninteresting hexagons.
-For, example we filter out hexagons that don't contain any residential areas, as there are no people living there is no need to access any amenities.
-
-For each hexagon we first get the centroid and then calculate the travel time to the nearest amenity of each category and derive our metric from that.
 
 \subsection{Routing Algorithm}
 \label{subs:routing_algorithm}
@@ -174,46 +164,40 @@ To obtain the optimal labels after X trips, both phases have to be repeated X ti
     \label{fig:routing_algorithm}
 \end{figure}
 
-\subsection{Data}
-\label{subs:data}
 
-\subsubsection{Data Collection}
-\label{subs:data_collection}
+\subsection{Accessibility Analysis Tool}
+\label{subsec:combining}
 
-Our tool requires several datasets as an input: public transport schedules represented by GTFS files, street networks through OSM files, and data that represents free-floating vehicle sharing.
-Notably, both GTFS and OSM data can be accessed publicly and can be easily explored, downloaded and preprocessed with the help of our tool.
+We embed the routing algorithm described in Section \ref{subsec:routing_algorithms} in our accessibility analysis routine to compute the metric described in Section \ref{subsec:metric}.
 
-For GTFS data, we rely on the Mobility Database \shortcite{MobilityDatabase}.
-This database serves as an open-source repository containing links to publicly available GTFS feeds globally, standing as the subsequent version of TransitFeeds \shortcite{OpenMobilityDataPublicTransit}.
+Our accessibility analysis routine consists of three parts: the input routine, the main routine and the metrics routine.
 
-To use OSM data in practice various tools and services have been developed.
-Among these we use, pyrosm \shortcite{Pyrosm} which is a Python library designed specifically for reading OSM data in different formats and conducting data processing operations.
-Through pyrosm, we can automatically fetch data from sources like Geofabrik \cite{GeofabrikDownloadServer} and BBBike \cite{BBBikeExtractsOpenStreetMap}, which are two of the most popular OSM data providers.
+% Input routine
+In the input routine we first create an even grid that covers the whole area of interest, for example a city.
+To create such a grid, we use H3 \shortcite{H3H3}, which uses hexagons to evenly discretize an area.
+Our goal will be to calculate our metric for each hexagon, so that we get detailed spatial information about the accessibility in the area of interest.
+The chosen H3 resolution determines the size of these hexagons: a higher resolution means smaller hexagons, enhancing the granularity of our analysis. 
+As such, selecting an appropriate H3 resolution is pivotal as it allows us to calculate our metrics for each hexagon with increased spatial accuracy, yielding a detailed spatial dataset that reflects the accessibility variations within the area of interest.
+We recommend a resolution of nine, which corresponds to a hexagon edge length of roughly 200 meters, as it is a good compromise between accuracy and computation time.
 
-Using the combination of these resources, our tool ensures easy access to up-to-date GTFS and OSM data.
-This allows for easy reproducibility of our results, as well as, the possibility to use our tool for other cities.
+% START this does not belong here
+The underlying street network needs to be larger than the area of interest.
+Otherwise, border regions will have a lower accessibility than they should, as the street network is incomplete.
+% END this does not belong here
 
-\subsubsection{Data Preperation}
-\label{subs:data_preperation}
+The input routine also filters out uninteresting hexagons.
+For, example we filter out hexagons that don't contain any residential areas, as there are no people living there is no need to access any amenities.
 
-Our tool is able to trim GTFS data to a specific bounding box.
-This is especially useful for country-size GTFS feeds.
+Next the input routine gets the centroid of each hexagon and then calculates the euclidean distance between the center and the OSM nodes to find the OSM nodes that is closest to each hexagon's centroid.
 
-The GTFS data is also cleaned and converted into a format that is more suitable for RAPTOR.
+The result of the input routine is a set of OSM nodes, for which we want to compute the accessibility.
 
-Specifically, there are two major incompatibilities between the GTFS specification and RAPTOR's notion of routes and trips.
-Firstly, each trip belonging to a single route in RAPTOR visits the same stops in the same order.
-It is not possible that a trip skips some stops that another trip of the same route visits, much less use a completely different sequence of routes.
-In GTFS routes do allow that, as they are much more a group of trips that is presented to the rider under the same name or identifier.
-Secondly, GTFS trips allow visiting the same stop multiple times, which is not allowed in RAPTOR.
 
-To overcome these difference our tool splits up routes into smaller routes, that follow the same sequence of stops.
-Additionally, it also removes circular trips, altogether.
+% Main routine
+The main routine calls our routing algorithm described in Section \ref{subsec:routing_algorithms} on each OSM node provided by the input routine.
+This results in a set of Bags for each node.
 
-Similarly, our tool is also able to extract an actual graph from the OSM network.
-To do so it utilizes pyrosm.
-After extracting the graph from the OSM network, the graph is trimmed to the convex hull of the GTFS stop extended by a small buffer zone.
-As a last cleaning step, we remove all nodes, that are not part of the largest weakly connected component.
-A weakly connected component is a subgraph in which, if all directed edges were treated as undirected, any two vertices from the subgraph would be connected.
-Multiple weakly connected components in graphs derived from OSM data, mostly happen at the border of the considered area and can be neglected.
+% Metrics routine
+The metrics routine processes the bags into Pareto sets, where one entry in the Pareto set is a tuple of the X-minute city metric and the related cost.
+%TODO explain metrics routine
 
