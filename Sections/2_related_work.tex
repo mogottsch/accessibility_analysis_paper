@@ -90,42 +90,47 @@ reduced traffic resulting in economic benefits \cite{allamProximityBasedPlanning
 developing cities around the 15-minute city concept reduces social inequalities, as walking is free \cite{weng15minuteWalkableNeighborhoods2019b} \cite{gustafsonExaminingSpatialChange2022}
 therefore, when incorporating other fare-based modes of transport such as bicycle sharing, it is important to consider the fares and their impact (thats why we do multi-objective stuff)
 
-% --- AS A METRIC
-Some quantitative studies measured the degree to which cities are 15-minute cities, by introducing metrics that build upon the concept of the 15-minute city.
-For example, \cite{olivariAreItalianCities2023} the NExt proXimity Index (NEXI), which consists of two parts: the NEXI-Minutes and the NEXI-Global.
-The NEXI-minutes is defined over a set of categories, such as education, entertainment or groceries.
-For each category the NEXI-minutes is defined as the time required to reach the nearest facility of that category.
+% --- METRICS BASED ON 15 MINUTE CITY ---
+% --- NEXI ---
+Quantitative studies have developed various ways to measure how well cities match the idea of the 15-minute city concept,  by developing metrics that encapsulate this principle.  
+\cite{olivariAreItalianCities2023} contribute to this research by creating the NExt proXimity Index (NEXI), which has two components: the NEXI-Minutes and the NEXI-Global. 
 
-The NEXI-Global is insipred by the Walk Score methodology \cite{WalkScoreMethodology} it is the weighted sum of scores assigned to each category, where the scores depend on the time required to reach the nearest facility of that category.
+The NEXI-Minutes looks at the accessibility of various urban amenities, ranging from educational institutions to entertainment venues and grocery stores—by calculating the time needed to reach the closest facility within each category.
+Complementing this, the NEXI-Global, inspired by the Walk Score method \cite{WalkScoreMethodology}, combines these individual times through a weighted average into an overall score giving a holistic view of the accessibility of a city.
 
-... explain more about NEXI paper.
+NEXI is unique because it is both global and local - globally applicable due to its reliance on OpenStreetMap data, yet sufficiently detailed to assess local conditions.
+This has been proven by applying it all over Italy, where it's showcased on an interactive map through a hexagonal grid that makes it easy to see which areas are doing well and need improvement.
+The significance of the NEXI, as underscored by \cite{olivariAreItalianCities2023}, is its role in enabling data-driven policy-making, to develop cities in the fashion of the 15-minute city framework. 
+Therefore, their index enables accessibility-based planning.
+
+Despite the potential benefits, \cite{olivariAreItalianCities2023} acknowledge the challenges in realizing the 15-minute city model, notably the substantial investments and strategic planning required. 
+
+% --- CITYACCESSMAPS ---
+Another study by \cite{nicolettiDisadvantagedCommunitiesHave2023} explores the connection between urban infrastructure and social inequality. 
+The researchers developed an open, data-driven framework to analyze how different communities within cities access essential services. 
+They discovered that access to urban amenities like healthcare, education, and transportation is not evenly distributed. 
+In particular, communities with more minorities, lower incomes, and fewer university-educated individuals often have less access to these important services.
+
+The study examined over 50 types of amenities across 54 cities worldwide and found a common pattern: in all cities, access to infrastructure followed a log-normal distribution, indicating that disparities in accessibility are linked to the city's growth. 
+This pattern was consistent even when considering various socio-economic factors.
+
+The framework introduced by \cite{nicolettiDisadvantagedCommunitiesHave2023} is flexible and adaptable, allowing city planners to tailor it to local needs and priorities. 
+It's a tool that can help identify which groups in a city are most affected by inequality in access to services. 
+
+Similar to \cite{olivariAreItalianCities2023} they emphasize the role of open data to guide urban planning and policy.
+While \cite{olivariAreItalianCities2023} simply provide a tool to measure accessibility and leave the analysis and interpretation to practitioners, \cite{nicolettiDisadvantagedCommunitiesHave2023} directly reveal the disparities in accessibility and provide a framework to analyze them.
+
+% --- critique on both ---
+However, the computation of travel time by all previously named authors is based on walking simulations. 
+This fails to capture the reality of urban mobility, which consists of various modes of transport, such as public transport, cycling, and driving.
+The potential benefits of infrastructure such as dedicated bicycle lanes, bicycle sharing systems, and highly available public transport are thus not reflected within the research of \cite{olivariAreItalianCities2023} and \cite{nicolettiDisadvantagedCommunitiesHave2023}.
+To provide a more accurate measure, we propose to enhance the computation of accessibility by integrating a multimodal accessibility metric that accounts for these various transportation methods and their respective infrastructural elements.
 
 
-
-% ---- IMPORTANCE OF MULTIMOALITY & INTERMODALITY ----
-
-"Results show that bicycles significantly reduce the average transfer times, the average path length of passengers’ trips and the Gini coefficient of an urban public transport network" \cite{yangImpactPublicBicyclesharing2018}.
-
-Public transport frequency is significantly positively correlated with the number of bicycle trips, especially short and medium distance trips up to 3 km \cite{radzimskiExploringRelationshipBikesharing2021a}.
-
-\cite{murphyRoleBicyclesharingCity2015} conduct a questionnaire, which shows that 39\% of bicycle sharing users (in Dublin) use bicycle sharing in conjunction with another mode of transport. Of those, 91.5\% use public transport, which indicates that bicycle sharing is synergetic with public transport.
-
-\cite{fishmanBikeShareSynthesis2013} perform a literature review on bicycle sharing in general and find that bicycle sharing is synergetic with public transport.
-
-\cite{maBicycleSharingPublic2015} run a linear regression with data ...
-in which the number of passengers of public transport is regressed on the number of bicycle sharing trips.
-They find a positive correlation between the two and conclude that bicycle sharing and public transport are complementary.
-As a possible reason for this, they state that bicycle sharing can be used to solve the first and last mile problem.
-
-"Through an extensive experimental study, it's demonstrated that allowing unrestricted walking considerably reduces travel times compared to scenarios where walking is limited." \cite{wagnerPublicTransitRouting2017}
-
-Fact: Computing with unrestricted walking takes way longer to compute. \cite{wagnerPublicTransitRouting2017}
-
-
-...
-In order to assess the accessibility from a given origin to one or multiple
-points of interest, a routing algorithm is required. The routing algorithm finds
-the shortest path from the origin to the destination.
+% --- outro & transition to next algorithms ---
+In order to assess the accessibility from a given origin to one or multiple points of interest, a routing algorithm is required.
+The routing algorithm finds the shortest path from the origin to the destination.
+Therefore, we investigate different routing algorithms in the following section and find one that is suitable for our use case.
 
 \subsection{Routing Algorithms}
 \label{subsec:routing_algorithms}
@@ -395,6 +400,7 @@ This means that ULTRA, unlike MCR, is incompatible with one-to-many queries.
 % However, does not allow for multiple objectives
 
 
+
 \subsection{Public Transport Data}
 \label{subsec:public_transport_data}
 
@@ -435,3 +441,25 @@ Importantly, these ways have meta-data assigned to them containing information a
 In addition, OSM offers vast amounts of data about points of interest, potentially useful in accessibility analysis.
 
 OSM is extensive, regularly updated, and most importantly freely available, which makes it indispensable for projects seeking reproducibility and generalizability.
+
+
+\subsection{Importance of Multimodality \& Intermodality}
+\label{subsec:importance_of_multimodality_and_intermodality}
+% don't really know where to put this
+
+"Results show that bicycles significantly reduce the average transfer times, the average path length of passengers’ trips and the Gini coefficient of an urban public transport network" \cite{yangImpactPublicBicyclesharing2018}.
+
+Public transport frequency is significantly positively correlated with the number of bicycle trips, especially short and medium distance trips up to 3 km \cite{radzimskiExploringRelationshipBikesharing2021a}.
+
+\cite{murphyRoleBicyclesharingCity2015} conduct a questionnaire, which shows that 39\% of bicycle sharing users (in Dublin) use bicycle sharing in conjunction with another mode of transport. Of those, 91.5\% use public transport, which indicates that bicycle sharing is synergetic with public transport.
+
+\cite{fishmanBikeShareSynthesis2013} perform a literature review on bicycle sharing in general and find that bicycle sharing is synergetic with public transport.
+
+\cite{maBicycleSharingPublic2015} run a linear regression with data ...
+in which the number of passengers of public transport is regressed on the number of bicycle sharing trips.
+They find a positive correlation between the two and conclude that bicycle sharing and public transport are complementary.
+As a possible reason for this, they state that bicycle sharing can be used to solve the first and last mile problem.
+
+"Through an extensive experimental study, it's demonstrated that allowing unrestricted walking considerably reduces travel times compared to scenarios where walking is limited." \cite{wagnerPublicTransitRouting2017}
+
+Fact: Computing with unrestricted walking takes way longer to compute. \cite{wagnerPublicTransitRouting2017}

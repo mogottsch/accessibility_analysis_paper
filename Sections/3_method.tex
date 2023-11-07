@@ -3,7 +3,81 @@
 \label{sec:method}
 
 Our method is split into to two parts, the routing algorithm and the accessibility analysis tool.
+
+\subsection{Accessibility Analysis}
+\label{subs:accessibility_analysis}
+
+To evaluate the accessibility in cities, we employ a metric that is an implementation of the 15-minute city concept. The concept measures how fast the access to a variety of important amenities is.
+To measure this, we categorize amenities into seven essential services: grocery, education, health, banks, parks, sustenance, and shops.
+Each category is populated with Points of Interest (POIs) sourced from OSM, providing a comprehensive database of locations.
+Our categorization is based on the work of \cite{olivariAreItalianCities2023} with slight modification and can be seen in Table \ref{tab:categories}.
+
+\begin{table}[ht]
+\centering
+\caption{Categories and their corresponding OSM tags}
+\label{tab:categories}
+\footnotesize
+\begin{tabular}{|l|l|p{10cm}|}
+\hline
+\textbf{Category} & \textbf{OSM Key} & \textbf{OSM Value} \\ \hline
+Grocery           & shop             & alcohol, bakery, beverages, brewing supplies, butcher, cheese, chocolate, coffee, confectionery, convenience, deli, dairy, farm, frozen food, greengrocer, health food, ice-cream, pasta, pastry, seafood, spices, tea, water, supermarket, department store, general, kiosk, mall \\ \hline
+Education         & amenity          & college, driving school, kindergarten, language school, music school, school, university \\ \hline
+Health            & amenity          & clinic, dentist, doctors, hospital, nursing home, pharmacy, social facility \\ \hline
+Banks             & amenity          & atm, bank, bureau de change, post office \\ \hline
+Parks             & leisure          & park, dog park \\ \hline
+Sustenance        & amenity          & restaurant, pub, bar, cafe, fast-food, food court, ice-cream, biergarten \\ \hline
+Shops             & shop             & department store, general, kiosk, mall, wholesale, baby goods, bag, boutique, clothes, fabric, fashion accessories, jewelry, leather, watches, wool, charity, secondhand, variety store, beauty, chemist, cosmetics, erotic, hairdresser, hairdresser supply, hearing aids, herbalist, massage, medical supply, nutrition supplements, optician, perfumery, tattoo, agrarian, appliance, bathroom furnishing, do-it-yourself, electrical, energy, fireplace, florist, garden centre, garden furniture, fuel, glaziery, groundskeeping, hardware, houseware, locksmith, paint, security, trade, antiques, bed, candles, carpet, curtain, flooring, furniture, household linen, interior decoration, kitchen, lighting, tiles, window blind, computer, electronics, hifi, mobile phone, radio-technics, vacuum cleaner, bicycle, boat, car, car repair, car parts, caravan, fishing, golf, hunting, jet ski, military surplus, motorcycle, outdoor, scuba diving, ski, snowmobile, swimming pool, trailer, tyres, art, collector, craft, frame, games, model, music, musical instrument, photo, camera, trophy, video, videogames, anime, books, gift, lottery, newsagent, stationery, ticket, bookmaker, cannabis, copy shop, dry cleaning, e-cigarette, funeral directors, laundry, moneylender, party, pawnbroker, pet, pet grooming, pest control, pyrotechnics, religion, storage rental, tobacco, toys, travel agency, vacant, weapons, outpost \\ \hline
+\end{tabular}
+\normalsize
+\end{table}
+
+Each service category encapsulates several POIs. 
+For instance, the "Parks" category may include multiple locations tagged in OSM as "leisure: park" or "leisure: dog park".
+
+The core of our metric is the determination of temporal proximity to these amenities. 
+For each category, we calculate the minimum travel time required to reach at least one POI of that category. 
+The metric is then defined as the maximum value among these minimal times across all categories. 
+This approach yields a singular measure that reflects the most significant time distance barrier within an urban area, which effectively captures the least accessible category for any given area.
+We think that it is beneficial to focus on the least accessible category, as measuring accessibility in cities by averaging accessibility across all categories can mask disparities categories. 
+This ensures that the metric is targeted to areas of greatest need. 
+
+This metric is critical in assessing the performance of a neighborhood or a city at large against the 15-minute city ideal. It is not an average of accessibility across services but rather highlights the area of greatest need, providing a clear target for urban development and improvement.
+
+By leveraging this metric, we aim to help city planners to create urban environments that prioritize sustainability, enhance the well-being of residents, and reduce dependency on vehicular transport, thus contributing to the broader goals of efficient urban planning and improved quality of urban life.
+
+% explain different modes - maybe(?) this belongs to related work
+Traditionally, the 15-minute city concept is applied to walking and or cycling and ignores other modes of transport.
+Some researchers, in the context of location-based metrics, even go as far to only calculate the bee-line distance to the nearest amenity and ignore the street network altogether \cite{gastnerOptimalDesignSpatial2006}, while most only consider walking \cite{olivariAreItalianCities2023, nicolettiDisadvantagedCommunitiesHave2023}.
+
+We, however, believe that to accurately determine the accessibility of a city, all modes of transport must be considered, and the routing needs to be as realistic as possible.
+We will therefore calculate our metric for various combinations of modes of transport, namely driving with a personal car+walking, free-floating bicycle sharing+walking, public transport+walking, free-floating bicycle sharing+public transport+walking, and walking.
+The car mode will serve as a baseline metric and show how competitive more sustainable modes of transport are.
+
+Adding potentially fare-based modes of transport poses a challenge, as we need to consider the cost of the trip.
+Ignoring the cost of the trip could potentially lead to a misrepresentation of accesibility, as a trip with a high cost might be inaccessible to some people.
+To account for this, we will calculate Pareto sets that balance the minimum travel time and the cost of the trip.
+
+% explain input
+To calculate the metric, we first define an area of interest - a city or a neighborhood.
+The output of our tools is a grid of hexagons, each assigned a value representing the maximum travel time to the nearest amenity of the least accessible category.
+The hexagons are generated using the H3 library \shortcite{H3H3} and can be of any resolution.
+Although we recommend a resolution of 9, which corresponds to a hexagon edge length of roughly 200 meters, as it is a good compromise between accuracy and computation time.
+
+The underlying street network needs to be larger than the area of interest.
+Otherwise, border regions will have a lower accessibility than they should, as the street network is incomplete.
+
+We also filter out uninteresting hexagons.
+For, example we filter out hexagons that don't contain any residential areas, as there are no people living there is no need to access any amenities.
+
+For each hexagon we first get the centroid and then calculate the travel time to the nearest amenity of each category and derive our metric from that.
+
+\subsection{Routing Algorithm}
+\label{subs:routing_algorithm}
+
 Our routing algorithm is an applied version of MCR with minor variation to make it more suitable in terms of free-floating vehicle sharing.
+
+\subsubsection{Requirements}
+\label{subsubsec:requirements}
 
 % requirements on routing algorithm
 % - unrestricted
@@ -14,7 +88,7 @@ Our routing algorithm is an applied version of MCR with minor variation to make 
 In order to fully grasp the potential of the combination of the sustainable modes of transport, we require our routing algorithm to be \textbf{multi-modal}, \textbf{multi-objective}, and \textbf{unrestricted inter-modal}, and run in a reasonable time.
 
 \textbf{Multi-modal} means that our routing algorithms allows multiple modes of transport, including scheduled transport systems, like public transfer and an arbitrary number of unscheduled transport systems, like walking, cycling and driving.
-In addition we require that free-floating vehicle sharing systems are incorporated realistically.
+In addition, we require that free-floating vehicle sharing systems are incorporated realistically.
 That means, that our routing algorithm must consider that switching to a free-floating vehicle is possible at any location, where a free-floating vehicle is available and parking a free-floating vehicle is possible anywhere where it's allowed.
 % note: this extra excludes MCR
 
@@ -51,8 +125,8 @@ As a result, MCR is not a viable option for our needs.
 
 In the following section, we detail the modifications made to MCR to tailor it to our requirements.
 
-\subsection{Routing Algorithm}
-\label{subs:routing_algorithm}
+\subsubsection{Algorithm}
+\label{subsubsec:algorithm}
 
 % I/O
 The input of our algorithm is a start time and a start node.
@@ -66,7 +140,7 @@ The algorithm is depicted in Figure \ref{fig:routing_algorithm}.
 In the first phase the walking network is explored through the MLC algorithm.
 Walking is not considered a trip and there is no upper limit on the walking distance.
 In the initial iteration MLC starts with a single label containing the starting values in the bag of the start node.
-All other bags are emtpy.
+All other bags are empty.
 We run MLC until it converges and retrieve the final bags for each node.
 
 % second phase
@@ -142,30 +216,4 @@ After extracting the graph from the OSM network, the graph is trimmed to the con
 As a last cleaning step, we remove all nodes, that are not part of the largest weakly connected component.
 A weakly connected component is a subgraph in which, if all directed edges were treated as undirected, any two vertices from the subgraph would be connected.
 Multiple weakly connected components in graphs derived from OSM data, mostly happen at the border of the considered area and can be neglected.
-
-\subsection{Accessibility Analysis}
-\label{subs:accessibility_analysis}
-
-To evaluate the accessibility in cities, we employ a metric that is an implementation of the 15-minute city concept. The concept measures how fast the access to a variety of important amenities is.
-To measure this, we categorize amenities into seven essential services: grocery, education, health, banks, parks, sustenance, and shops. (as described by)
-Each category is populated with Points of Interest (POIs) sourced from OSM, providing a comprehensive database of locations.
-
-Each service category encapsulates several POIs. For instance, the "Parks" category may include multiple locations tagged in OSM as "leisure: park" or "leisure: dog park".
-
-The core of our metric is the determination of temporal proximity to these amenities. 
-For each category, we calculate the minimum travel time required to reach at least one POI of that category. 
-The metric is then defined as the maximum value among these minimal times across all categories. 
-This approach yields a singular measure that reflects the most significant time distance barrier within an urban area, which effectively captures the least accessible essential service category for any given area.
-
-This metric is critical in assessing the performance of a neighborhood or a city at large against the 15-minute city ideal. It is not an average of accessibility across services but rather highlights the area of greatest need, providing a clear target for urban development and improvement.
-
-By leveraging this metric, we aim to help city planners to create urban environments that prioritize sustainability, enhance the well-being of residents, and reduce dependency on vehicular transport, thus contributing to the broader goals of efficient urban planning and improved quality of urban life.
-
-% explain different modes - this belongs to related work
-Traditionally, the 15-minute city concept is applied to walking and or cycling and ignores other modes of transport.
-Some researchers, in the context of location-based metrics, even go as far to only calculate the bee-line distance to the nearest amenity and ignore the street network altogether \cite{gastnerOptimalDesignSpatial2006}.
-
-We, however, believe that to accurately determine the accessibility of a city, all modes of transport must be considered, and the routing needs to be as realistic as possible.
-We will therefore calculate our metric for various combinations of modes of transport, namely driving with a personal car+walking, free-floating bicycle sharing+walking, public transport+walking, free-floating bicycle sharing+public transport+walking, and walking.
-The car mode will serve as a baseline metric and show how competitive more sustainable modes of transport are.
 
