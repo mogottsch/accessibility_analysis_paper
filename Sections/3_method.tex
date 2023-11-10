@@ -173,7 +173,13 @@ We embed the routing algorithm described in Section \ref{subsec:routing_algorith
 Our accessibility analysis routine consists of three parts: the input routine, the main routine and the metrics routine.
 
 % Input routine
-In the input routine we first create an even grid that covers the whole area of interest, for example a city.
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.75]{Figures/method/input_routine}
+    \caption{Input Routine}
+    \label{fig:input_routine}
+\end{figure}
+In the input routine, depicted in Figure \ref{fig:input_routine}, we first create an even grid that covers the whole area of interest, for example a city.
 To create such a grid, we use H3 \shortcite{H3H3}, which uses hexagons to evenly discretize an area.
 Our goal will be to calculate our metric for each hexagon, so that we get detailed spatial information about the accessibility in the area of interest.
 The chosen H3 resolution determines the size of these hexagons: a higher resolution means smaller hexagons, enhancing the granularity of our analysis. 
@@ -188,16 +194,44 @@ Otherwise, border regions will have a lower accessibility than they should, as t
 The input routine also filters out uninteresting hexagons.
 For, example we filter out hexagons that don't contain any residential areas, as there are no people living there is no need to access any amenities.
 
-Next the input routine gets the centroid of each hexagon and then calculates the euclidean distance between the center and the OSM nodes to find the OSM nodes that is closest to each hexagon's centroid.
+Next the input routine retrieves the centroid of each hexagon and then calculates the Euclidean distance between the centroids and the OSM nodes in order to assign the closest OSM node to each centroid.
 
 The result of the input routine is a set of OSM nodes, for which we want to compute the accessibility.
 
 
+
 % Main routine
-The main routine calls our routing algorithm described in Section \ref{subsec:routing_algorithms} on each OSM node provided by the input routine.
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.75]{Figures/method/main_routine}
+    \caption{Main Routine}
+    \label{fig:main_routine}
+\end{figure}
+The main routine, depicted in Figure \ref{fig:main_routine}, calls our routing algorithm described in Section \ref{subsec:routing_algorithms} on each OSM node provided by the input routine.
 This results in a set of Bags for each node.
 
 % Metrics routine
-The metrics routine processes the bags into Pareto sets, where one entry in the Pareto set is a tuple of the X-minute city metric and the related cost.
-%TODO explain metrics routine
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.75]{Figures/method/metric_routine}
+    \caption{Metric Routine}
+    \label{fig:metric_routine}
+\end{figure}
+The metrics routine, depicted in Figure \ref{fig:metric_routine}, processes the bags into Pareto sets, where one entry in the Pareto set is a tuple of the X-minute city metric and the related cost.
+To do so, we process each collection of bags separately - one co-routine for each OSM node/collection of bags.
 
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.75]{Figures/method/metric_coroutine}
+    \caption{Metric Co-Routine}
+    \label{fig:metric_co_routine}
+\end{figure}
+The co-routine is depicted in Figure \ref{fig:metric_co_routine} and works as follows.
+We start by collecting all unique cost values in each label in each bag and then sort them in ascending order.
+For each cost value we then determine the associated X-minute city metric.
+We do so by checking whether every category is reachable given the cost value and an iteratively increasing time value.
+We start with a time value that is equal to the minimum time across all labels.
+If all categories are reachable, we've found the X-minute city metric, which together with the cost value is added to the Pareto set.
+If not, we increase the time value by one minute and check again.
+We repeat this until all cost values are processed.
+The result is a Pareto set for each OSM node/collection of bags.

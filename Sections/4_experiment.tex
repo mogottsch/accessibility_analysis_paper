@@ -2,9 +2,62 @@
 \section{Experiment}
 \label{sec:experiment}
 
-To answer the question how competetive sustainable modes of transport are in comparison to the traditional mode of travel by car, we run an experiment in the city of Cologne.
+To answer the question of how competitive sustainable modes of transport are in comparison to the traditional mode of travel by car, we run an experiment in the city of Cologne.
 We do so by calculating the X-minute city metric for hexagons all over Cologne.
 
+As we want to compare different modes of transport, we will calculate the metric multiple times for different scenarios, each with a different combination of modes of transport.
+
+\subsection{Scenarios}
+\label{subs:scenarios}
+
+No matter, the mode of transport, we always allow for walking, for two reasons.
+First, walking is the most accessible mode of transport, available to almost everyone and without any additional costs.
+Second, most other modes of transport require walking at some point, be it to the next bus stop or to the next available bicycle.
+
+The first scenario we consider is our baseline scenario, which only considers walking.
+This scenario measures what is possible without any additional infrastructure. 
+Distinct from other scenarios, it does not require any additional cost, thus presenting the most basic form of urban mobility.
+
+Building on this, the second scenario we consider is the scenario of only walking. 
+We consider this scenario as the benchmark scenario, as we hope to achieve similar (or even better) results with more sustainable modes of transport.
+Therefore, we use it to answer the question of how competitive sustainable modes of transport are in comparison to the traditional mode of travel by car. 
+
+Transitioning from the simplest form of mobility, the third scenario, focused on public transport, becomes essential to understand the effectiveness and accessibility of urban transit systems. 
+This scenario evaluates how well-connected and time-efficient public transportation networks are, and their role in reducing reliance on personal vehicles. 
+It also investigates the impact of public transport on urban mobility and its potential in contributing to a more sustainable urban environment. 
+Specifically, it assesses whether public transport is a viable alternative to the personal car and whether it actually offers significant advantages over walking, considering the X-minute city metric.
+
+Next, in the fourth scenario, we shift our focus to the dynamics of bicycle sharing systems. 
+This scenario is important for assessing the feasibility and attractiveness of cycling as a primary mode of transportation in urban areas. 
+We will directly compare it to the public transport scenario, to understand which sustainable mode of transport is superior.
+
+Finally, the fifth scenario combines public transport and bicycle sharing, offering insights into the synergy between these two modes of transport. 
+This integrated approach mirrors a growing trend in urban mobility solutions, where multi-modal transport options are increasingly favored. 
+It underscores how this combination can bridge the gaps in accessibility and efficiency found when each mode is used independently. 
+This scenario is expected to be the most competitive against cars, offering a comprehensive and sustainable urban transit model that could reshape the landscape of city mobility.
+
+We summarize the scenarios in Table \ref{table:scenarios}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|p{5cm}|p{5cm}|}
+\hline
+\textbf{\#} & \textbf{Scenario} & \textbf{Key Points} \\
+\hline
+1 & Walking & Baseline scenario \\
+\hline
+2 & Personal Car & Benchmark scenario \\
+\hline
+3 & Public Transport & Evaluate the effectiveness public transport systems \\
+\hline
+4 & Bicycle Sharing & Evaluate the effectiveness of bicycle sharing systems \\
+\hline
+5 & Public Transport and Bicycle Sharing & Evaluate the effectiveness of sustainable multi-modal transport systems \\
+\hline
+\end{tabular}
+\caption{Scenarios for Urban Mobility Analysis}
+\label{table:scenarios}
+\end{table}
 
 \subsection{Data}
 \label{subs:data}
