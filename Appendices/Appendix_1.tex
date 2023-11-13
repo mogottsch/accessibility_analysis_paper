@@ -9,3 +9,50 @@ out body;
 >;
 out skel qt;
 \end{verbatim}
+
+\section{Appendix - Pyrosm Network Filter}
+\label{app:pyrosm_network_filter}
+
+Pyrosm filters out all ways that have the following tags:
+
+\begin{table}[h]
+\centering
+\caption{Driving Filter}
+\begin{tabular}{|c|p{10cm}|}
+\hline
+\textbf{Key}         & \textbf{Values}                                                                                                             \\ \hline
+area                 & yes                                                                                                                         \\ \hline
+highway              & cycleway, footway, path, pedestrian, steps, track, corridor, elevator, escalator, proposed, construction, bridleway, abandoned, platform, raceway \\ \hline
+motor\_vehicle       & no                                                                                                                          \\ \hline
+motorcar             & no                                                                                                                          \\ \hline
+service              & parking, parking\_aisle, private, emergency\_access                                                                         \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Walking Filter}
+\begin{tabular}{|c|p{10cm}|}
+\hline
+\textbf{Key}         & \textbf{Values}                                                                                                             \\ \hline
+area                 & yes                                                                                                                         \\ \hline
+highway              & cycleway, motor, proposed, construction, abandoned, platform, raceway, motorway, motorway\_link                             \\ \hline
+foot                 & no                                                                                                                          \\ \hline
+service              & private                                                                                                                     \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\caption{Cycling Filter}
+\begin{tabular}{|c|p{10cm}|}
+\hline
+\textbf{Key}         & \textbf{Values}                                                                                                             \\ \hline
+area                 & yes                                                                                                                         \\ \hline
+highway              & footway, steps, corridor, elevator, escalator, motor, proposed, construction, abandoned, platform, raceway, motorway, motorway\_link \\ \hline
+bicycle              & no                                                                                                                          \\ \hline
+service              & private                                                                                                                     \\ \hline
+\end{tabular}
+\end{table}

@@ -12,3 +12,8 @@ medoid
 Medoids
 k-medoids
 medoids
+Pyrosm
+NEXI-minutes
+NEXI-global
+NEXI-Minutes
+NEXI-Global

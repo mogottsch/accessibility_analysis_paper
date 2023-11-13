@@ -40,16 +40,23 @@ The metric is then defined as the maximum value among these minimal times across
 This approach yields a singular measure that reflects the most significant time distance barrier within an urban area, which effectively captures the least accessible category for any given area.
 We think that it is beneficial to focus on the least accessible category, as measuring accessibility in cities by averaging accessibility across all categories can mask disparities categories. 
 This ensures that the metric is targeted to areas of greatest need. 
-
-This metric is critical in assessing the performance of a neighborhood or a city at large against the 15-minute city ideal. It is not an average of accessibility across services but rather highlights the area of greatest need, providing a clear target for urban development and improvement.
-
 By leveraging this metric, we aim to help city planners to create urban environments that prioritize sustainability, enhance the well-being of residents, and reduce dependency on vehicular transport, thus contributing to the broader goals of efficient urban planning and improved quality of urban life.
+
+% --- comparison to NEXI
+Our metric presents several advantages compared to the NEXI-minutes and NEXI-global, as outlined by \cite{olivariAreItalianCities2023}.
+Firstly, unlike the NEXI-minutes which calculates separate metrics for each of seven categories, our metric evaluates all categories together. 
+This unified approach makes it more straightforward and easier to understand. 
+In contrast, while NEXI-global also considers all categories in one assessment, it converts the results into a 0-100 score. 
+This percentage system can obscure the real value of the data, making it more difficult to interpret.
+
+Moreover, the NEXI-global's practice of assigning different weights to each category complicates its analysis. 
+Our metric, by focusing on the lowest-performing category across all areas, simplifies the understanding and highlights where improvement is most needed. 
+This method prevents the dominance of stronger areas over weaker ones, ensuring a more balanced and fair evaluation of urban development. 
 
 % ---- START section about alternative modes
 % explain different modes - maybe(?) this belongs to related work
 Traditionally, the 15-minute city concept is applied to walking and or cycling and ignores other modes of transport.
 Some researchers, in the context of location-based metrics, even go as far to only calculate the bee-line distance to the nearest amenity and ignore the street network altogether \cite{gastnerOptimalDesignSpatial2006}, while most only consider walking \cite{olivariAreItalianCities2023, nicolettiDisadvantagedCommunitiesHave2023}.
-
 We, however, believe that to accurately determine the accessibility of a city, all modes of transport must be considered, and the routing needs to be as realistic as possible.
 We will therefore calculate our metric for various combinations of modes of transport, namely driving with a personal car+walking, free-floating bicycle sharing+walking, public transport+walking, free-floating bicycle sharing+public transport+walking, and walking.
 The car mode will serve as a baseline metric and show how competitive more sustainable modes of transport are.
@@ -117,6 +124,34 @@ In the following section, we detail the modifications made to MCR to tailor it t
 
 \subsubsection{Algorithm}
 \label{subsubsec:algorithm}
+
+As our algorithm should be easily adaptable to different modes of transport, we formulate it in a modular fashion.
+The algorithm described next presents a scaffolding that needs to be augmented by different modules, where a module presents the full application of a specific mode of transport.
+One module, for example, would be walking, and the full application of the walking module would mean to traverse the whole walking graph given the current state of bags.
+
+A module always takes bags as an input and returns bags as an output.
+Consider the example of calling the walking module on the starting bags, which are a set of bags, where every bag is empty, except for the one of the starting node, where exactly one label is present that contains the starting time and zero costs.
+The output would be a set of bags, where each node's bag contains exactly one label where the time would be equal to the time it takes to walk to the node and the cost would be zero, as walking never costs anything.
+
+The scaffolding of the algorithms is shown in Figure \ref{fig:modular_routing_algorithm}.
+It takes a start node and time as input and returns bags.
+First it creates the starting bags described above from the start node and the start time.
+Next it runs the initial modules given by the initial module matrix.
+A module matrix consists of multiple lists of modules.
+Each module in the same list is executed in parallel and one list of module is counted as one trip.
+After that the next list is executed and so on and so forth.
+% TODO matrix implies that each column has the same length
+After the initial modules are run, the same is done for the repeating modules for the specified number of times.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.40]{Figures/method/modular_routing_algorithm}
+    \caption{Modular Routing Algorithm}
+    \label{fig:modular_routing_algorithm}
+\end{figure}
+
+
+% TODO this needs to be rewritten
 
 % I/O
 The input of our algorithm is a start time and a start node.

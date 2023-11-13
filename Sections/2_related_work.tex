@@ -105,6 +105,15 @@ Therefore, their index enables accessibility-based planning.
 
 Despite the potential benefits, \cite{olivariAreItalianCities2023} acknowledge the challenges in realizing the 15-minute city model, notably the substantial investments and strategic planning required. 
 
+However, there are some limitations in the NEXI metrics. 
+The NEXI-Minutes offers separate metrics for each category, which may lead to a fragmented understanding of urban accessibility. 
+This multi-metric approach can make comprehensive evaluation challenging. 
+In addition, the NEXI-Global, while aggregating these categories, introduces complexity through its weighted scoring system. 
+The weights are hard for humans to evaluate and the score from 0 to 100 disconnects the metric from the intuitive meaning of minutes.
+This makes it more difficult for urban planners and policymakers to interpret and utilize the results effectively. 
+These factors suggest a need for refinement in the NEXI methodology to enhance its practical utility in urban development and planning.
+
+
 % --- CITYACCESSMAPS ---
 Another study by \cite{nicolettiDisadvantagedCommunitiesHave2023} explores the connection between urban infrastructure and social inequality. 
 The researchers developed an open, data-driven framework to analyze how different communities within cities access essential services. 
@@ -153,6 +162,10 @@ Under these circumstances, the edge weight is represented as a vector:
 \[ w(e) \in \mathbb{R}^k \]
 where \( k \) stands for the total objectives count.
 Unlike the simpler single-objective case with a singular optimal path, the multi-objective scenario yields a Pareto set, constituting several optimal routes.
+A Pareto set refers to a set of solutions that are non-dominated by any other solution.
+This means that for each solution in the Pareto set, there is no other solution that is better in all objectives.
+The Pareto set represents an optimal trade-off among the different objectives, where improving one aspect would worsen another.
+For example, a Pareto set could contain multiple paths, where one path is faster, but more expensive, while another path is slower, but cheaper.
 
 The value of these paths is depicted using a label:
 \[ l \in \mathbb{R}^k \]

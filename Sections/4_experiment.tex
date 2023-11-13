@@ -91,6 +91,10 @@ As a last cleaning step, we remove all nodes, that are not part of the largest w
 A weakly connected component is a subgraph in which, if all directed edges were treated as undirected, any two vertices from the subgraph would be connected.
 Multiple weakly connected components in graphs derived from OSM data, mostly happen at the border of the considered area and can be neglected.
 
+Because we consider multiple different modes of transport on the network, it is important to filter out all edges that are not accessible by the respective mode of transport.
+To do so, we use pyrosm's built-in filtering functionality.
+For reproducability, we list the filters that pyrosm uses in Appendix \ref{app:pyrosm_network_filter}.
+
 To retrieve the POIs, we use the Overpass API \shortcite{OverpassAPIOverpass}.
 Our tool will automatically retrieve all POIs that fall into one of our predefined categories specified in Section \ref{subsec:metric} inside of the area of interest plus the buffer mentioned before.
 
@@ -146,4 +150,39 @@ These two land use types represent the residential areas of the city.
 \subsection{Assumptions}
 \label{subs:assumptions}
 
+To calculate the X-minute city metric we have to abstract from reality to some degree.
+We do so by making the following plausible assumptions.
+
+Firstly, we assume that travelling along an edge on the street network, by walking, cycling or driving, is always proportional to the length of the edge.
+To obtain the time it takes to travel along an edge, we divide the length of the edge by the speed of the mode of transport.
+The different speeds for the different modes of transport are listed in Table \ref{table:speeds}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|l|}
+\hline
+\textbf{Mode} & \textbf{Speed (m/s)} \\
+\hline
+Walking & 1.4 \\
+\hline
+Cycling & 4.0 \\
+\hline
+Driving & 11.0 \\
+\hline
+\end{tabular}
+\caption{Speeds for different modes of transport}
+\label{table:speeds}
+\end{table}
+
+We also pose some assumption on the transitioning between different modes of transport, as well as, in the case of public transport, the transfer time at the stops.
+For the transfer time at stops we assume a fixed time of one minute.
+To transition from any OSM network-based mode of transport to public transport, we assume that the stop is precisely at the location the closest node of the OSM network.
+As OSM networks contain public transport stops, there should be no difference between the two.
+Similarly, we assume that the bicycles are located at the closest node of the OSM network.
+As the OSM network, especially in city is very dense, this assumption is reasonable.
+We also assume that bicycles and cars can be parked anywhere on their respective network for the sake of simplicity.
+
+
+\subsection{Graph Construction}
+\label{subs:graph_construction}
 

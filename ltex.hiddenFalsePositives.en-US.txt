@@ -1,2 +1,5 @@
 {"rule":"ENGLISH_WORD_REPEAT_RULE","sentence":"^\\QAmong these we use, pyrosm Pyrosm which is a Python library designed specifically for reading OSM data in different formats and conducting data processing operations.\\E$"}
 {"rule":"HYPOTHESIS_TYPOGRAPHY","sentence":"^\\QFor the spatial discretization, we use H3 hexagons with a resolution of 9.\\E$"}
+{"rule":"ALL_WAYS","sentence":"^\\QPyrosm filters out all ways that have the following tags:\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QHowever, there are some limitations in the NEXI metrics.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QThese factors suggest a need for refinement in the NEXI methodology to enhance its practical utility in urban development and planning.\\E$"}
