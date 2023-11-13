@@ -1,0 +1,2 @@
+{"rule":"ENGLISH_WORD_REPEAT_RULE","sentence":"^\\QAmong these we use, pyrosm Pyrosm which is a Python library designed specifically for reading OSM data in different formats and conducting data processing operations.\\E$"}
+{"rule":"HYPOTHESIS_TYPOGRAPHY","sentence":"^\\QFor the spatial discretization, we use H3 hexagons with a resolution of 9.\\E$"}
