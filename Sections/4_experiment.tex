@@ -95,7 +95,7 @@ Multiple weakly connected components in graphs derived from OSM data, mostly hap
 
 Because we consider multiple different modes of transport on the network, it is important to filter out all edges that are not accessible by the respective mode of transport.
 To do so, we use pyrosm's built-in filtering functionality.
-For reproducability, we list the filters that pyrosm uses in Appendix \ref{app:pyrosm_network_filter}.
+For reproducibility, we list the filters that pyrosm uses in Appendix \ref{app:pyrosm_network_filter}.
 
 To retrieve the POIs, we use the Overpass API \shortcite{OverpassAPIOverpass}.
 Our tool will automatically retrieve all POIs that fall into one of our predefined categories specified in Section \ref{subsec:metric} inside of the area of interest plus the buffer mentioned before.
@@ -190,9 +190,13 @@ We also assume that bicycles and cars can be parked anywhere on their respective
 
 We try to implement a pricing scheme in our scenarios that represents the real-world circumstances as closely as possible.
 
-For the 
+For bicycle sharing, we use the pricing scheme of NextBike, which is 1€ every 15 minutes.
+To depict this we add a hidden value to the labels processed in MLC that depicts how long the current bicycle trip is.
+As two consecutive bicycle trips are considered separately we nullify this hidden value after each run of MLC.
 
+For public transport, we use the pricing scheme of the Cologne Transport Authority (KVB), which is 2.20€ for trips that span four stops or less.
+For any trip that spans more than four stops or any multitude of trips the KVB charges 3.20€.
+To depict this we add a hidden values to the labels processed in McRAPTOR that depicts how many stops the traveler already traversed.
+Because two consecutive trips are considered together, we don't need to nullify the hidden value.
 
-\subsection{Graph Construction}
-\label{subs:graph_construction}
-
+TODO: personal car
