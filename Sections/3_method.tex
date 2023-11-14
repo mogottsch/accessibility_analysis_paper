@@ -125,23 +125,38 @@ In the following section, we detail the modifications made to MCR to tailor it t
 \subsubsection{Algorithm}
 \label{subsubsec:algorithm}
 
-As our algorithm should be easily adaptable to different modes of transport, we formulate it in a modular fashion.
-The algorithm described next presents a scaffolding that needs to be augmented by different modules, where a module presents the full application of a specific mode of transport.
-One module, for example, would be walking, and the full application of the walking module would mean to traverse the whole walking graph given the current state of bags.
+% introduction modules
+As our algorithm should be easily adaptable to different modes of transport and the combination of different modes of transport, we formulate it in a modular fashion.
+The algorithm described next presents a scaffolding that needs to be augmented by different modules, where a module represents a specific mode of transport and running a module may be seen as fully exploring the network through this mode of transport.
+One module, for example, would be walking, and running the walking module would mean to traverse the whole walking graph given the current state of bags.
 
+% explanation of bags & need for common network 
 A module always takes bags as an input and returns bags as an output.
-Consider the example of calling the walking module on the starting bags, which are a set of bags, where every bag is empty, except for the one of the starting node, where exactly one label is present that contains the starting time and zero costs.
+As explained in Section \ref{sec:related_work} a bag is a set of labels, that are Pareto optimal with respect to the objectives.
+In addition, in our work, a bag is associated with a node some network.
+For the bags that are the input and output of the modules, we further require that they are associated with the same network.
+This is necessary in order to merge the bags of different modules.
+In our work, the common network will be the walking graph.
+This also has a real-world interpretation, as walking in between different modes of transport is very common.
+
+% example of running a module
+To further explain how running a module looks like, consider the example of calling the walking module on the starting bags, which are a set of bags, where every bag is empty, except for the one of the starting node, where exactly one label is present that contains the starting time and zero costs.
 The output would be a set of bags, where each node's bag contains exactly one label where the time would be equal to the time it takes to walk to the node and the cost would be zero, as walking never costs anything.
 
+% algorithm
 The scaffolding of the algorithms is shown in Figure \ref{fig:modular_routing_algorithm}.
-It takes a start node and time as input and returns bags.
+The algorithm takes a start node and time as input and returns bags.
 First it creates the starting bags described above from the start node and the start time.
-Next it runs the initial modules given by the initial module matrix.
-A module matrix consists of multiple lists of modules.
-Each module in the same list is executed in parallel and one list of module is counted as one trip.
-After that the next list is executed and so on and so forth.
-% TODO matrix implies that each column has the same length
+Next, it runs the initial modules given by the initial module matrix.
+
+A module matrix is an irregular matrix of modules.
+To run the module matrix, first the modules of the first row are run in parallel.
+Their respective outputs are then merged into a single set of bags.
+After that the second row is run and so on and so forth.
+This process is also described in Figure \ref{fig:modular_routing_algorithm}.
+
 After the initial modules are run, the same is done for the repeating modules for the specified number of times.
+By convention, we count each iteration of the repeating modules as one trip.
 
 \begin{figure}
     \centering
@@ -151,53 +166,126 @@ After the initial modules are run, the same is done for the repeating modules fo
 \end{figure}
 
 
-% TODO this needs to be rewritten
+\subsubsection{Modules}
+\label{subsubsec:modules}
 
-% I/O
-The input of our algorithm is a start time and a start node.
-The start node may be any node in the OSM network.
-The output of our algorithm are the bags for each node in the OSM network.
+In our experiments, we categorize four modules into two types: unscheduled and scheduled. 
+The unscheduled modules consist of walking, free-floating vehicle sharing, and personal vehicle use and are based on MLC, while the scheduled module is public transport, which is based on McRAPTOR.
 
-% Algorithm
-% first phase
-Our algorithm is split into two phases, which are repeated iteratively.
-The algorithm is depicted in Figure \ref{fig:routing_algorithm}.
-In the first phase the walking network is explored through the MLC algorithm.
-Walking is not considered a trip and there is no upper limit on the walking distance.
-In the initial iteration MLC starts with a single label containing the starting values in the bag of the start node.
-All other bags are empty.
-We run MLC until it converges and retrieve the final bags for each node.
+Walking is the simplest unscheduled module, it simply consists of running MLC on the walking graph.
+The edges of the walking graph should contain the time it takes to traverse them by foot and should not have any monetary cost associated with them.
 
-% second phase
-In the second phase we explore the public transport network, as well as, all modes of unscheduled travel, except walking.
-We do so, because a public transport trip, as well as, a trip with any mode of unscheduled travel, except walking will be counted as a trip.
+The free-floating vehicle sharing module is a bit more complex.
+Before running MLC on the respective vehicle graph, the module filters our all bags that are located at a node where no free-floating vehicle is available.
+In addition, the vehicle graph is augmented with a walking graph. 
+This means that at nodes in the vehicle graph, where it is allowed to park the vehicle, there is an edge to the closest node in the walking graph.
+This augmentation is necessary, as the output bags of the free-floating vehicle sharing module need to be associated with nodes in the walking graph, as it is the common network.
+The module may also define any form of monetary cost.
 
-% second phase - RAPTOR
-To explore the public transport network, we run one iteration of McRAPTOR.
-To retrieve the proper input bags for McRAPTOR we associate each stop in the public transport network with a node in the unscheduled walking network beforehand.
-Then we can use the bags of the nodes in the walking network that are associated with a stop in the public transport network as input for McRAPTOR.
+For the personal vehicle module, we assume that there is only one personal vehicle and that it is located at the starting node.
+Therefore, the module filters out all bags that are not located at the starting node.
+Obviously, this module is only useful for the first trip, or more precisely, the module should only be used in the first row of the initial module matrix.
+After that MLC is run on the vehicle graph again augmented with the walking graph.
+TODO: monetary cost
 
-% Second phase - MLC
-At the same time, we run MLC again, for each unscheduled mode of transport except walking.
-For modes based on free-floating vehicle sharing, we use the bags of nodes in the walking network as an input, where a free-floating vehicle is present.
-The output is defined depending on where it is possible to drop off vehicles.
-If there are no restrictions the bags of all nodes are used.
+In comparison to the unscheduled modules, the public transport module does not use MLC, but McRAPTOR.
+As a first step the module filters out all bags that are associated with a node that is not near a stop in the public transport system.
+Next, the module performs a single iteration of McRAPTOR, which represents a single trip within the public transport system.
+Last, the resulting bags have to be associated with nodes in the walking network again.
+To do so, the modules simply use the node that is closest to the coordinates of the public transport stop.
+Just like the free-floating vehicle module, the public transport module may define any form of monetary cost.
 
-% merge
-The outputs of the McRAPTOR iteration and all MLC runs are merged.
-To do so first the output bags have to be translated into the common nodes of the walking network again.
-After that the bags are merged according to the merging rules explained in Section \ref{subsubsec:mcraptor}.
+\subsubsection{Merging}
+\label{subsubsec:merging}
 
-The bags that result the merge are the output of the first iteration and contain all optimal labels after exactly one trip.
-To obtain the optimal labels after X trips, both phases have to be repeated X times and the result bags of the second phase in iteration \(i\) are used as the input bags of the first phase in iteration \(i-1\).
+The merging of bags after running multiple modules in parallel is quite simply.
+Each bag represents a set of Pareto optimal labels and each bag is associated with a node.
+We therefore merge bag-wise.
+We differentiate between two cases:
+\begin{enumerate}
+    \item There is only one bag associated with a node.
+    \item There are multiple bags associated with the same node.
+\end{enumerate}
+In the first case, we simply put the bag into the output bags.
+In the second case, we create a new bag that contains all labels of all bags associated with the node, which might break the Pareto optimality of the labels.
+Therefore, to restore the Pareto optimality of the labels, we remove all labels that are dominated by another label.
+
+\subsubsection{Enhanced MLC \& McRAPTOR}
+\label{subsubsec:enhanced_mlc_and_mcraptor}
+
+To address the multi-objective optimization involving both time and monetary cost, we introduce enhancements to MLC and McRAPTOR. 
+The standard versions of MLC and McRAPTOR do not adequately capture dynamic pricing models, which is necessary to realistically represent monetary costs.
+
+% \paragraph{Challenges in the Original Algorithms} 
+The original MLC associates a fixed cost with an edge, which cannot represent variable pricing, such as a bike-sharing tariff that costs 1€ per 15-minute increment. 
+Labels are only updated by adding the cost of a given edge to the label's values.
+Similarly, McRAPTOR updates the labels at each stop during route traversal only based on the information of the current trip and stop. 
+With this McRAPTOR is unable to represent a pricing scheme that varies with the number of stops, like the one used by the Cologne Transport Authority.
+
+% \paragraph{Proposed Modifications} 
+Our proposed modifications involve the use of 'hidden values' within the labels that are used by these algorithms. 
+These hidden values carry additional information which is not considered when comparing labels, but that may be used to update cost dynamically.
+
+In the case of MLC, the hidden values may be updated along any edge, just like the regular values of the label.
+A hidden value, may carry information on how long the current trip with the shared vehicle is.
+We then additionally allow defining a function that updates while traversing an edge and may use the values and hidden values both before and after the traversal to do the update.
+With this functionality it is easy to increment the cost by 1€ every time the time spent on the trip exceeds the 15-minute interval.
+
+Similarly, the hidden values may be updated during McRAPTOR after every iteration of a stop.
+We can, therefore, store how many stops the current trip already traversed and if that number exceeds four, we can easily increase the price from 2.20€ to 3.20€.
+
+Additionally, as the concept of hidden values isn't specific to MLC or McRAPTOR, the hidden values can be used across iterations.
+To understand the benefit, again consider the example of the pricing of the Cologne Transport Authority.
+The ticket that costs 3.20€ allows traveling any number of trips within Cologne, no matter if it is necessary to change to a different trip.
+Therefore, if we were to first travel two stations with one trip and then get out to catch another trip that consists of five stops, we would still have the information that we already commuted two stops.
+Therefore, we can charge 3.20€, instead of charging 2.20€ two times, which is more realistic.
+
+These enhanced versions of MLC and McRAPTOR are used in our modules, so that we can use the more realistic dynamic pricing schemes.
 
 
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.75]{Figures/method/routing_algorithm}
-    \caption{Routing Algorithm}
-    \label{fig:routing_algorithm}
+\subsubsection{Example}
+\label{subsubsec:example}
+
+To illustrate our algorithm, we will now go through an example step by step.
+The module configuration we use in our example represents travelling by free-floating vehicle sharing, public transport and walking.
+The initial module matrix just contains the walking module, in order to initially reach the free-floating vehicles, as well as, the public transport stops.
+The repeating module matrix consists of first the free-floating vehicle sharing module and the public transport module in parallel and then the walking module.
+It can be seen in Figure \ref{fig:example_module_matrix}.
+
+
+\begin{figure}[ht]
+\centering
+\[
+\begin{pmatrix}
+\text{free-floating vehicle} & \text{public transport} \\
+\text{sharing module} & \text{module} \\
+\\
+\text{walking} & \\
+\end{pmatrix}
+\]
+\caption{Example Repeating Module Matrix}
+\label{fig:example_module_matrix}
 \end{figure}
+
+In our example, we assume that both public transport and vehicle sharing has some form of cost associated with it.
+The objective is to minimize arrival time and cost.
+We also only consider a maximum of two trips.
+
+First we run the initial modules, which in our case is just the walking module on the starting bags.
+As the starting bags only consist of one non-empty bag at the starting node with exactly one label, running MLC on the walking graph is equivalent to running Dijkstra's algorithm.
+In the real-world this represents walking to all nodes in the walking network from the start node.
+Note, that after the initial walking module all bags only contain exactly one label, as the cost to go anywhere by foot is zero.
+
+Next the modules of the first row of the repeating matrix are run.
+In the real-world this means that after an initial walk the traveler would either drive with a free-floating vehicle starting from a location where one is available or commute by public transport starting from one stop.
+For public transport one could imagine that we commute with all possible trips from all stops and update the bags of the stops along each route accordingly.
+After running these modules and merging their result bags, each bag may contain more than one label, as public transport and driving with a vehicle may be faster than walking, but also cost money.
+It may even be that some bags contain three different labels, if, for example, driving with a vehicle is the fastest but also costs the most money and commuting by public transport is faster than walking.
+The next step consists of running the second row of the repeating module matrix, which in our case is the walking module again.
+Running the walking module in the repeating module matrix is important in order to reach nearby POIs after commuting through the public transport system.
+After that the repeating module matrix is run again, as we consider a maximum of two trips.
+The result of the second run of the repeating module matrix is our final result.
+
 
 
 \subsection{Accessibility Analysis Tool}

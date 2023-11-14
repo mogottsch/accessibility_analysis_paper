@@ -40,24 +40,26 @@ We summarize the scenarios in Table \ref{table:scenarios}.
 
 \begin{table}[h]
 \centering
-\begin{tabular}{|c|p{5cm}|p{5cm}|}
+\begin{tabular}{|p{4cm}|p{5cm}|p{4cm}|}
 \hline
-\textbf{\#} & \textbf{Scenario} & \textbf{Key Points} \\
+\textbf{Scenario} & \textbf{Modules} & \textbf{Key Points} \\
 \hline
-1 & Walking & Baseline scenario \\
+Walking & Walking & Baseline scenario \\
 \hline
-2 & Personal Car & Benchmark scenario \\
+Personal Car & Personal Vehicle, Walking & Benchmark scenario \\
 \hline
-3 & Public Transport & Evaluate the effectiveness public transport systems \\
+Public Transport & Public Transport, Walking & Evaluate the effectiveness public transport systems \\
 \hline
-4 & Bicycle Sharing & Evaluate the effectiveness of bicycle sharing systems \\
+Bicycle Sharing & Vehicle Sharing, Walking & Evaluate the effectiveness of bicycle sharing systems \\
 \hline
-5 & Public Transport and Bicycle Sharing & Evaluate the effectiveness of sustainable multi-modal transport systems \\
+Public Transport and Bicycle Sharing & Public Transport, Bicycle Sharing, Walking & Evaluate the effectiveness of sustainable multi-modal transport systems \\
 \hline
 \end{tabular}
 \caption{Scenarios for Urban Mobility Analysis}
 \label{table:scenarios}
 \end{table}
+
+The specific configuration of the module matrices for each scenario can be found in Appendix \ref{app:experiment_module_matrix_configuration}.
 
 \subsection{Data}
 \label{subs:data}
@@ -181,6 +183,14 @@ As OSM networks contain public transport stops, there should be no difference be
 Similarly, we assume that the bicycles are located at the closest node of the OSM network.
 As the OSM network, especially in city is very dense, this assumption is reasonable.
 We also assume that bicycles and cars can be parked anywhere on their respective network for the sake of simplicity.
+
+
+\subsubsection{Pricing}
+\label{subs:pricing}
+
+We try to implement a pricing scheme in our scenarios that represents the real-world circumstances as closely as possible.
+
+For the 
 
 
 \subsection{Graph Construction}
