@@ -445,3 +445,126 @@ In addition, we've added a line at the 15-minute mark, to better relate the resu
 
 First, we see that the variation for bicycles is spread out over almost all hexagons, in comparison to public transport where the variation only really begins to happen after the 15-minute mark.
 For the combined scenario, we see the expected: the variances of the public transport scenario and the bicycle scenario add up.
+
+\subsection{Impact Of Sustainable Modes On 15-Minute Metric}
+\label{subsec:impact_of_sustainable_modes_on_15_minute_metric}
+
+To analyze the impact of sustainable modes of travel on the 15-minute city metric, we first uncover the problematic areas, in which the X-minute city metric is above 15 minutes for the walking mode.
+We then analyze how the sustainable modes of travel can help to reduce the X-minute city metric in those areas below 15 minutes.
+
+In total, we find 552 hexagons, which have a walking time of more than 15 minutes to reach all categories, which is 30.98\% of all hexagons.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|l|}
+    \hline
+    \textbf{Category}                                          & \textbf{Data}                \\ \hline
+    Only bicycle below 15 mins                                 & 72 (13.04\%)                 \\ \hline
+    Only public transport below 15 mins                        & 59 (10.69\%)                 \\ \hline
+    Both bicycle and public transport below 15 mins            & 41 (7.43\%)                  \\ \hline
+    Combined mode below 15 mins                                & 10 (1.81\%)                  \\ \hline
+    Not reachable by sustainable modes below 15 mins           & 370 (67.03\%)                \\ \hline
+  \end{tabular}
+  \caption{Impact of Sustainable Modes on Reducing Walking Time Above 15 Minutes}
+  \label{table:hexagons_with_walking_time_above_15_minutes}
+\end{table}
+
+Table \ref{table:hexagons_with_walking_time_above_15_minutes} presents the distribution of hexagons with a walking time above 15 minutes and the effect of sustainable transportation modes on these times. 
+A significant portion of these areas, amounting to 67.03\%, cannot be reached within 15 minutes using sustainable modes with the current state of infrastucture. 
+Conversely, the data indicates that for 13.04\% of these hexagons, bicycles alone can reduce travel time to under 15 minutes, while public transport alone can achieve this for 10.69\% of the hexagons. 
+7.43\% of hexagons are reachable with either one of bicycles or public transport, while an additional 1.81\% of hexagons are accessible within this time frame when combining  modes. 
+
+% for discussion
+First, we should note that a majority of the problematic areas cannot be fixed by any sustainable mode, which is bad.
+Next we see that bicycles sharing and public transport alone are roughly of equal importance and are also able to fix more hexagons separately than together, which means that these modes are not substitutes.
+We also see that the combined mode has only very little impact.
+% end for discussion
+
+% TODO continue here
+Next we visualize these problematic areas spatially.
+Figure \ref{fig:problematic_hexagons} shows hexagons where all necessities are reachable within a 15-minute walk in green, hexagons where all necesseities are reachable within 15-minutes via some form of sustainable travel in yellow, and hexagons where all necessities are not reachable within 15 minutes in red.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.50\textwidth]{Figures/results/problematic_hexagons/problematic_hexagons}
+  \end{center}
+  \caption{Unfixable, fixable and unproblematic hexagons on a map}
+  \label{fig:problematic_hexagons}
+\end{figure}
+
+We see that in the center of Cologne, almost all hexagons qualify as 15-minute city hexagons. 
+At the border of the city, we clearly see a yellow ring.
+% some interpreation (move this to discussion?)
+We suspect that this ring is in an area where there are fewer POIs, but still a high availability of bicycles, that can compensate this sparsity.
+% end interpretation
+Most hexagons that never qualify as 15-minute city hexagons are located in suburban area, often in larger groups.
+
+Next we take a look at the hexagons previously colored yellow, namely those where bicycles and public transport or a combination of both can decrease the 15-minute city metric below 15 minutes.
+Figure \ref{fig:fixable_hexagons} shows hexagons that are 15-minute city hexagons through public transport in yellow, hexagons that are 15-minute city hexagons through bicycle sharing in orange and hexagons that are 15-minute city hexagons through either in green.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.50\textwidth]{Figures/results/problematic_hexagons/fixable_hexagons}
+  \end{center}
+  \caption{Fixable hexagons by mode}
+  \label{fig:fixable_hexagons}
+\end{figure}
+
+We see a slight tendency that hexagons that become 15-minute city hexagons only through bicycle sharing (orange) are closer to the city center than those that bercome 15-minute city hexagons only through public transport. 
+% discussion
+This seems plausible as public transport can travel larger distances in shorter time than bicycle sharing, but require a larger overhead as stops are distributed sparser than bicyles and require a larger overhead as users might have to wait.
+% end discussion
+
+The outer clusters of fixable hexagons correlates directly with the locations of bicycles and public transport stops.
+Figure \ref{fig:fixable_hexagons_examples} shows four zoomed in excerpts from Figure \ref{fig:fixable_hexagons}.
+
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/results/problematic_hexagons/example_1.png}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/results/problematic_hexagons/example_2.png}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/results/problematic_hexagons/example_3.png}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/results/problematic_hexagons/example_4.png}
+     \end{subfigure}
+     \caption{Examples of fixable hexagons}
+        \label{fig:fixable_hexagons_examples}
+\end{figure}
+
+Public Transport stops are visualized as yellow circles, while bicycles are visualized as orange circles.
+We see that hexagons that are fixed in the bicycle sharing scenario are always close to orange cycles.
+Similarly, hexagons that are fixed in the public transport scenario are always close to public transport stops.
+However, the proximity to bicycles seems to have a larger influence than the proximity to public transport stops.
+% discussion
+% TODO
+
+
+
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.50\textwidth]{Figures/results/problematic_hexagons/unfixable_hexagons}
+  \end{center}
+  \caption{Unfixable hexagons}
+  \label{fig:unfixable_hexagons}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.50\textwidth]{Figures/results/problematic_hexagons/combined_hexagons}
+  \end{center}
+  \caption{Hexagons fixable by combined mode}
+  \label{fig:combined_hexagons}
+\end{figure}
