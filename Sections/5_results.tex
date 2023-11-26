@@ -468,6 +468,7 @@ In total, we find 552 hexagons, which have a walking time of more than 15 minute
   \caption{Impact of Sustainable Modes on Reducing Walking Time Above 15 Minutes}
   \label{table:hexagons_with_walking_time_above_15_minutes}
 \end{table}
+% TODO make this a pie chart?
 
 Table \ref{table:hexagons_with_walking_time_above_15_minutes} presents the distribution of hexagons with a walking time above 15 minutes and the effect of sustainable transportation modes on these times. 
 A significant portion of these areas, amounting to 67.03\%, cannot be reached within 15 minutes using sustainable modes with the current state of infrastucture. 
@@ -547,19 +548,51 @@ Public Transport stops are visualized as yellow circles, while bicycles are visu
 We see that hexagons that are fixed in the bicycle sharing scenario are always close to orange cycles.
 Similarly, hexagons that are fixed in the public transport scenario are always close to public transport stops.
 However, the proximity to bicycles seems to have a larger influence than the proximity to public transport stops.
-% discussion
-% TODO
 
 
-
+Figure \ref{fig:only_unfixable_hexagons} shows all hexagons that are not 15-minute hexagons by any sustainable mode of transport.
+Figure \ref{fig:unfixable_with_bicycles} and \ref{fig:unfixable_with_stops} show the same map, but with additional bicycle locations and public transport stop locations, respectively.
 
 \begin{figure}
-  \begin{center}
-    \includegraphics[width=0.50\textwidth]{Figures/results/problematic_hexagons/unfixable_hexagons}
-  \end{center}
-  \caption{Unfixable hexagons}
-  \label{fig:unfixable_hexagons}
+     \centering
+     \begin{subfigure}[b]{0.30\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/results/problematic_hexagons/unfixable.png}
+         \caption{Only Unfixable hexagons}
+         \label{fig:only_unfixable_hexagons}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.30\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/results/problematic_hexagons/unfixable_with_bicycles.png}
+         \caption{With all bicycle locations}
+         \label{fig:unfixable_with_bicycles}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.30\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/results/problematic_hexagons/unfixable_with_stops.png}
+         \caption{With public transport stops}
+         \label{fig:unfixable_with_stops}
+     \end{subfigure}
+     \hfill
+     \caption{Unfixable hexagons}
+     \label{fig:unfixable_hexagons}
 \end{figure}
+
+We can observe that the unfixable hexagons mostly don't contain any bicycles and have a larger distance to the next bicycle.
+The same cannot be said for public transport stops.
+Often public transport stops are directly inside the unfixable hexagons.
+% discussion 
+This suggests that bicycles are more effective than public transport to help a region become sub 15-minute.
+% end discussion
+
+
+
+Figure \ref{fig:combined_hexagons} shows all hexagons that only become 15-minute city hexagons in the combined scenario, which means when both public transport and bicycle sharing can be used at the same time.
+As already seen in Table \ref{table:hexagons_with_walking_time_above_15_minutes} this only concerns less than 2\% of all hexagons that are not already 15-minute city hexagons through walking alone.
+More than half of those (7 out of 10) are located in the district of Weiß.
+
 
 \begin{figure}
   \begin{center}
