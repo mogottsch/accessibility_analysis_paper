@@ -167,8 +167,14 @@ This suggests that either complement I or complement II must be present.
 % TODO: complement I
 We see evidence for complement I in the observation that bicycle sharing is most effective for the 80\% more accessible hexagons, while public transport is mostly only effective for the 20\% least accessible hexagons.
 
+Table \ref{table:hexagons_with_walking_time_above_15_minutes} shows how many hexagons in which peope are not able to reach all necessities in 15 minutes by walking can reach all necessities in under 15 minute by public transport or bicycle sharing.
+We see that bicycles sharing and public transport alone are roughly of equal importance, as they both fix around 10\% of the hexagons.
+This again suggests that complement I is present.
+
 
 % TODO: complement II
+Table \ref{table:hexagons_with_walking_time_above_15_minutes} also shows that the combined scenario only fixes around 2\% and is therefore not very impactful.
+Nevertheless, we prove that the effect of complement II is present.
 
 % TODO: implications of complement I & II
 % implications
@@ -177,8 +183,6 @@ Some regions might benefit more from bicycle sharing, while others benefit more 
 It is therefore, necessary to analyze each region separately, to maximize the positive effect of sustainable modes of travel.
 % implications END
 %END
-
-
 
 % not sure where to put this "conclusion"
 Our findings lead to the conclusion that enhancing bicycle availability in areas with low accessibility could yield significant benefits.
@@ -205,35 +209,6 @@ This fact shows us that, a high frequency public transport line from the city ce
 It might be beneficial to create such lines to other less accessible regions in the north and south of Cologne's suburban areas.
 
 
-\subsubsection{Cost per month}
-
-A prevalent measure to incentivize the use of sustainable modes of transport are monthly tickets or subscriptions.
-To measure whether the costs of these subscriptions are worth it, we will calculate the monthly cost incurred by the trips to all necessities.
-To do so, we first collected how often people visit each of the categories we defined earlier.
-The monthly number of visits per category can be seen in Table \ref{tab:monthly_visits}.
-
-\begin{table}
-  \caption{Number of monthly visits per category}
-  \label{tab:monthly_visits}
-  \begin{center}
-    \begin{tabular}[c]{l|l}
-      category & monthly visits \\
-      \hline
-      groceries & 12 \\
-      education & 20 \\
-      health & 0.42 \\
-      banks & 9 \\
-      parks & 2.4 \\
-      sustenance & 6.12 \\
-      shops & 4 \\
-      \hline
-    \end{tabular}
-  \end{center}
-\end{table}
-
-The derivation of these numbers can be found in Appendix \ref{app:monthly_visits_per_category}
-
-
 \subsubsection{Time Gains per Euro}
 
 Table \ref{tab:differences_in_mean_pareto_front} shows how a minute of saved time costs for cycling and public transport, respectively.
@@ -257,11 +232,9 @@ We suspect that the variance for public transport would increase more drasticall
 We should also note that the comparison of variances should be taken with caution as the method for selecting the sub-scenarios differ per scenario.
 For bicycle sharing we employed a clustering method, while for public transport we made a qualitative choice. 
 
-\subsubsection{Impact Of Sustainable Modes On 15-Minute Metric}
+\subsubsection{Potential of Sustainable Modes To Transform Cities To 15-Minute Cities}
 
-First, we should note that a majority of the problematic areas cannot be fixed by any sustainable mode, which is bad.
-Next we see that bicycles sharing, and public transport alone are roughly of equal importance and are also able to fix more hexagons separately than together, which means that these modes are not substitutes.
-We also see that the combined mode has only very little impact.
+Table \ref{table:hexagons_with_walking_time_above_15_minutes} shows that a majority of the hexagons that are currently not 15-minute city regions are not fixed by any of the sustainable modes of travel, which shows that the impact of public transport and bicycle is rather low in this regard.
 
 We suspect that this yellow ring is in an area where there are fewer POIs, but still a high availability of bicycles, that can compensate this sparsity.
 

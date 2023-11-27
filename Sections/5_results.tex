@@ -536,3 +536,113 @@ More than half of those (7 out of 10) are located in the district of Weiß.
   \caption{Hexagons fixable by combined mode}
   \label{fig:combined_hexagons}
 \end{figure}
+
+
+\subsection{Monthly Costs Per Scenario And Hexagon}
+
+A prevalent measure to incentivize the use of sustainable modes of transport are monthly tickets or subscriptions.
+To measure whether the costs of these subscriptions are worth it, we will calculate the monthly cost incurred by the trips to all necessities.
+To do so, we first collected how often people visit each of the categories we defined earlier.
+The monthly number of visits per category can be seen in Table \ref{tab:monthly_visits}.
+
+\begin{table}
+  \caption{Number of monthly visits per category}
+  \label{tab:monthly_visits}
+  \begin{center}
+    \begin{tabular}[c]{l|l}
+      category & monthly visits \\
+      \hline
+      groceries & 12 \\
+      education & 20 \\
+      health & 0.42 \\
+      banks & 9 \\
+      parks & 2.4 \\
+      sustenance & 6.12 \\
+      shops & 4 \\
+      \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+
+The derivation of these numbers can be found in Appendix \ref{app:monthly_visits_per_category}
+
+To understand and compare the usual monthly costs caused by travelling with different modes of transport we first establish two time based benchmarks at which we will compare the cost incurred.
+The first benchmark focuses on the costs incurred when reaching the nearest POI of a given category within a 15-minute timeframe. 
+Conversely, the second benchmark assesses the costs for a similar journey, but within a more constrained 10-minute limit.
+However, to be able to compare these costs, we have to assume that for each hexagon and each scenario such a journey is possible, which is not always the case.
+
+Therefore, we first show how often a journey is possible within the given timeframe in Figure \ref{fig:percentage_inf_x}.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/results/monthly_costs/percentage_inf_10.png}
+    \caption{10 Minutes}
+    \label{fig:percentage_inf_10}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/results/monthly_costs/percentage_inf_15.png}
+    \caption{15 Minutes}
+    \label{fig:percentage_inf_15}
+  \end{subfigure}
+  \caption{Impossible Sub-X-Minute Journeys For Each Hexagon And Scenario}
+  \label{fig:percentage_inf_x}
+\end{figure}
+
+For both benchmarks we see that walking alone fails the most to accomplish the journeys in the given timeframe and that car never fails to accomplish the journeys.
+After car the combined scenario of bicycle sharing and public transport fails the least, followed by public transport and bicycle sharing.
+In the 15-minute benchmark, bicycle sharing and public transport perform almost equally well, while in the 10-minute benchmark bicycle sharing performs better than public transport.
+
+Category-wise banks seem to be the least accessible category, followed by parks and health.
+Sustenance, education, grocery and shops all seem to be similarly accessible.
+
+With the impossible journeys filtered out, we can now observe the monthly costs for each hexagon and scenario in Figure \ref{fig:costs_sub_x}.
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/results/monthly_costs/cost_sub_10.png}
+    \caption{10 Minutes}
+    \label{fig:costs_sub_10}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/results/monthly_costs/cost_sub_10.png}
+    \caption{15 Minutes}
+    \label{fig:costs_sub_15}
+  \end{subfigure}
+  \caption{Monthly Cost For Sub-X-Minute Journeys For Each Hexagon And Scenario}
+  \label{fig:costs_sub_x}
+\end{figure}
+
+We see that the combined scenario of bicycle sharing and public transport is by far the most expensive scenario for both benchmarks.
+
+% we could reason about the costs of a car being 19ct/min through https://www.spritkostenrechner.de/
+% but the current problem is that car costs are super high for some reason, probably because they are never zero, eventhough they should be 
+
+% TODO: we need to fix the above problem before continuing
+
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/results/monthly_costs/cost_all_reachable_in_10.png}
+    \caption{10 Minutes}
+    \label{fig:costs_all_reachable_10}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/results/monthly_costs/cost_all_reachable_in_15.png}
+    \caption{15 Minutes}
+    \label{fig:costs_all_reachable_15}
+  \end{subfigure}
+  \caption{Monthly Cost For Sub-X-Minute Journeys For Each Hexagon That Is Reachable By Each Mode}
+  \label{fig:costs_all_reachable_x}
+\end{figure}
