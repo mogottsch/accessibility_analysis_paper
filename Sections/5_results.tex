@@ -196,19 +196,9 @@ As the portrayed scenarios all have costs associated with them, a cost of zero m
 We see almost in all hexagons in and around the city center, where NextBike's flex zone is located, the cost for the bicycle sharing scenario is 1.00€.
 This sometimes also extends outside the city center.
 Other hexagons have a cost of 0.
-% some interpreation (move this to discussion?)
-The time advantage of bicycle sharing over public transport comes with a cost and we can see exactly that this is the case in the areas, where bicycle sharing is available.
-% end of interpretation
 
 The cost of public transport is more scattered around the whole region. We can mostly see single hexagons or small groups of hexagons that have a cost higher than 0.
 Larger groups are only found outside the city center.
-% some interpreation (move this to discussion?)
-The single hexagons are most likely located very close to a public transport stop, enabling to use the public transport system without any loss of time.
-Inside the city it seems to only be beneficial to use the public tranport system to reach necessesities when living near a stop.
-However, outside the city the larger groups of hexagons indicate that using the public transport system is often faster than walking to the necessities, eventhough walking to the next stop requires some time.
-This may be, because the density of the POIs is lower outside the city.
-% end of interpretation
-
 
 \subsection{Interaction Between Cost And 15-Minute City Metric}
 \label{subsec:interaction_between_cost_and_15_minute_city_metric}
@@ -233,10 +223,6 @@ In our example, all modes begin with being able to reach all categories within 2
 Increasing, the cost only yields improves when reaching a cost of 1€, where the bicycle and combined scenario are able to reach all categories within approximately 10 minutes.
 Further, increasing the price to 2.20€ yields an improvement for the public transport scenario, where it is now possible to reach all categories within approximately 19 minutes.
 Further cost increases do not yield any improvements for any scenario.
-% some interpreation (move this to discussion?)
-In this example, we can clearly see that when users are able to afford a bicycle for 15 minutes (cost of 1€), their accessibility to POIs increases drastically.
-Similarly, when users are able to afford a short public transport trip (cost of 2.20€), their accessibility to POIs also increases.
-% end of interpretation
 
 We can also quantify the value of the improvements as seen in Table \ref{tab:differences_in_example_hexagon}.
 
@@ -292,12 +278,6 @@ Note that we won't be analyzing the differences that occur in the combined scena
 We see that the improvements of the bicycle scenarios at a cost of 1€ are the largest with an improvement of 1.68 minutes and also the most cost-effective with a value of 1.68 minutes per euro.
 They are followed by the improvements of the public transport scenario at a cost of 2.20€ with an improvement of 1.28 minutes and a value of 0.58 minutes per euro.
 The improvement at a cost of 3.20€ is very small and the least cost-effective.
-
-
-% some interpreation (move this to discussion?)
-This observation underlines the importance and price-effectiveness of bicycle sharing.
-It also shows us that public transport for most areas is more useful when the trips are short, i.e. four stops or fewer and that longer trips only yield a small improvement on average.
-% end of interpretation
 
 Next, we are going to look at the quantiles of the aggregated Pareto front.
 Figure \ref{fig:quantile_time_per_cost} shows the 25\%, 75\% and 90\% quantiles of the aggregated Pareto front.
@@ -368,19 +348,6 @@ We should, however, note that even though the improvement in the public transpor
   \end{center}
 \end{table}
 
-% some interpreation (move this to discussion?)
-In general, bicycle sharing brings larger improvements than public transport, while remaining more cost-effective.
-The improvements of bicycle sharing are effective for the most accessible regions, while the improvements of public transport are not.
-This shows that extending the bicycle sharing system might be a good way to improve the accessibility in Cologne.
-
-However, for the least accessible regions, public transport is more effective than bicycle sharing.
-This most likely means that there are regions in the region of Cologne, where some categories of POIs are not present.
-We suspect that those regions are characterized by low accessibility and low or no availability of bicycles.
-In those regions public transport becomes more effective than bicycles, as it essentially allows to relocate to better areas.
-In the spirit of the 15-minute city, it might be more desirable to fix the sparsity of POIs than to substitute public transport.
-% end of interpretation
-
-
 
 \subsection{Uncertainty/Subscenarios}
 \label{subsec:uncertainty_subscenarios}
@@ -412,17 +379,6 @@ Relating the standard deviation to the mean we also calculated the Coefficient o
 $$ CV = \frac{\sigma}{\mu} $$
 where $\mu$ is the mean and $\sigma$ is the standard deviation.
 We see that it is approximately 9\% for the bicycle related scenarios and 2\% for the public transport scenario.
-
-% some interpreation (move this to discussion?)
-A deviation of one minute on average with a CV of $<10\%$ is acceptable.
-It is interesting to note that bicycles suffer more from uncertainty than public transport. 
-However, this might strongly depend on the choices of our sub-scenarios. 
-For public transport we tried 08:00, 12:00 and 18:00.
-We suspect that the variance for public transport would increase more drastically and eventually surpass the one of bicycle sharing if we choose more unusual times like midnight.
-We should also note that the comparison of variances should be taken with caution as the method for selecting the sub-scenarios differ per scenario.
-For bicycle sharing we employed a clustering method, while for public transport we made a qualitative choice. 
-% end of interpretation
-
 
 To further investigate the effects of uncertainty on a more granular level, we plot the distribution of the optimal X-minute city for each hexagon in Figure \ref{fig:best_and_worst_case_of_optimal_time_for_each_hexagon}.
 These plots are essentially the upper and lower bounds of the graph as seen in Figure \ref{fig:optimal_x_minute_city_metric}.
@@ -469,13 +425,7 @@ A significant portion of these areas, amounting to 67.03\%, cannot be reached wi
 Conversely, the data indicates that for 13.04\% of these hexagons, bicycles alone can reduce travel time to under 15 minutes, while public transport alone can achieve this for 10.69\% of the hexagons. 
 7.43\% of hexagons are reachable with either one of bicycles or public transport, while an additional 1.81\% of hexagons are accessible within this time frame when combining  modes. 
 
-% for discussion
-First, we should note that a majority of the problematic areas cannot be fixed by any sustainable mode, which is bad.
-Next we see that bicycles sharing and public transport alone are roughly of equal importance and are also able to fix more hexagons separately than together, which means that these modes are not substitutes.
-We also see that the combined mode has only very little impact.
-% end for discussion
 
-% TODO continue here
 Next we visualize these problematic areas spatially.
 Figure \ref{fig:problematic_hexagons} shows hexagons where all necessities are reachable within a 15-minute walk in green, hexagons where all necesseities are reachable within 15-minutes via some form of sustainable travel in yellow, and hexagons where all necessities are not reachable within 15 minutes in red.
 
@@ -489,9 +439,7 @@ Figure \ref{fig:problematic_hexagons} shows hexagons where all necessities are r
 
 We see that in the center of Cologne, almost all hexagons qualify as 15-minute city hexagons. 
 At the border of the city, we clearly see a yellow ring.
-% some interpreation (move this to discussion?)
-We suspect that this ring is in an area where there are fewer POIs, but still a high availability of bicycles, that can compensate this sparsity.
-% end interpretation
+
 Most hexagons that never qualify as 15-minute city hexagons are located in suburban area, often in larger groups.
 
 Next we take a look at the hexagons previously colored yellow, namely those where bicycles and public transport or a combination of both can decrease the 15-minute city metric below 15 minutes.
@@ -505,10 +453,7 @@ Figure \ref{fig:fixable_hexagons} shows hexagons that are 15-minute city hexagon
   \label{fig:fixable_hexagons}
 \end{figure}
 
-We see a slight tendency that hexagons that become 15-minute city hexagons only through bicycle sharing (orange) are closer to the city center than those that bercome 15-minute city hexagons only through public transport. 
-% discussion
-This seems plausible as public transport can travel larger distances in shorter time than bicycle sharing, but require a larger overhead as stops are distributed sparser than bicyles and require a larger overhead as users might have to wait.
-% end discussion
+We see a slight tendency that hexagons that become 15-minute city hexagons only through bicycle sharing (orange) are closer to the city center than those that become 15-minute city hexagons only through public transport. 
 
 The outer clusters of fixable hexagons correlates directly with the locations of bicycles and public transport stops.
 Figure \ref{fig:fixable_hexagons_examples} shows four zoomed in excerpts from Figure \ref{fig:fixable_hexagons}.
@@ -577,10 +522,6 @@ Figure \ref{fig:unfixable_with_bicycles} and \ref{fig:unfixable_with_stops} show
 We can observe that the unfixable hexagons mostly don't contain any bicycles and have a larger distance to the next bicycle.
 The same cannot be said for public transport stops.
 Often public transport stops are directly inside the unfixable hexagons.
-% discussion 
-This suggests that bicycles are more effective than public transport to help a region become sub 15-minute.
-% end discussion
-
 
 
 Figure \ref{fig:combined_hexagons} shows all hexagons that only become 15-minute city hexagons in the combined scenario, which means when both public transport and bicycle sharing can be used at the same time.
