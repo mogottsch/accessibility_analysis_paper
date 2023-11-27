@@ -29,17 +29,30 @@ Table \ref{tab:optimal_x_minute_city_metric} shows the mean, as well as, the 25\
   \end{center}
 \end{table}
 
+Our findings indicate that cars enable the fastest access to all necessary Points of Interest (POIs), with an average accessibility time of 3.21 minutes. 
+This mode of transport significantly outpaces other methods, establishing a benchmark for urban mobility efficiency.
+However, remember that our car scenario is very optimistic and these numbers should therefore be taken with caution.
 
-% TODO not only intersting observations are relevant
-We can make a few interesting observations from this table:
-First, adding public transport to walking improves the average optimal time it takes to reach all categories by 1 minute and 28 seconds.
-From the quantiles we can see that this improvement is not evenly distributed, but only applies to the 25\% worst hexagons.
-Specifically we see no improvement from walking to public transport in the 25\% and 50\% quantiles, but a 2-minute improvement in the 75\% quantile.
+In contrast, sustainable modes of transport such as bicycles, a combination of bicycles and public transport, public transport alone, and walking, demonstrate more similar accessibility times. 
+These modes record average times ranging from 11.5 to 14 minutes, with walking being the least time-efficient mode at an average of 14.09 minutes. 
 
+The integration of bicycles with public transport emerges as the most time-efficient sustainable mode, with an average time of 11.51 minutes. 
+A direct comparison between public transport and walking shows the incremental time savings offered by public transport, as this scenario inherently includes pedestrian travel components. 
+On average, the improvement stands at 1 minute and 28 seconds. 
+However, this benefit is not evenly distributed across all areas.
+The analysis of quantiles reveals that the time improvement only establishes at the 75\% quantile with a 2-minute gain.
+The 25\% and 50\% quantiles don't show any improvements.
 Similarly, adding public transport to bicycle sharing improves the average optimal time it takes to reach all categories by 43 seconds.
 Again, this improvement is not evenly distributed, but only applies to the 25\% worst hexagons.
 Specifically we see no improvement from bicycle sharing to public transport in the 25\% and 50\% quantiles, but a 1-minute improvement in the 75\% quantile.
 While there is an improvement in the mean and 75\% quantile, it is not as large as the improvement from walking to public transport.
+
+We can make the same observation from the standpoint of adding bicycle sharing to walking and public transport.
+Adding bicycle sharing to public transport, the data indicates an optimization in the average accessibility time, reducing it by more than a minute.
+In contrast to adding public transport to bicycle, this improvement already occurs for the 25\% quantile and is therefore more evenly distributed across all hexagons.
+The addition of bicycles to the walking scenario presents an average time reduction of 2 minutes and 58 seconds, which denotes a significant enhancement in the accessibility metric. 
+Again, this improvement already occurs at the 25\% quantile, showing that the improvements gained through bicycle sharing are more evenly distributed across all hexagons.
+
 
 % visualization of the distribution of the optimal X-minute city metric
 We can observe a similar pattern when visualizing the distribution of the optimal X-minute city metric in Figure \ref{fig:optimal_x_minute_city_metric}.
@@ -57,6 +70,7 @@ In addition, the public transport scenario is worse than the pure bicycle sharin
 
 The same pattern can be observed when comparing the bicycle sharing scenario to the combined scenario of bicycle sharing and public transport.
 Initially, the combined scenario is the same as the bicycle sharing scenario, but as we move to less accessible hexagons the combined scenario becomes better.
+Similarly, when comparing the bicycle sharing scenario to the combined scenario, we see that the combined scenario provides much better accessibility in the beginning but as we move to the least accessible hexagons both become the same.
 
 Generally, we see that adding public transport is able to flatten the drastic increase of the optimal X-minute city metric at the end of the distribution.
 
@@ -73,10 +87,7 @@ Figure \ref{fig:optimal_map} shows the optimal X-minute city metric for each hex
 
 We can see that the least accessible hexagons require 44 minutes to reach all categories if only sustainable modes of travel are used.
 The least accessible regions are in the suburban areas in the north and south of Cologne. 
-Especially the region on the left side of the Rhine river next to Leverkusen is very inaccessible.
-% some interpreation (move this to discussion?)
-As there are various POIs in the center of Leverkusen and the least accessible regions is very close to the center, this clearly indicates a lack of mobility crossing the Rhine river.
-% end of interpretation
+Especially the region on the left side of the Rhine river next to Leverkusen, which is the district of Merkenenich, is very inaccessible.
 
 Figure \ref{fig:optimal_map_per_scenario} shows multiple maps of the optimal X-minute city metric for each hexagon, one for bicycle sharing, one for public transport and one for walking.
 
@@ -107,22 +118,8 @@ Figure \ref{fig:optimal_map_per_scenario} shows multiple maps of the optimal X-m
 \end{figure}
 
 We see that the areas in and around the city center are more accessible by bicycle sharing than by public transport and walking.
-% some interpreation (move this to discussion?)
-This is not surprising, as this area is covered by the NextBike flex zone, i.e. people can park their bicycles anywhere in this area.
-This leads to a high availability of bicycles in this area, which in turn leads to a high accessibility.
-Also as picking up bicyles requires no waiting time, in comparison to public transport, and is faster than walking, this leads to faster access to POIs.
-% end of interpretation
-
-At the east of the city, near the forest "Königsforst", we see a region of low accessibility for all scenarios.
+At the east of the city, near the forest "Königsforst", we see the district of Rath/Neumar, with a low accessibility for all scenarios.
 However, one can see that the region is more accessible by public transport than by bicycle sharing and walking.
-% some interpreation (move this to discussion?)
-This is not surprising, as this region is quite far away from POIs, which makes walking very slow. 
-Also, the region is not in NextBike's flex zone, which leads to a low availability of bicycles.
-However, the city train line 9 runs through this region, which leads to a higher accessibility by public transport.
-% end of interpretation
-
-
-
 
 \subsection{Cost Of 15-Minute City}
 \label{subsec:cost_of_15_minute_city}
@@ -147,11 +144,9 @@ Table \ref{tab:required_cost} shows the mean, the 25\%, 50\% and 75\% quantiles 
 \end{table}
 
 We can immediately see that there is no cost for hexagons at the 25\% and 50\% quantile when using public transport.
-This means that for those hexagons, no public transport is actually used, as it will not yield any improvements compared to walking.
 Looking at the 75\% quantile and the maximum of the required cost for an optimal x-minute city metric for public transport, we see that the benefits we observed earlier come at a cost.
 
 Similarly, comparing bicycle sharing to the combined scenario of bicycle sharing and public transport, we see that the maximum required cost is 4.20€ for the combined scenario, compared to 1.00€ for the bicycle sharing scenario.
-This again shows that the benefits of adding public transport come at a cost.
 
 We can make the same observation with more granularity when looking at the distribution of the required cost in Figure \ref{fig:maximum_required_cost_for_x_minute_city}.
 
@@ -164,11 +159,12 @@ We can make the same observation with more granularity when looking at the distr
 \end{figure}
 
 One interesting remark is that the maximum required cost for the bicycle sharing scenario is 1.00€, which implies that it is never necessary to use a bicycle more than 15 minutes to reach all categories.
-This shows that the City of Cologne is already a 15-minute city in terms of cycling at the locations where bicycle sharing is available.
 
 
 Figure \ref{fig:cost_map_per_scenario} shows the cost required to reach the optimal X-minute city metric for each hexagon for public transport, bicycle sharing and the combined scenario of bicycle sharing and public transport.
 Note that, we don't show the cost for the walking scenario, as it is always 0€.
+In these figures, we see that sometimes the cost is zero.
+As the portrayed scenarios all have costs associated with them, a cost of zero means that only walking is used.
 
 \begin{figure}
      \centering
@@ -189,15 +185,13 @@ Note that, we don't show the cost for the walking scenario, as it is always 0€
      \begin{subfigure}[b]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{Figures/results/cost/bicycle_public_transport_cost_map}
-         \caption{Walking}
+         \caption{PT + Bicycle}
          \label{fig:bicycle_public_transport_cost_map}
      \end{subfigure}
-        \caption{Map Of Optimal X-Minute City Metric Per Scenario}
+       \caption{Map Of Required Cost For Optimal For Each Hexagon}
         \label{fig:cost_map_per_scenario}
 \end{figure}
 
-In these figures, we see that sometimes the cost is zero.
-As the portrayed scenarios all have costs associated with them, a cost of zero means that only walking is used.
 
 We see almost in all hexagons in and around the city center, where NextBike's flex zone is located, the cost for the bicycle sharing scenario is 1.00€.
 This sometimes also extends outside the city center.
@@ -471,7 +465,7 @@ In total, we find 552 hexagons, which have a walking time of more than 15 minute
 % TODO make this a pie chart?
 
 Table \ref{table:hexagons_with_walking_time_above_15_minutes} presents the distribution of hexagons with a walking time above 15 minutes and the effect of sustainable transportation modes on these times. 
-A significant portion of these areas, amounting to 67.03\%, cannot be reached within 15 minutes using sustainable modes with the current state of infrastucture. 
+A significant portion of these areas, amounting to 67.03\%, cannot be reached within 15 minutes using sustainable modes with the current state of infrastructure. 
 Conversely, the data indicates that for 13.04\% of these hexagons, bicycles alone can reduce travel time to under 15 minutes, while public transport alone can achieve this for 10.69\% of the hexagons. 
 7.43\% of hexagons are reachable with either one of bicycles or public transport, while an additional 1.81\% of hexagons are accessible within this time frame when combining  modes. 
 
