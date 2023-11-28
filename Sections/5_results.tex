@@ -4,6 +4,10 @@
 
 % TODO introduce results & reiterate RQ
 
+From our experiment, we retrieve the following data:
+For each (sub)-scenario and hexagon we get the Pareto set of the X-minute city metric and cost.
+In addition, we also retrieve the more fine granular version where we get a Pareto set of the time it takes to get to the closest POI for a specific category.
+
 \subsection{Runtime Observations}
 \label{subsec:runtime_observations}
 
@@ -11,7 +15,7 @@
 \label{subsec:15_minute_city_metric}
 
 % table (mean, quantiles) of the optimal X-minute city metric
-Table \ref{tab:optimal_x_minute_city_metric} shows the mean, as well as, the 25\%, 50\% and 75\% quantiles of the optimal X-minute city disregarding the cost for each scenario.
+Table \ref{tab:optimal_x_minute_city_metric} shows the mean, as well as, the 25\%, 50\%, and 75\% quantiles of the optimal X-minute city disregarding the cost for each scenario over all hexagons.
 
 \begin{table}
   \caption{Optimal X-minute city metric over all hexagons disregarding cost}
@@ -21,9 +25,9 @@ Table \ref{tab:optimal_x_minute_city_metric} shows the mean, as well as, the 25\
        & mean & 25\% & 50\% & 75\% \\
       scenario &  &  &  &  \\
       bicycle & 12.45 & 7.25 & 10.75 & 15.50 \\
-      bicycle_public_transport & 11.51 & 7.25 & 10.33 & 14.31 \\
+      bicycle\_public\_transport & 11.51 & 7.25 & 10.33 & 14.31 \\
       car & 3.21 & 2.00 & 3.00 & 4.00 \\
-      public_transport & 12.78 & 9.00 & 12.00 & 16.00 \\
+      public\_transport & 12.78 & 9.00 & 12.00 & 16.00 \\
       walking & 14.09 & 9.00 & 12.00 & 17.00 \\
     \end{tabular}
   \end{center}
@@ -33,7 +37,7 @@ Our findings indicate that cars enable the fastest access to all necessary Point
 This mode of transport significantly outpaces other methods, establishing a benchmark for urban mobility efficiency.
 However, remember that our car scenario is very optimistic and these numbers should therefore be taken with caution.
 
-In contrast, sustainable modes of transport such as bicycles, a combination of bicycles and public transport, public transport alone, and walking, demonstrate more similar accessibility times. 
+In contrast, sustainable modes of transport such as bicycles, public transport, a combination of bicycles and public transport, and walking, demonstrate more similar accessibility times. 
 These modes record average times ranging from 11.5 to 14 minutes, with walking being the least time-efficient mode at an average of 14.09 minutes. 
 
 The integration of bicycles with public transport emerges as the most time-efficient sustainable mode, with an average time of 11.51 minutes. 
