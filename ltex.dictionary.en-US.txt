@@ -27,3 +27,4 @@ Merkenich
 Rath
 Neumar
 POIs
+Stadtkreis

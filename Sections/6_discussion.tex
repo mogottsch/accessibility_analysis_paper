@@ -16,9 +16,7 @@ Therefore, we can say that both methods are effective in improving accessibility
 Various findings lead us to the conclusion that while public transport effective in improving accessibility, the most benefit is generated in remote suburban areas, that have a low density of POIs and that are located near to stops connected to high frequency public transport lines.
 In addition, we find that public transport, compared to bicycle sharing is more costly.
 
-
 In Figure \ref{fig:mean_time_per_cost} we can clearly see that when users are able to afford a short public transport trip (cost of 2.20), their accessibility to POIs increases.
-
 
 % pt for areas of low accessiblity 
 Firstly, the improvement seen by adding public transport mainly comes from areas with low accessibility as seen in Table \ref{tab:optimal_x_minute_city_metric} and Figure \ref{fig:optimal_x_minute_city_metric}.
@@ -41,6 +39,9 @@ Consequently, the least accessible hexagons, typically situated in suburban regi
 This hypothesis is further supported when comparing the optimal X-minute city metric spatially between public transport and bicycle sharing, as seen in Figure \ref{fig:bicycle_optimal_map} and \ref{fig:public_transport_optimal_map}.
 We see the district of Rath/Neumar in the east, which shows low accessibility in general.
 However, we can clearly see that public transport has an advantage over bicycle sharing in this remote area.
+
+Similarly, when looking at Table \ref{table:hexagons_with_walking_time_above_15_minutes} we see that public transport is able to make 10\% of hexagons that are not valid in terms of the 15-minute city by walking alone, valid.
+The magnitude is  comparable to that of bicycle sharing, however, when looking at the spatial distribution of those hexagons in Figure \ref{fig:fixable_hexagons}, we see that the yellow hexagons, which are those that, become valid in terms of the 15-minute city only through public transport, are mostly located outside the city in remote areas.
 
 % pt only better at 90% pareto front
 In addition, when investigating the cost and X-minute city metric Pareto fronts in Figure \ref{fig:quantile_time_per_cost}, we see that public transport is only able to yield larger improvements than bicycle sharing when considering only the 10\% worst accessible hexagons.
@@ -76,7 +77,7 @@ This indicates that long distance trips are only used for the absolute worst acc
 The implementation of bicycle sharing has shown to enhance accessibility in a broad spectrum of urban areas. 
 This improvement is not limited to less connected zones but is also evident in areas already well-served by existing transport networks.
 Additionally, bicycle sharing has shown to be more cost-efficient than public transport.
-
+Bicycle sharing is mostly only effective in areas, where "Flex-Zones" are and it is highly dependent on the allocation of bicycles.
 
 % bicycles improve in general
 In Figure \ref{fig:mean_time_per_cost} we can clearly see that when users are able to afford a bicycle for 15 minutes (cost of 1€), their accessibility to POIs increases drastically.
@@ -126,6 +127,13 @@ We see that bicycle sharing is on average more than 3 times more cost-efficient 
 Further, investigating the differences at the 75\% and 90\% quantile Pareto fronts in Table \ref{tab:differences_in_75_quantile_pareto_front} and \ref{tab:differences_in_90_quantile_pareto_front}, shows that bicycle sharing always is more cost-efficient than public transport.
 This again proves that expanding bicycle sharing zones to suburban areas might be more beneficial to residents, than improving public transport.
 
+Similarly, when looking at Table \ref{table:hexagons_with_walking_time_above_15_minutes} we see that bicycle sharing is able to make 13\% of hexagons that are not valid in terms of the 15-minute city by walking alone, valid, which is more than public transport.
+This shows that bicycle sharing is more effective than public transport.
+
+Looking at the spatial distribution of those hexagons in Figure \ref{fig:fixable_hexagons}, we see that the orange hexagons, which are those that, become valid in terms of the 15-minute city only through bicycle sharing, are mostly located at the city's border, where the "Flex-Zone" is still active.
+This again shows that the effectiveness of  bicycle sharing highly depends on the flex zone.
+
+
 %END
 
 % not sure where to put this
@@ -167,8 +175,9 @@ This suggests that either complement I or complement II must be present.
 % TODO: complement I
 We see evidence for complement I in the observation that bicycle sharing is most effective for the 80\% more accessible hexagons, while public transport is mostly only effective for the 20\% least accessible hexagons.
 
-Table \ref{table:hexagons_with_walking_time_above_15_minutes} shows how many hexagons in which peope are not able to reach all necessities in 15 minutes by walking can reach all necessities in under 15 minute by public transport or bicycle sharing.
-We see that bicycles sharing and public transport alone are roughly of equal importance, as they both fix around 10\% of the hexagons.
+Table \ref{table:hexagons_with_walking_time_above_15_minutes} shows how many hexagons in which people are not able to reach all necessities in 15 minutes by walking can reach all necessities in under 15 minute by public transport or bicycle sharing.
+We see that bicycles sharing, and public transport alone are roughly of equal importance, as they fix 13\% and 11\% of hexagons, respectively.
+In addition, a lot more hexagons are fixed by only one of them (24\%) than by either of them (7\%).
 This again suggests that complement I is present.
 
 
@@ -224,21 +233,36 @@ Even when looking at the least accessible regions (90\% quantile) separately in 
 
 \subsubsection{Uncertainty}
 
-A deviation of one minute on average with a CV of $<10\%$ is acceptable.
-It is interesting to note that bicycles suffer more from uncertainty than public transport. 
-However, this might strongly depend on the choices of our sub-scenarios. 
+The standard deviation of the average time it takes to reach all necessities for bicycles is 1 minute and 10 second. 
+Relating this to the improvement compared to walking of 1 minute and 38 seconds, we see that the uncertainty is quite large.
+This shows us that the placement of bicycles significantly impacts the effectiveness of the bicycle sharing scenario.
+
+It is interesting to note that bicycles suffer more from uncertainty than public transport, as public transport only has a standard deviation of 16 seconds.
+Relating the standard deviation to the improvement compared to walking of 1 minute and 28 seconds, it it by far not as impactful as with bicycles.
+However, the standard deviation strongly depends on the choices of our sub-scenarios. 
 For public transport we tried 08:00, 12:00 and 18:00.
 We suspect that the variance for public transport would increase more drastically and eventually surpass the one of bicycle sharing if we choose more unusual times like midnight.
+In addition, the schedule of public transport is often the same for full hours.
+We could get a more realistic picture, if we would add more times with non-zero minutes to our sub scenarios.
+
 We should also note that the comparison of variances should be taken with caution as the method for selecting the sub-scenarios differ per scenario.
 For bicycle sharing we employed a clustering method, while for public transport we made a qualitative choice. 
 
 \subsubsection{Potential of Sustainable Modes To Transform Cities To 15-Minute Cities}
 
-Table \ref{table:hexagons_with_walking_time_above_15_minutes} shows that a majority of the hexagons that are currently not 15-minute city regions are not fixed by any of the sustainable modes of travel, which shows that the impact of public transport and bicycle is rather low in this regard.
+We know that approximately 69\% of all considered hexagons and with that 69\% of all residential in the administrative district Cologne ("Stadtkreis Köln") are 15-minute city by walking, which shows us that Cologne largely already has an excellent accessibility.
 
-We suspect that this yellow ring is in an area where there are fewer POIs, but still a high availability of bicycles, that can compensate this sparsity.
+Table \ref{table:hexagons_with_walking_time_above_15_minutes} shows that a majority (67\%) of the hexagons that are currently not 15-minute city regions are not fixed by any of the sustainable modes of travel, which shows that the impact of public transport and bicycle is limited.
+Nevertheless, the impact of bicycle and public transport on making regions valid in terms of the 15-minute city is not negligible, as those modes of transport still achieve to fix 33\% of hexagons that are not yet valid in terms of the 15-minute city by walking alone.
 
-The observation that orange is closer to the city center than yellow seems plausible as public transport can travel larger distances in shorter time than bicycle sharing, but require a larger overhead as stops are distributed sparser than bicycles and require a larger overhead as users might have to wait.
+Figure \ref{fig:problematic_hexagons} shows hexagons that are valid in terms of the 15-minute city by walking in green, those that are valid only by the addition of any sustainable mode of travel in yellow, and those that are not valid through any sustainable mode of travel in red.
+We suspect that the very noticeable yellow ring around the city center is in an area where there are fewer POIs, but still a high availability of bicycles, that can compensate this sparsity.
+This spatially shows where sustainable modes of travel are important to compensate for the sparsity of POIs.
+These areas don't provide a close enough proximity to be considered valid in terms of the 15-minute city by walking alone.
+However, with bicycle sharing and public transport they are.
+In Figure \ref{fig:fixable_hexagons} we see that most of the hexagon in the ring are orange or green, which means that they are either fixable by bicycle sharing or by either bicycle sharing or public transport.
+This again underlines that bicycle sharing is more effective, if it is present, than public transport.
+In the same figure, we can see that yellow hexagons, those that are only fixable through public transport, tend to exist in the regions that are more far away.
 
 The unfixable regions mostly don't have bicycles near them, but they often have public transport nearby.
 This suggests that bicycles are more effective than public transport to help a region become sub 15-minute.
