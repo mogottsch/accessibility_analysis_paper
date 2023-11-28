@@ -41,26 +41,23 @@ In contrast, sustainable modes of transport such as bicycles, public transport, 
 These modes record average times ranging from 11.5 to 14 minutes, with walking being the least time-efficient mode at an average of 14.09 minutes. 
 
 The integration of bicycles with public transport emerges as the most time-efficient sustainable mode, with an average time of 11.51 minutes. 
-A direct comparison between public transport and walking shows the incremental time savings offered by public transport. 
-On average, the improvement stands at 1 minute and 28 seconds. 
+A direct comparison between public transport and walking shows that the time savings offered by public transport stand at 1 minute and 28 seconds. 
 However, this benefit is not evenly distributed across all areas.
-The analysis of quantiles reveals that the time improvement only establishes at the 75\% quantile with a 2-minute gain.
-The 25\% and 50\% quantiles don't show any improvements.
+The analysis of quantiles reveals that the time improvement only establishes at the 75\% quantile with a 2-minute gain while the 25\% and 50\% quantiles don't show any improvements.
+
 Similarly, adding public transport to bicycle sharing improves the average optimal time it takes to reach all categories by 43 seconds.
 Again, this improvement is not evenly distributed, but only applies to the 25\% worst hexagons.
 Specifically we see no improvement from bicycle sharing to public transport in the 25\% and 50\% quantiles, but a 1-minute improvement in the 75\% quantile.
 While there is an improvement in the mean and 75\% quantile, it is not as large as the improvement from walking to public transport.
 
 We can make the same observation from the standpoint of adding bicycle sharing to walking and public transport.
-Adding bicycle sharing to public transport, the data indicates an optimization in the average accessibility time, reducing it by 1 minute and 38 seconds.
+Adding bicycle sharing to public transport, the data indicates an improvement in the average accessibility time, reducing it by 1 minute and 16 seconds.
 In contrast to adding public transport to bicycle, this improvement already occurs for the 25\% quantile and is therefore more evenly distributed across all hexagons.
-The addition of bicycles to the walking scenario presents an average time reduction of 2 minutes and 58 seconds, which denotes a significant enhancement in the accessibility metric. 
+The addition of bicycles to the walking scenario presents an average time reduction of 1 minutes and 28 seconds, which denotes a significant enhancement in the accessibility metric. 
 Again, this improvement already occurs at the 25\% quantile, showing that the improvements gained through bicycle sharing are more evenly distributed across all hexagons.
-
 
 % visualization of the distribution of the optimal X-minute city metric
 We can observe a similar pattern when visualizing the distribution of the optimal X-minute city metric in Figure \ref{fig:optimal_x_minute_city_metric}.
-
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.65\textwidth]{Figures/results/minute_city_metric/best_x_minute_city}
@@ -68,19 +65,15 @@ We can observe a similar pattern when visualizing the distribution of the optima
   \caption{Distribution of optimal x-minute city metric}
   \label{fig:optimal_x_minute_city_metric}
 \end{figure}
-
 As we can see initially (for the most accessible hexagons) public transport and walking are the same, but as we move to less accessible hexagons public transport becomes better.
 In addition, the public transport scenario is worse than the pure bicycle sharing scenario, but is able to catch up to it and even overtake it as we move to less accessible hexagons.
-
 The same pattern can be observed when comparing the bicycle sharing scenario to the combined scenario of bicycle sharing and public transport.
 Initially, the combined scenario is the same as the bicycle sharing scenario, but as we move to less accessible hexagons the combined scenario becomes better.
 Similarly, when comparing the bicycle sharing scenario to the combined scenario, we see that the combined scenario provides much better accessibility in the beginning but as we move to the least accessible hexagons both become the same.
-
 Generally, we see that adding public transport is able to flatten the drastic increase of the optimal X-minute city metric at the end of the distribution.
 
 
 Figure \ref{fig:optimal_map} shows the optimal X-minute city metric for each hexagon over all sustainable modes of travel, i.e. excluding the car scenario.
-
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.45\textwidth]{Figures/results/minute_city_metric/optimal_map}
@@ -88,13 +81,11 @@ Figure \ref{fig:optimal_map} shows the optimal X-minute city metric for each hex
   \caption{Map Of Optimal X-Minute City Metric}
   \label{fig:optimal_map}
 \end{figure}
-
 We can see that the least accessible hexagons require 44 minutes to reach all categories if only sustainable modes of travel are used.
 The least accessible regions are in the suburban areas in the north and south of Cologne. 
 Especially the region on the left side of the Rhine river next to Leverkusen, which is the district of Merkenenich, is very inaccessible.
 
 Figure \ref{fig:optimal_map_per_scenario} shows multiple maps of the optimal X-minute city metric for each hexagon, one for bicycle sharing, one for public transport and one for walking.
-
 \begin{figure}
      \centering
      \begin{subfigure}[b]{0.3\textwidth}
@@ -120,7 +111,6 @@ Figure \ref{fig:optimal_map_per_scenario} shows multiple maps of the optimal X-m
         \caption{Map Of Optimal X-Minute City Metric Per Scenario}
         \label{fig:optimal_map_per_scenario}
 \end{figure}
-
 We see that the areas in and around the city center are more accessible by bicycle sharing than by public transport and walking.
 At the east of the city, near the forest "Königsforst", we see the district of Rath/Neumar, with a low accessibility for all scenarios.
 However, one can see that the region is more accessible by public transport than by bicycle sharing and walking.
@@ -129,8 +119,7 @@ However, one can see that the region is more accessible by public transport than
 \label{subsec:cost_of_15_minute_city}
 
 % table (mean, quantiles) of required cost
-Table \ref{tab:required_cost} shows the mean, the 25\%, 50\% and 75\% quantiles and the max of the cost that are required to achieve the optimal value for the X-minute city.
-
+Table \ref{tab:required_cost} shows the mean, the 25\%, 50\% and 75\% quantiles and the maximum of the costs that are required to achieve the optimal value for the X-minute city shown in Section \ref{subsec:15_minute_city_metric}.
 \begin{table}
   \caption{Required cost for optimal over all hexagons}
   \label{tab:required_cost}
@@ -139,21 +128,22 @@ Table \ref{tab:required_cost} shows the mean, the 25\%, 50\% and 75\% quantiles 
      & mean & 25\% & 50\% & 75\% & max \\
     scenario &  &  &  &  &  \\
     bicycle & 0.39 & 0.00 & 0.50 & 0.75 & 1.00 \\
-    bicycle_public_transport & 0.87 & 0.00 & 0.75 & 1.30 & 3.95 \\
+    bicycle public transport & 0.87 & 0.00 & 0.75 & 1.30 & 3.95 \\
     car & 0.37 & 0.19 & 0.38 & 0.38 & 1.33 \\
-    public_transport & 0.65 & 0.00 & 0.00 & 1.47 & 3.20 \\
+    public transport & 0.65 & 0.00 & 0.00 & 1.47 & 3.20 \\
     walking & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
     \end{tabular}
   \end{center}
 \end{table}
-
-We can immediately see that there is no cost for hexagons at the 25\% and 50\% quantile when using public transport.
+We can immediately see that there is no cost for hexagons at the 25\% and 50\% quantile when using public transport, implying that public transport is not used at all for those hexagons.
 Looking at the 75\% quantile and the maximum of the required cost for an optimal x-minute city metric for public transport, we see that the benefits we observed earlier come at a cost.
+Similarly, bicycle sharing and the combined mode both have zero cost at the 25\% quantile, also implying that they are not used for those hexagons.
 
-Similarly, comparing bicycle sharing to the combined scenario of bicycle sharing and public transport, we see that the maximum required cost is 4.20€ for the combined scenario, compared to 1.00€ for the bicycle sharing scenario.
+Looking at the maximum values reach by each sustainable mode of transport tells us that bicycles are used for no more than 15 minutes, as a 15-minute ride costs 1 euro.
+Next, the long distance ticket of public transport (more than four stops) is used.
+Also, in the combined scenario, the long distance ticket of public transport is used together with a 15-minute ride of bicycle sharing, in at least one sub scenario, resulting in the maximum price of 3.95€.
 
-We can make the same observation with more granularity when looking at the distribution of the required cost in Figure \ref{fig:maximum_required_cost_for_x_minute_city}.
-
+We can make similar observations with more granularity when looking at the distribution of the required cost in Figure \ref{fig:maximum_required_cost_for_x_minute_city}.
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.65\textwidth]{Figures/results/cost/maximum_required_cost_for_x_minute_city}
@@ -161,15 +151,19 @@ We can make the same observation with more granularity when looking at the distr
   \caption{Maximum required cost for optimal x-minute city metric}
   \label{fig:maximum_required_cost_for_x_minute_city}
 \end{figure}
-
-One interesting remark is that the maximum required cost for the bicycle sharing scenario is 1.00€, which implies that it is never necessary to use a bicycle more than 15 minutes to reach all categories.
-
+A new pattern stands out when focussing on the comparison between public transport and the combined mode.
+We see that the combined mode has higher costs earlier, which are then surpassed by public transport, only to be surpassed again by the combined mode.
+% discussion stuff (not sure where to put this)
+The first price increase in the combined mode can simply be explained by the 1€ cost of 15-minute bicycle sharing.
+Then public transport surpasses the combined mode. 
+This probably is because bicycle sharing, to some degree is able to compensate public transport, and is more cost-efficient.
+The fact that the combined mode then surpasses public transport again, most likely stems from the fact that the combined mode is able to achieve faster access than public transport by using bicycle sharing additionally, which is, however, more expensive than a short distance ticket alone.
+% END
 
 Figure \ref{fig:cost_map_per_scenario} shows the cost required to reach the optimal X-minute city metric for each hexagon for public transport, bicycle sharing and the combined scenario of bicycle sharing and public transport.
 Note that, we don't show the cost for the walking scenario, as it is always 0€.
 In these figures, we see that sometimes the cost is zero.
 As the portrayed scenarios all have costs associated with them, a cost of zero means that only walking is used.
-
 \begin{figure}
      \centering
      \begin{subfigure}[b]{0.3\textwidth}
@@ -195,25 +189,22 @@ As the portrayed scenarios all have costs associated with them, a cost of zero m
        \caption{Map Of Required Cost For Optimal For Each Hexagon}
         \label{fig:cost_map_per_scenario}
 \end{figure}
-
-
 We see almost in all hexagons in and around the city center, where NextBike's flex zone is located, the cost for the bicycle sharing scenario is 1.00€.
 This sometimes also extends outside the city center.
-Other hexagons have a cost of 0.
 
-The cost of public transport is more scattered around the whole region. We can mostly see single hexagons or small groups of hexagons that have a cost higher than 0.
-Larger groups are only found outside the city center.
+The cost of public transport is more scattered around the whole region. 
+We can mostly see single hexagons in the cities center and small groups of hexagons outside the city that have costs have than zero.
 
 \subsection{Interaction Between Cost And 15-Minute City Metric}
 \label{subsec:interaction_between_cost_and_15_minute_city_metric}
 
 Next we are going to look at the interaction between the cost and the optimal X-minute city metric.
 To do so we will investigate the mean Pareto front of the X-minute city metric and cost over all hexagons.
-To understand this graph, we first take a look at the Pareto Front of a single hexagon.
+To understand this graph, we first take a look at the Pareto front of a single hexagon.
 
-Figure \ref{fig:example_pareto_front} shows an example Pareto Front for a single hexagon.
-The x-axes show the cost and the y-axes show the X-minute city metric.
-The curves show us what X-minute city is achievable for a given cost in specific scenario.
+Figure \ref{fig:example_pareto_front} shows the Pareto front for an example hexagon.
+The x-axis shows the cost and the y-axis shows the X-minute city metric.
+The line shows us what X-minute city metric is achievable for a given cost in a specific scenario.
 
 \begin{figure}
   \begin{center}
@@ -224,14 +215,15 @@ The curves show us what X-minute city is achievable for a given cost in specific
 \end{figure}
 
 In our example, all modes begin with being able to reach all categories within 22 minutes for a cost of 0€.
-Increasing, the cost only yields improves when reaching a cost of 1€, where the bicycle and combined scenario are able to reach all categories within approximately 10 minutes.
+Increasing, the cost only yields improvements when reaching a cost of 1€, where the bicycle and combined scenarios are able to reach all categories within approximately 10 minutes.
 Further, increasing the price to 2.20€ yields an improvement for the public transport scenario, where it is now possible to reach all categories within approximately 19 minutes.
 Further cost increases do not yield any improvements for any scenario.
 
 We can also quantify the value of the improvements as seen in Table \ref{tab:differences_in_example_hexagon}.
-
+This table shows all the steps with their cost position and magnitute that are visible in the previous graph.
+In addition we can calculate the benefit in minutes per one euro of cost, to make their value more comparable.
 \begin{table}
-  \caption{Differences in example hexagon}
+  \caption{Steps in example hexagon}
   \label{tab:differences_in_example_hexagon}
   \begin{center}
     \begin{tabular}{lrrrl}
@@ -242,9 +234,7 @@ We can also quantify the value of the improvements as seen in Table \ref{tab:dif
     \end{tabular}
   \end{center}
 \end{table}
-
 As we can see the bicycle scenarios' increase at a cost of 1€ is larger than the public transport scenario's increase and also has a higher value per euro.
-
 
 % generalization
 To generalize these findings over all hexagons we take the average over the X-minute city for each cost and scenario to generate an average Pareto front.
@@ -267,7 +257,7 @@ To compare these improvements we can again look at the differences in Table \ref
 Note that we won't be analyzing the differences that occur in the combined scenario, as they may be skewed by prior improvements of other modes and are therefore hard to interpret.
 
 \begin{table}
-  \caption{Differences in mean Pareto front}
+  \caption{Steps in mean Pareto front}
   \label{tab:differences_in_mean_pareto_front}
   \begin{center}
     \begin{tabular}{lrrrrl}
@@ -314,14 +304,14 @@ Note that, because we aggregate all the values of the X-minute city metric for a
         \label{fig:quantile_time_per_cost}
 \end{figure}
 
-The 25\% quantile Pareto front shown in Figure \ref{fig:25_quantile_time_per_cost} only contains a single improvement at the cost of 1€ for bicycle related scenarios of 1.75 minutes with a cost-effectiveness of 1.75 minutes per euro.
+The 25\% quantile Pareto front shown in Figure \ref{fig:25_quantile_time_per_cost} only contains a single improvement at the cost of 1€ for scenarios containing bicycle sharing of 1.75 minutes with a cost-effectiveness of 1.75 minutes per euro.
 
 
-The 75\% quantile Pareto front shown in Figure \ref{fig:75_quantile_time_per_cost} and Table \ref{tab:differences_in_75_quantile_pareto_front} also has a similar improvement of 1.5 minutes at the cost of 1€ for bicycle scenarios.
+The 75\% quantile Pareto front shown in Figure \ref{fig:75_quantile_time_per_cost} with its steps shown in Table \ref{tab:differences_in_75_quantile_pareto_front} also has a similar improvement of 1.5 minutes at the cost of 1€ for bicycle scenarios.
 In addition to that, it also shows a smaller increase at 2.20€ for public transport scenarios of 1 minute and an even smaller increase at 3.20€ for bicycle sharing and public transport scenario.
 
 \begin{table}
-  \caption{Differences in 75\% quantile Pareto front}
+  \caption{Steps in 75\% quantile Pareto front}
   \label{tab:differences_in_75_quantile_pareto_front}
   \begin{center}
     \begin{tabular}{lrrrrl}
@@ -333,14 +323,14 @@ In addition to that, it also shows a smaller increase at 2.20€ for public tran
 \end{table}
 
 
-The 90\% quantile Pareto Front shown in Figure \ref{fig:90_quantile_time_per_cost} and Table \ref{tab:differences_in_90_quantile_pareto_front} shows a similar pattern to the 75\% quantile Pareto front.
+The 90\% quantile Pareto Front shown in Figure \ref{fig:90_quantile_time_per_cost} with its steps shown in Table \ref{tab:differences_in_90_quantile_pareto_front} shows a similar pattern to the 75\% quantile Pareto front.
 The major difference is that the increase at 2.20€ for public transport scenarios is larger than the increase at 1€ for bicycle scenarios.
 More precisely, while bicycle sharing is more effective in decreasing the 15-minute city metric on average and also for the 75\% most accessible regions, public transport is more effective than bicycle sharing for the 10\% least accessible regions.
 We should, however, note that even though the improvement in the public transport scenario is larger it is still less cost-effective than the improvement in the bicycle sharing scenario.
 
 
 \begin{table}
-  \caption{Differences in 90\% quantile Pareto front}
+  \caption{Steps in 90\% quantile Pareto front}
   \label{tab:differences_in_90_quantile_pareto_front}
   \begin{center}
     \begin{tabular}{lrrrrl}
@@ -358,8 +348,8 @@ We should, however, note that even though the improvement in the public transpor
 
 As some of our input data is subject to uncertainties, we need to investigate the effects of this uncertainty in order to establish the robustness of our results.
 
-First, we are going to look at the average standard deviation of the optimal value for the X-minute city metric in Table \ref{tab:average_standard_deviation_of_optimal_value_for_x_minute_city_metric}, effectively showing the standard deviation of the values in Table \ref{tab:optimal_x_minute_city_metric}.
-Note, that we display the average standard deviations of the bicycle, public transport and combined scenario as those are the only ones with uncertainty.
+First, we are going to look at the average standard deviation of the optimal value for the X-minute city metric in Table \ref{tab:average_standard_deviation_of_optimal_value_for_x_minute_city_metric}, which effectively shows the standard deviation of the values in Table \ref{tab:optimal_x_minute_city_metric}.
+Note, that we only display the average standard deviations of the bicycle, public transport and combined scenario as those are the ones with uncertainty.
 
 \begin{table}
   \caption{Average standard deviation of optimal value for X-minute city metric}
@@ -369,8 +359,8 @@ Note, that we display the average standard deviations of the bicycle, public tra
      & mean & min & 25\% & 50\% & 75\% & max & CV \\
     scenario &  &  &  &  &  &  &  \\
     bicycle & 1.16 & 0.00 & 0.00 & 0.50 & 1.73 & 13.15 & 0.093403 \\
-    bicycle_public_transport & 0.94 & 0.00 & 0.00 & 0.74 & 1.48 & 6.73 & 0.082027 \\
-    public_transport & 0.27 & 0.00 & 0.00 & 0.00 & 0.00 & 8.66 & 0.021151 \\
+    bicycle public transport & 0.94 & 0.00 & 0.00 & 0.74 & 1.48 & 6.73 & 0.082027 \\
+    public transport & 0.27 & 0.00 & 0.00 & 0.00 & 0.00 & 8.66 & 0.021151 \\
     \end{tabular}
   \end{center}
 \end{table}
@@ -384,11 +374,10 @@ $$ CV = \frac{\sigma}{\mu} $$
 where $\mu$ is the mean and $\sigma$ is the standard deviation.
 We see that it is approximately 9\% for the bicycle related scenarios and 2\% for the public transport scenario.
 
-To further investigate the effects of uncertainty on a more granular level, we plot the distribution of the optimal X-minute city for each hexagon in Figure \ref{fig:best_and_worst_case_of_optimal_time_for_each_hexagon}.
+To further investigate the effects of uncertainty on a more granular level, we plot the best and worst case distribution of the optimal X-minute city for each hexagon in Figure \ref{fig:best_and_worst_case_of_optimal_time_for_each_hexagon}.
 These plots are essentially the upper and lower bounds of the graph as seen in Figure \ref{fig:optimal_x_minute_city_metric}.
 In addition, we've added a line at the 15-minute mark, to better relate the results in context of the 15-minute city.
-
-
+The values best and worst case are calculated by using the scenario that achieves the best X-minute city metric for a given hexagon.
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.95\textwidth]{Figures/results/uncertainty/optimal_best_worst_case}
@@ -396,7 +385,6 @@ In addition, we've added a line at the 15-minute mark, to better relate the resu
   \caption{Best and worst case of optimal time for each hexagon}
   \label{fig:best_and_worst_case_of_optimal_time_for_each_hexagon}
 \end{figure}
-
 First, we see that the variation for bicycles is spread out over almost all hexagons, in comparison to public transport where the variation only really begins to happen after the 15-minute mark.
 For the combined scenario, we see the expected: the variances of the public transport scenario and the bicycle scenario add up.
 
@@ -407,7 +395,6 @@ To analyze the impact of sustainable modes of travel on the 15-minute city metri
 We then analyze how the sustainable modes of travel can help to reduce the X-minute city metric in those areas below 15 minutes.
 
 In total, we find 552 hexagons, which have a walking time of more than 15 minutes to reach all categories, which is 30.98\% of all hexagons.
-
 \begin{table}[h]
   \centering
   \begin{tabular}{|l|l|}
@@ -422,17 +409,15 @@ In total, we find 552 hexagons, which have a walking time of more than 15 minute
   \caption{Impact of Sustainable Modes on Reducing Walking Time Above 15 Minutes}
   \label{table:hexagons_with_walking_time_above_15_minutes}
 \end{table}
-% TODO make this a pie chart?
-
-Table \ref{table:hexagons_with_walking_time_above_15_minutes} presents the distribution of hexagons with a walking time above 15 minutes and the effect of sustainable transportation modes on these times. 
+Table \ref{table:hexagons_with_walking_time_above_15_minutes} presents the distribution of hexagons with a walking time above 15 minutes and how sustainable modes of transport can fix those hexagons.
+With fixing a hexagon, we mean that residents in the hexagon cannot reach all necessities in under 15 minutes by walking, but they can make it in under 15 minutes by some other mode of transport.
 A significant portion of these areas, amounting to 67.03\%, cannot be reached within 15 minutes using sustainable modes with the current state of infrastructure. 
-Conversely, the data indicates that for 13.04\% of these hexagons, bicycles alone can reduce travel time to under 15 minutes, while public transport alone can achieve this for 10.69\% of the hexagons. 
-7.43\% of hexagons are reachable with either one of bicycles or public transport, while an additional 1.81\% of hexagons are accessible within this time frame when combining  modes. 
+Conversely, the data indicates that for 13.04\% of these hexagons, only bicycles can reduce travel time to under 15 minutes, while only public transport can achieve this for 10.69\% of the hexagons. 
+7.43\% of hexagons are reachable with either one of bicycles or public transport, while an additional 1.81\% of hexagons are only accessible within this time frame when combining both modes. 
 
 
 Next we visualize these problematic areas spatially.
-Figure \ref{fig:problematic_hexagons} shows hexagons where all necessities are reachable within a 15-minute walk in green, hexagons where all necesseities are reachable within 15-minutes via some form of sustainable travel in yellow, and hexagons where all necessities are not reachable within 15 minutes in red.
-
+Figure \ref{fig:problematic_hexagons} displays hexagons in green where necessities can be reached within a 15-minute walk, in yellow where they are only accessible within 15 minutes using any sustainable transport, and in red where necessities are not reachable within this 15-minute timeframe.
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.50\textwidth]{Figures/results/problematic_hexagons/problematic_hexagons}
@@ -440,15 +425,12 @@ Figure \ref{fig:problematic_hexagons} shows hexagons where all necessities are r
   \caption{Unfixable, fixable and unproblematic hexagons on a map}
   \label{fig:problematic_hexagons}
 \end{figure}
-
-We see that in the center of Cologne, almost all hexagons qualify as 15-minute city hexagons. 
-At the border of the city, we clearly see a yellow ring.
-
-Most hexagons that never qualify as 15-minute city hexagons are located in suburban area, often in larger groups.
+We see that in the center of Cologne, almost all hexagons qualify as 15-minute city hexagons just by walking alone.
+At the border of the city, we clearly see a ring of hexagons that are only valid 15-minutes hexagons through additional modes of transport.
+Most of the unfixable hexagons lie in the cities suburbs, and often they appear in larger groups.
 
 Next we take a look at the hexagons previously colored yellow, namely those where bicycles and public transport or a combination of both can decrease the 15-minute city metric below 15 minutes.
-Figure \ref{fig:fixable_hexagons} shows hexagons that are 15-minute city hexagons through public transport in yellow, hexagons that are 15-minute city hexagons through bicycle sharing in orange and hexagons that are 15-minute city hexagons through either in green.
-
+Figure \ref{fig:fixable_hexagons} illustrates hexagons representing areas that qualify as 15-minute cities via public transport in yellow, those that qualify through bicycle sharing in orange, and areas that meet the 15-minute city criteria through either mode in green.
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.50\textwidth]{Figures/results/problematic_hexagons/fixable_hexagons}
@@ -456,12 +438,10 @@ Figure \ref{fig:fixable_hexagons} shows hexagons that are 15-minute city hexagon
   \caption{Fixable hexagons by mode}
   \label{fig:fixable_hexagons}
 \end{figure}
-
-We see a slight tendency that hexagons that become 15-minute city hexagons only through bicycle sharing (orange) are closer to the city center than those that become 15-minute city hexagons only through public transport. 
+The data indicates a modest trend where hexagons that achieve 15-minute city criteria solely through bicycle sharing (marked in orange) tend to be nearer to the city center compared to those that achieve this criteria solely via public transport.
 
 The outer clusters of fixable hexagons correlates directly with the locations of bicycles and public transport stops.
-Figure \ref{fig:fixable_hexagons_examples} shows four zoomed in excerpts from Figure \ref{fig:fixable_hexagons}.
-
+Figure \ref{fig:fixable_hexagons_examples} shows four zoomed in excerpts from Figure \ref{fig:fixable_hexagons}, where we've added the location of  public transport stops and bicycles.
 \begin{figure}
      \centering
      \begin{subfigure}[b]{0.45\textwidth}
@@ -486,16 +466,13 @@ Figure \ref{fig:fixable_hexagons_examples} shows four zoomed in excerpts from Fi
      \caption{Examples of fixable hexagons}
         \label{fig:fixable_hexagons_examples}
 \end{figure}
-
 Public Transport stops are visualized as yellow circles, while bicycles are visualized as orange circles.
-We see that hexagons that are fixed in the bicycle sharing scenario are always close to orange cycles.
-Similarly, hexagons that are fixed in the public transport scenario are always close to public transport stops.
-However, the proximity to bicycles seems to have a larger influence than the proximity to public transport stops.
-
+We notice that hexagons fixed by bicycle sharing are always near bicycles.
+In the same way, hexagons fixed better by public transport are always close to public transport stops. 
+However, being close to bike stations seems to have a bigger effect than being near public transport stops.
 
 Figure \ref{fig:only_unfixable_hexagons} shows all hexagons that are not 15-minute hexagons by any sustainable mode of transport.
 Figure \ref{fig:unfixable_with_bicycles} and \ref{fig:unfixable_with_stops} show the same map, but with additional bicycle locations and public transport stop locations, respectively.
-
 \begin{figure}
      \centering
      \begin{subfigure}[b]{0.30\textwidth}
@@ -522,17 +499,12 @@ Figure \ref{fig:unfixable_with_bicycles} and \ref{fig:unfixable_with_stops} show
      \caption{Unfixable hexagons}
      \label{fig:unfixable_hexagons}
 \end{figure}
-
 We can observe that the unfixable hexagons mostly don't contain any bicycles and have a larger distance to the next bicycle.
-The same cannot be said for public transport stops.
-Often public transport stops are directly inside the unfixable hexagons.
+The same cannot be said for public transport stops, as often public transport stops are directly inside the unfixable hexagons.
 
-
-Figure \ref{fig:combined_hexagons} shows all hexagons that only become 15-minute city hexagons in the combined scenario, which means when both public transport and bicycle sharing can be used at the same time.
+Figure \ref{fig:combined_hexagons} shows all hexagons that only become 15-minute city hexagons in the combined scenario, which means when both public transport and bicycle sharing are used at the same time.
 As already seen in Table \ref{table:hexagons_with_walking_time_above_15_minutes} this only concerns less than 2\% of all hexagons that are not already 15-minute city hexagons through walking alone.
-More than half of those (7 out of 10) are located in the district of Weiß.
-
-
+More than half of those (7 out of 10) are located in the southern district of Weiß.
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.50\textwidth]{Figures/results/problematic_hexagons/combined_hexagons}
