@@ -2,18 +2,41 @@
 \section{Related Work}
 \label{sec:related_work}
 
-...
+The landscape of urban planning and transportation is evolving rapidly in response to the increasing emphasis on sustainability and proximity-based accessibility. 
+This section consists of a comprehensive review of existing literature by focusing on key areas such as accessibility analysis, routing algorithms, and the integration of public transport data with street network data. 
+The objective is to build a robust theoretical foundation for the development of methodologies aimed at optimizing urban accessibility. 
+The first part of this section explores the paradigm shift from traditional mobility-based planning to accessibility-based planning.
+This shift is crucial in addressing contemporary urban challenges such as reducing greenhouse gas emissions and promoting sustainable transportation. 
+Subsequently, we examine various routing algorithms that are pivotal for effective accessibility analysis. 
+These include established algorithms like Dijkstra, Multi-Label-Correcting (MLC), and innovative approaches tailored for public transport networks, such as RAPTOR, McRAPTOR, and Multimodal Multicriteria RAPTOR (MCR). 
+Furthermore, the integration of public transport data, primarily through the General Transit Feed Specification (GTFS), and street network data sourced from OpenStreetMap (OSM) are discussed. 
+This integration is vital for realistic simulation and analysis of urban transport dynamics.
+Finally, we address the significance of multimodality and intermodality in urban planning.
+This is important because considering diverse transport modes, including bicycle sharing and public transport, and investigating their synergies are important to retrieve a holistic view of urban accessibility.
+This literature review sets the stage for the subsequent sections, where we develop and test a new tool for accessibility-based planning, incorporating multimodal and intermodal transport options.
 
 \subsection{Accessibility Analysis}
 \label{subsec:accessibility_analysis}
 
+\subsection{Accessibility-Based Planning}
+\label{subsec:accessibility_based_planning}
 
 Traditional mobility-based planning primarily focuses on reducing congestion and facilitating movement, often prioritizing automobile travel \cite{proffittAccessibilityPlanningAmerican2019}.
-However, this approach is becoming more and more out-of-date, as modern challenges like reducing emissions of greenhouse gases require a more holistic approach.
-This is where accessibility-based planning comes into play, which focuses planning cities in a way to provide residents with access to important services \cite{proffittAccessibilityPlanningAmerican2019}.
+However, this approach is becoming more and more out-of-date, as modern challenges like reducing emissions of greenhouse gases are not properly addressed by it.
+This is where accessibility-based planning comes into play, which focuses on planning cities in a way that provides residents with fast access to all important services \cite{proffittAccessibilityPlanningAmerican2019}.
+This shift foregrounds accessibility as the primary goal, rather than merely focusing on mobility, recognizing that mobility is a means to an end and not the ultimate objective in urban planning. 
 
-\cite{geursAccessibilityEvaluationLanduse2004a} describe four types of accessibility-based planning: (more info here...)
-
+\cite{geursAccessibilityEvaluationLanduse2004a} describe four types of accessibility-based planning, seen in Table \ref{tab:accessibility_measures}.
+Infrastructure-Based Accessibility is an approach that evaluates the performance and service level of transportation infrastructure.
+It involves an analysis of various factors such as the levels of congestion and average travel speeds. 
+The primary goal of this approach is to optimize the physical layout and capacity of transport networks to improve access to various destinations.
+Even though, \cite{geursAccessibilityEvaluationLanduse2004a} describe this as an accessibility-based approach, it more closely resembles the traditional mobility-based approach.
+Location-Based or Place-Based Accessibility focuses on the accessibility of essential services or employment opportunities within certain travel time or cost limits. 
+This method calculates the number of critical destinations, such as schools, hospitals, or workplaces, that are reachable within a reasonable commute. It emphasizes the spatial distribution of resources and services.
+Person-Based Accessibility centers on the individual’s experience in accessing various activities. This perspective acknowledges that accessibility can vary greatly based on personal factors like age, income, or physical ability. It aims to tailor urban planning to address diverse personal needs and constraints, considering personal travel patterns and individual circumstances.
+Utility-Based Accessibility evaluates the economic benefits of transportation investments. 
+This approach focuses on the returns of such investments in terms of improved accessibility and their overall utility to the community. 
+It includes considerations of how transportation improvements can enhance the quality of life and economic opportunities for residents.
 
 \begin{table}[ht]
 \centering
@@ -70,42 +93,59 @@ Utility-Based &
 \end{tabular}
 \end{table}
 
+
+\subsection{15-Minute City}
+\label{subsec:15_minute_city}
+
 % ----INTRO OF 15 MINUTE CITY ----
-
-The X-minute city metric is a location-based accessibility metric, which is derived from the concept of the 15-minute city.
-
+Drawing from the innovative concept of the 15-minute city, the X-minute city metric emerges as a nuanced form of location-based accessibility. 
+This metric is predicated on the principle that essential services and amenities should be reachable within a 'X-minute' radius, reflecting a focus on reducing travel times and enhancing urban livability.
 The 15-minute city concept was first introduced by Carlos Moreno, a professor at the Sorbonne University in Paris \cite{morenoIntroducing15MinuteCity2021}.
 It was popularized by the mayor of Paris, Anne Hidalgo, who made it a central part of her re-election campaign \cite{gongadzeParisVision15Minute2023}.
-
 The concept of the 15-minute city is that all the things a person needs to live a good life should be accessible within 15 minutes of walking or cycling.
-
-\cite{willberg15minuteCityAll2023} say that it is important to consider elderly people, that are not able to walk as fast as younger people.
-We could use that as an argument to why public transport needs to be considered.
+% \cite{willberg15minuteCityAll2023} say that it is important to consider elderly people, that are not able to walk as fast as younger people.
+% We could use that as an argument to why public transport needs to be considered.
 
 % advantages
-cultivate stronger social relationsips, because people are more likely to meet \cite{allamProximityBasedPlanning15Minute2020}
-a kind of social distancing, because of primarily traveling by walking or cycling \cite{allamProximityBasedPlanning15Minute2020}
-a more environmentally sustainable mode of transport in cities, which contributes to SDG 11 \& 13 \cite{allamProximityBasedPlanning15Minute2020} \cite{papasUrbanMobilityEvolution2023}
+% cultivate stronger social relationsips, because people are more likely to meet \cite{allamProximityBasedPlanning15Minute2020}
+% a kind of social distancing, because of primarily traveling by walking or cycling \cite{allamProximityBasedPlanning15Minute2020}
+% a more environmentally sustainable mode of transport in cities, which contributes to SDG 11 \& 13 \cite{allamProximityBasedPlanning15Minute2020} \cite{papasUrbanMobilityEvolution2023}
+% advantages
+The 15-minute city model offers several advantages that are instrumental in shaping modern urban environments.
+Primarily, it fosters the cultivation of stronger social relationships \shortcite{allamProximityBasedPlanning15Minute2020}.
+In a city where essential amenities are within a 15-minute walking or cycling radius, residents are more likely to encounter each other regularly. 
+This frequent interaction fosters community bonds and a sense of belonging, an aspect crucial for urban livability.
+Additionally, this model inadvertently promotes a unique form of social distancing. 
+As residents primarily travel by walking or cycling, there's a natural reduction in the gathering of large crowds, typically seen in mass transit systems. 
+This not only aids in maintaining public health standards but also diminishes the stress often associated with crowded urban transportation \cite{allamProximityBasedPlanning15Minute2020}.
+Moreover, the shift towards walking and cycling represents a more environmentally sustainable mode of urban transport. 
+This transition aligns closely with Sustainable Development Goals 11 and 13, which advocate for sustainable cities and communities, and taking urgent action to combat climate change, respectively. 
+By reducing reliance on motorized vehicles, the 15-minute city concept contributes to lowering carbon emissions and minimizing the overall environmental impact of urban areas \shortcite{allamProximityBasedPlanning15Minute2020, papasUrbanMobilityEvolution2023}.
 
-reduced traffic resulting in economic benefits \cite{allamProximityBasedPlanning15Minute2020} \cite{papasUrbanMobilityEvolution2023}
-% we could find more benefits of reduced traffic
+Furthermore, an important economic benefit of the 15-minute city is the significant reduction in traffic. 
+This decrease in traffic congestion not only enhances the efficiency of urban transport systems but also leads to economic savings for both individuals and the city as a whole, due to lower transportation costs and time savings.
+This aspect underscores the economic viability of the 15-minute city model in creating more efficient and cost-effective urban environments \shortcite{allamProximityBasedPlanning15Minute2020, papasUrbanMobilityEvolution2023}.
 
-developing cities around the 15-minute city concept reduces social inequalities, as walking is free \cite{weng15minuteWalkableNeighborhoods2019b} \cite{gustafsonExaminingSpatialChange2022}
-therefore, when incorporating other fare-based modes of transport such as bicycle sharing, it is important to consider the fares and their impact (thats why we do multi-objective stuff)
+In addition, developing cities around the 15-minute city concept can play a crucial role in reducing social inequalities. 
+Since walking is a free mode of transport, it becomes an accessible option for all socioeconomic groups, thereby leveling the playing field for urban residents. 
+This inclusivity is central to the concept's appeal and effectiveness \cite{weng15minuteWalkableNeighborhoods2019b} \cite{gustafsonExaminingSpatialChange2022}.
+However, when incorporating other fare-based modes of transport, such as bicycle sharing, it is vital to consider the fares and their impact on accessibility and equity. 
+This consideration is a key reason for the adoption of multi-objective approaches in urban planning, ensuring that the benefits of the 15-minute city are equitably distributed across all sections of society.
 
-% --- METRICS BASED ON 15 MINUTE CITY ---
+
+\subsection{Accessibility Metrics based on the 15-Minute City}
+\label{subsec:accessibility_metrics_based_on_the_15_minute_city}
+
 % --- NEXI ---
 Quantitative studies have developed various ways to measure how well cities match the idea of the 15-minute city concept,  by developing metrics that encapsulate this principle.  
 \cite{olivariAreItalianCities2023} contribute to this research by creating the NExt proXimity Index (NEXI), which has two components: the NEXI-Minutes and the NEXI-Global. 
-
-The NEXI-Minutes looks at the accessibility of various urban amenities, ranging from educational institutions to entertainment venues and grocery stores—by calculating the time needed to reach the closest facility within each category.
+The NEXI-Minutes looks at the accessibility of various urban amenities, ranging from educational institutions to entertainment venues and grocery stores by calculating the time needed to reach the closest facility within each category.
 Complementing this, the NEXI-Global, inspired by the Walk Score method \cite{WalkScoreMethodology}, combines these individual times through a weighted average into an overall score giving a holistic view of the accessibility of a city.
 
 NEXI is unique because it is both global and local - globally applicable due to its reliance on OpenStreetMap data, yet sufficiently detailed to assess local conditions.
 This has been proven by applying it all over Italy, where it's showcased on an interactive map through a hexagonal grid that makes it easy to see which areas are doing well and need improvement.
 The significance of the NEXI, as underscored by \cite{olivariAreItalianCities2023}, is its role in enabling data-driven policy-making, to develop cities in the fashion of the 15-minute city framework. 
 Therefore, their index enables accessibility-based planning.
-
 Despite the potential benefits, \cite{olivariAreItalianCities2023} acknowledge the challenges in realizing the 15-minute city model, notably the substantial investments and strategic planning required. 
 
 However, there are some limitations in the NEXI metrics. 
@@ -118,17 +158,14 @@ These factors suggest a need for refinement in the NEXI methodology to enhance i
 
 
 % --- CITYACCESSMAPS ---
-Another study by \cite{nicolettiDisadvantagedCommunitiesHave2023} explores the connection between urban infrastructure and social inequality. 
-The researchers developed an open, data-driven framework to analyze how different communities within cities access essential services. 
-They discovered that access to urban amenities like healthcare, education, and transportation is not evenly distributed. 
+Another study that deals with an accessibility metric built on the concept of the 15-minute city by \cite{nicolettiDisadvantagedCommunitiesHave2023} explores the connection between urban infrastructure and social inequality. 
+The researchers developed an open, data-driven framework to analyze how different communities within cities access essential services, and they discovered that access to urban amenities like healthcare, education, and transportation is not evenly distributed. 
 In particular, communities with more minorities, lower incomes, and fewer university-educated individuals often have less access to these important services.
-
 The study examined over 50 types of amenities across 54 cities worldwide and found a common pattern: in all cities, access to infrastructure followed a log-normal distribution, indicating that disparities in accessibility are linked to the city's growth. 
 This pattern was consistent even when considering various socio-economic factors.
 
 The framework introduced by \cite{nicolettiDisadvantagedCommunitiesHave2023} is flexible and adaptable, allowing city planners to tailor it to local needs and priorities. 
 It's a tool that can help identify which groups in a city are most affected by inequality in access to services. 
-
 Similar to \cite{olivariAreItalianCities2023} they emphasize the role of open data to guide urban planning and policy.
 While \cite{olivariAreItalianCities2023} simply provide a tool to measure accessibility and leave the analysis and interpretation to practitioners, \cite{nicolettiDisadvantagedCommunitiesHave2023} directly reveal the disparities in accessibility and provide a framework to analyze them.
 
@@ -141,18 +178,23 @@ To provide a more accurate measure, we propose to enhance the computation of acc
 % --- barcelona
 % TODO: this is written like shit
 \cite{ferrer-ortizBarcelona15MinuteCity2022} calculate whether a certain area has access to a certain category within 15 minutes for Barcelona
-They derive their cateogories from the six 15-minute city "urban social functions" defined by Moreno.
+They derive their categories from the six 15-minute city "urban social functions" defined by Moreno.
 However, they only deal with a subset of four, namely care, education, provisioning and entertainment.
 
-
 % --- outro & transition to next algorithms ---
-In order to assess the accessibility from a given origin to one or multiple points of interest, a routing algorithm is required.
-The routing algorithm finds the shortest path from the origin to the destination.
-Therefore, we investigate different routing algorithms in the following section and find one that is suitable for our use case.
-
+% In order to assess the accessibility from a given origin to one or multiple points of interest, a routing algorithm is required.
+% The routing algorithm finds the shortest path from the origin to the destination.
+% Therefore, we investigate different routing algorithms in the following section and find one that is suitable for our use case.
+%
 \subsection{Routing Algorithms}
 \label{subsec:routing_algorithms}
 
+Following the discussion of accessibility metrics and their application in urban planning, particularly in the context of the 15-minute city model, this subsection transitions to a vital component underpinning these metrics: routing algorithms.
+The focus here is on the exploration of various routing algorithms that are instrumental in calculating the shortest and most efficient paths within urban environments. 
+
+\subsubsection{Theoretical Backgrounds}
+
+Before exploring the specific algorithms, it is important to understand the theoretical foundations of routing algorithms.
 The primary goal of routing algorithms is to identify the optimal path between a designated origin and a specific destination.
 Typically, this is captured using a graph representation:
 \[ G = (V, E) \]
@@ -187,9 +229,6 @@ Intuitively, this means that \( l' \) is at least as good as \( l \) in all obje
 The goal of routing algorithms used in accessibility analysis is finding the distance in the single objective case and the bag in the multi objective case.
 For accessibility analysis routing algorithms are often altered to not find the optimal path(s) between two nodes, referred to as one-to-one query, but the path from a single origin to all other nodes in the network, which we call one-to-all query.
 
-% short introduction (with advantages)
-% algorithm
-% advantages/disadvantages
 \subsubsection{Dijkstra}
 \label{subsubsec:dijkstra}
 The most straightforward approach to compute the shortest paths in a graph is the Dijkstra algorithm \cite{dijkstra1959note}.
@@ -369,7 +408,6 @@ However, McRAPTOR still suffers from the same problem as RAPTOR, namely that the
 
 \subsubsection{MCR}
 \label{subsubsec:mcr}
-
 
 To overcome problem of RAPTOR \cite{dellingComputingMultimodalJourneys2013} introduce Multimodal Multicriteria RAPTOR (MCR).
 MCR modifies McRAPTOR so that the transfer graph must not be transitively closed.

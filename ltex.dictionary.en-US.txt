@@ -29,3 +29,5 @@ Neumar
 POIs
 Stadtkreis
 POIs
+Multicriteria
+multimodality
