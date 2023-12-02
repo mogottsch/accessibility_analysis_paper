@@ -281,6 +281,7 @@ copied to implications
 From our interpretation of the results, we can derive several implications for the city of Cologne and for accessibility in cities in general.
 We will structure our implications into two sections, first we will discuss what already works well, and then we will discuss measures that can be taken to improve accessibility.
 
+% what works well
 What already works well is the improvement of accessibility through public transport in remote areas.
 As long as there are areas with low accessibility, that is caused by a low availability of POIs, public transport will be an effective measure.
 Also bicycle sharing is able to improve the accessibility everywhere, where there are bicycles available.
@@ -290,6 +291,8 @@ As most of Cologne's central parts are covered by the zone, we already observe i
 In addition, approximately 69\% of all considered hexagons and with that 69\% of all residential in the administrative district Cologne ("Stadtkreis Köln") are 15-minute city by walking, which shows us that Cologne largely already has an excellent accessibility.
 Interestingly, this \cite{nicolettiDisadvantagedCommunitiesHave2023} calculated a vastly higher number. 
 
+% improvements
+% improvement 1: turning more non-15 minute regions into 15-minute regions
 The observation that approximately 31\% of Cologne's area lacks access to essential services within a 15-minute walk highlights the potential for improvements.
 We hypothesized that the introduction of bicycle sharing and enhanced public transport could significantly reduce these areas by improving accessibility.
 However, as indicated in Table \ref{table:hexagons_with_walking_time_above_15_minutes}, a majority (67\%) of the hexagons currently not meeting 15-minute city criteria remain to not meet the criteria even with these sustainable modes.
@@ -301,25 +304,54 @@ Secondly, we recommend establishing high-frequency public transport lines to con
 Our findings suggest that public transport effectively improves accessibility in these regions. 
 However, considering the potential impracticality of extending the flex zone to these distant areas, adding or enhancing public transport routes could be a more feasible solution.
 
+% improvement 2: effectively managing the bicycle sharing fleet
+We have demonstrated that the success of a bicycle-sharing is closely tied to the availability of bicycles.
+This availability primarily hinges on two factors: the location of the 'flex zone' and the manner in which bicycles are distributed within it.
+Significantly, our findings reveal that the effectiveness of the program varies greatly across different sub-scenarios, highlighting the importance of strategic bicycle distribution.
+Therefore, the careful management of bicycle placement and timely relocations are crucial for the system's efficiency.
+To optimize the effectiveness of bicycle sharing, it is essential to conduct regular analyses of system demand and adjust bicycle distribution in response to these insights.
+\cite{heRobustRepositioningVehicle2020,luOptimizingProfitabilityQuality2018b,benjaafarDynamicInventoryRepositioning2018a} have already done research in how to effectively relocate bicycles.
+
+% TODO:
+% improvement 3: reducing costs
 
 
-% Fazit bicycle sharing vs public transport
-% In general, bicycle sharing brings larger improvements than public transport, while remaining more cost-effective.
-% The improvements of bicycle sharing are effective for the most accessible regions, while the improvements of public transport are not.
-% This shows that extending the bicycle sharing system might be a good way to improve the accessibility in Cologne.
-%
-% However, for the least accessible regions, public transport is more effective than bicycle sharing.
-% This most likely means that there are regions in the region of Cologne, where some categories of POIs are not present.
-% We suspect that those regions are characterized by low accessibility and low or no availability of bicycles.
-% In those regions public transport becomes more effective than bicycles, as it essentially allows to relocate to better areas.
-% In the spirit of the 15-minute city, it might be more desirable to fix the sparsity of POIs than to substitute public transport.
-
-\subsubsection{Specific Recommendations for Cologne}
-% This section should be made obsolete
-
+% don't know what to do with this
 % Merkenich & rhine bridge
-In Figure \ref{fig:optimal_map} we observed that Merkenich, which is located at the other side of the Rhine next to Leverkusen, is one of the least accessible regions in Cologne.
-From Figure ???, we now that there are plenty of POIs for all categories in Leverkusen, which are very close to the problematic region.
-This indicates a lack of mobility crossing the Rhine river.
-As a bridge is already existing, we suggest providing a frequent public transport line to improve the accessibility in Merkenich.
+% In Figure \ref{fig:optimal_map} we observed that Merkenich, which is located at the other side of the Rhine next to Leverkusen, is one of the least accessible regions in Cologne.
+% From Figure ???, we now that there are plenty of POIs for all categories in Leverkusen, which are very close to the problematic region.
+% This indicates a lack of mobility crossing the Rhine river.
+% As a bridge is already existing, we suggest providing a frequent public transport line to improve the accessibility in Merkenich.
+
+\subsection{Limitations}
+\label{sec:limitations}
+
+% This section shoes the constraints and boundaries within which our current study on bicycle-sharing programs and urban accessibility operates.
+
+% Exclusion of Traffic and Parking Factors
+
+A significant limitation of our analysis is the omission of traffic conditions and parking availability. 
+Urban traffic dynamics can significantly influence the practicality and speed of bicycle and especially car travel, potentially skewing the perceived efficiency.
+Similarly, the availability of parking, plays a crucial role in urban mobility, particularly in cities.
+By not accounting for these factors, our study may not fully capture the complexities and challenges faced by urban commuters, possibly overestimating the effectiveness of bicycle-sharing and car travel in congested urban environments.
+
+Another critical limitation is the exclusion of reliability issues such as public transport outages or traffic disruptions due to accidents. 
+These events can drastically affect transportation dynamics in a city. 
+For instance, a public transport outage might temporarily increase the demand for bicycles, while an accident could impede bicycle routes. 
+Not considering these variables limits the scope of our study, particularly in understanding the resilience and adaptability of bicycle-sharing and public transport systems.
+
+The usefulness of the X-minute-city metric employed in our study, which assesses accessibility based on the ability to reach any POI that is assigned to a category should be taken with caution as well.
+For example, the access to a pet doctor, which is a health POI, is considered equivalent to the access to a hospital.
+While this metric provides a quantifiable measure of accessibility, it may not comprehensively represent the diverse needs of an urban population. 
+
+Our analysis also reveals a limitation concerning the scalability of transport modes. 
+While bicycles significantly improve the X-minute city metric in our study, suggesting enhanced accessibility, they inherently lack the scalability of public transport. 
+A bicycle may offer a convenient solution for an individual, but it does not address the mass transit needs of a larger population. 
+This aspect is particularly crucial in dense urban areas where public transport systems are more efficient in moving large numbers of people. 
+Therefore, while bicycles contribute to urban accessibility, they should be considered part of a broader, multi-modal transport strategy rather than a standalone solution.
+
+% In conclusion, while our study sheds light on the potential of bicycle-sharing and public transport systems in enhancing urban accessibility, it is important to consider these limitations. 
+% The exclusion of factors such as traffic dynamics, parking availability, and reliability issues, along with the limitations of the chosen metric and the scalability of bicycles, suggest areas for further research. 
+% Acknowledging these limitations helps in framing our findings within a realistic urban context and underscores the need for comprehensive, multi-faceted approaches in urban planning and transportation studies.
+
 
