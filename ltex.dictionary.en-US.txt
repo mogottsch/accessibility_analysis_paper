@@ -28,3 +28,4 @@ Rath
 Neumar
 POIs
 Stadtkreis
+POIs

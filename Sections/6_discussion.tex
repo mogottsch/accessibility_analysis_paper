@@ -5,14 +5,13 @@
 \subsection{Interpretation of Results}
 
 % both bicycles and pt improve
-Analyzing the mean and quantiles of the optimal X-minute city in Table \ref{tab:optimal_x_minute_city_metric} for each hexagon and scenario, revealed that both bicycle sharing and public transport, when added to another scenario, can decrease the time it takes to reach all necessities.
-The average improvement that comes from adding bicycle to the mix varies between 1:16 minute and 1:36 and the average improvement that comes from adding public transport to the mix varies between 0:56 and 1:18.
-Therefore, we conclude that both methods are effective in improving accessibility.
+% Analyzing the mean and quantiles of the optimal X-minute city in Table \ref{tab:optimal_x_minute_city_metric} for each hexagon and scenario, revealed that both bicycle sharing and public transport, when added to another scenario, can decrease the time it takes to reach all necessities.
+% The average improvement that comes from adding bicycle to the mix varies between 1:16 minute and 1:36 and the average improvement that comes from adding public transport to the mix varies between 0:56 and 1:18.
+% Therefore, we conclude that both methods are effective in improving accessibility.
 
 \subsubsection{Public Transport Effectiveness}
 Our findings indicate that public transport effectively enhances accessibility, particularly in remote, low-POI-density suburban areas near high-frequency transport lines. 
 However, it is costlier compared to bicycle sharing.
-
 We summarize our findings for public transport effectiveness in the following inferences:
 \begin{enumerate}
   \renewcommand{\labelenumi}{I\theenumi.}
@@ -36,8 +35,8 @@ But for longer trips, especially in the areas that were hard to reach before, th
 This makes public transport more beneficial for these longer trips. 
 
 % pt actually better than bicycle for 20% worst
-Next, in Figure \ref{fig:optimal_x_minute_city_metric} we see the full distribution of the optimal X-minute city metric for each scenario.
-Notably, while public transport is worse than bicycle for the 80\% most accessible hexagons it shows a distinct advantage over bicycle sharing beyond the 80\% quantile, facilitating faster access in less accessible areas (I\ref{item:pt_effective_in_areas_with_low_accessibility}).
+In Figure \ref{fig:optimal_x_minute_city_metric} we see the full distribution of the optimal X-minute city metric for each scenario.
+Notably, while public transport is worse than bicycle sharing for the 80\% most accessible hexagons it shows a distinct advantage over bicycle sharing beyond the 80\% quantile, facilitating faster access in less accessible areas (I\ref{item:pt_effective_in_areas_with_low_accessibility}).
 The reason for this change in effectiveness between public transport and bicycle sharing is most likely linked to how bicycle sharing is set up in Cologne. 
 With the majority of bicycles available in the city center's "Flex-Zone", suburban areas have fewer bicycles as they can only be found at stations.
 Consequently, the least accessible hexagons, typically situated in suburban regions, experience low to no availability of bicycles, which explains the superiority of public transport in these areas. 
@@ -86,8 +85,7 @@ It also shows us that, a high frequency public transport line from the city cent
 
 \subsubsection{Bicycle Sharing Effectiveness}
 % intro
-Bicycle sharing enhances accessibility in both less and well-connected urban areas, offering cost-efficiency over public transport, with its effectiveness highly depending bicycle allocation.
-
+Bicycle sharing enhances accessibility in both less and well-connected urban areas, offering cost-efficiency over public transport, with its effectiveness highly depending on bicycle allocation.
 We summarize our findings for bicycle sharing effectiveness in the following inferences:
 
 \begin{enumerate}
@@ -111,7 +109,7 @@ Secondly, bicycles eliminate the waiting period often associated with public tra
 This immediacy and ease of access render bicycles an effective solution for a more general scope than public transport.
 
 Further, the data in Figure \ref{fig:optimal_x_minute_city_metric} reveals that in more accessible hexagons, combining bicycles with public transport offers greater advantages over using public transport alone (I\ref{item:bicycle_improves_accessibility_in_well_connected_areas}).
-Interestingly, looking at least accessible hexagons, the disparity between these two scenarios narrows. 
+Interestingly, looking at the least accessible hexagons, the disparity between these two scenarios narrows. 
 This observation implies that in areas with very low accessibility, which are most likely remote areas, the addition of bicycles does not significantly enhance accessibility.
 This trend is likely due to the limited availability of bicycles in these less accessible areas, underscoring the importance of equitable distribution in bicycle sharing systems (\ref{item:bicycle_where_available}).
 
@@ -126,12 +124,23 @@ Here, an improvement is observed in the bicycle scenario compared to walking, pa
   \label{fig:flex_zones}
 \end{figure}
 
+Figure \ref{fig:problematic_hexagons} shows hexagons that are valid in terms of the 15-minute city by walking in green, those that are valid only by the addition of any sustainable mode of travel in yellow, and those that are not valid through any sustainable mode of travel in red.
+We suspect that the very noticeable yellow ring around the city center is in an area where there are fewer POIs, but still a high availability of bicycles, that can compensate this sparsity.
+This spatially shows where sustainable modes of travel are important to compensate for the sparsity of POIs.
+These areas don't provide a close enough proximity to be considered valid in terms of the 15-minute city by walking alone.
+However, with bicycle sharing and public transport they are.
+In Figure \ref{fig:fixable_hexagons} we see that most of the hexagon in the ring are orange or green, which means that they are either fixable by bicycle sharing or by either bicycle sharing or public transport.
+This again underlines that bicycle sharing is more effective, if it is present, than public transport (I\ref{item:bicycle_where_available}\&I\ref{item:bicycle_improves_accessibility}).
+In the same figure, we can see that yellow hexagons, those that are only fixable through public transport, tend to exist in the regions that are more far away.
+Also, the unfixable regions, marked in red,  mostly don't have bicycles near them, but they often have public transport nearby.
+This suggests that bicycles are more effective than public transport to help a region become sub 15-minute (I\ref{item:bicycle_where_available}\&I\ref{item:bicycle_improves_accessibility}).
+
 % pt only better at 90% pareto front
 Investigating the cost and X-minute city metric Pareto fronts in Figures \ref{fig:mean_time_per_cost} and \ref{fig:quantile_time_per_cost}, as well as, the corresponding steps in Tables \ref{tab:differences_in_mean_pareto_front}, \ref{tab:differences_in_75_quantile_pareto_front} and \ref{tab:differences_in_90_quantile_pareto_front} shows that using a bicycle for 15 minutes always yields larger time gains than public transport except for the 10\% worst accessible hexagons (I\ref{item:bicycle_improves_accessibility} \& I\ref{item:pt_costlier_than_bicycle_sharing}).
 This is a clear indicator for the superiority of bicycle sharing over public transport in terms of accessibility improvements, especially, when considering that the bicycle sharing infrastructure does not cover all of the considered area.
 
 % cost stuff
-Table \ref{tab:required_cost} and Figure \ref{fig:maximum_required_cost_for_x_minute_city} clearly indicate that bicycle sharing never costs more than public transport, if both are used (\ref{item:bicycle_more_cost_efficient_than_pt}).
+Table \ref{tab:required_cost} and Figure \ref{fig:maximum_required_cost_for_x_minute_city} shows that bicycle sharing never costs more than public transport, if both are used (\ref{item:bicycle_more_cost_efficient_than_pt}).
 We can also deduct this from the price of both and the fact that bicycles are never used more than 15 minutes.
 We now that bicycles are never used for more than 15 minutes as the maximum cost, as seen in Table \ref{tab:required_cost} is 1.00€, which is the price for a 15-minute ride.
 Meanwhile, the shortest possible public transport trip costs 2.20€, therefore as soon as public transport is used it always costs more than bicycles.
@@ -145,7 +154,7 @@ We see that bicycle sharing is on average more than 3 times more cost-efficient 
 Further, investigating the differences at the 75\% and 90\% quantile Pareto fronts in Table \ref{tab:differences_in_75_quantile_pareto_front} and \ref{tab:differences_in_90_quantile_pareto_front}, shows that bicycle sharing always is more cost-efficient than public transport.
 
 When looking at Table \ref{table:hexagons_with_walking_time_above_15_minutes} we see that bicycle sharing is able to make 13\% of hexagons that are not valid in terms of the 15-minute city by walking alone, valid, which is more than public transport.
-This shows that bicycle sharing is more effective than public transport (\ref{item:bicycle_improves_accessibility}).
+% This shows that bicycle sharing is more effective than public transport (\ref{item:bicycle_improves_accessibility}).
 
 Looking at the spatial distribution of those hexagons in Figure \ref{fig:fixable_hexagons}, we see that the orange hexagons, which are those that, become valid in terms of the 15-minute city only through bicycle sharing, are mostly located at the city's border, where the "Flex-Zone" is still active.
 This again shows that the effectiveness of  bicycle sharing highly depends on the flex zone (\ref{item:bicycle_where_available}).
@@ -161,16 +170,6 @@ This again shows that the effectiveness of  bicycle sharing highly depends on th
 % In contrast, bicycles offer the flexibility of route choice, allowing users to tailor their journey to arrive nearer to the POI. 
 % This also aligns with the finding that public transport tends to be most effective for the least accessible hexagons, where distance to POIs is a significant factor.
 
-% not sure where to put this
-In general, bicycle sharing brings larger improvements than public transport, while remaining more cost-effective.
-The improvements of bicycle sharing are effective for the most accessible regions, while the improvements of public transport are not.
-This shows that extending the bicycle sharing system might be a good way to improve the accessibility in Cologne.
-
-However, for the least accessible regions, public transport is more effective than bicycle sharing.
-This most likely means that there are regions in the region of Cologne, where some categories of POIs are not present.
-We suspect that those regions are characterized by low accessibility and low or no availability of bicycles.
-In those regions public transport becomes more effective than bicycles, as it essentially allows to relocate to better areas.
-In the spirit of the 15-minute city, it might be more desirable to fix the sparsity of POIs than to substitute public transport.
 % end
 
 
@@ -222,15 +221,6 @@ It is therefore, necessary to analyze each region separately, to maximize the po
 % Therefore, removing one mode of transportation cannot be effectively compensated for by simply increasing the other, as each serves distinct and crucial functions in addressing different aspects of urban accessibility.
 
 
-\subsubsection{Specific Recommendations for Cologne}
-% This section should be made obsolete
-
-% Merkenich & rhine bridge
-In Figure \ref{fig:optimal_map} we observed that Merkenich, which is located at the other side of the Rhine next to Leverkusen, is one of the least accessible regions in Cologne.
-From Figure ???, we now that there are plenty of POIs for all categories in Leverkusen, which are very close to the problematic region.
-This indicates a lack of mobility crossing the Rhine river.
-As a bridge is already existing, we suggest providing a frequent public transport line to improve the accessibility in Merkenich.
-
 
 
 \subsubsection{Monetary Considerations}
@@ -265,20 +255,71 @@ For bicycle sharing we employed a clustering method, while for public transport 
 
 \subsubsection{Potential of Sustainable Modes To Transform Cities To 15-Minute Cities}
 
-We know that approximately 69\% of all considered hexagons and with that 69\% of all residential in the administrative district Cologne ("Stadtkreis Köln") are 15-minute city by walking, which shows us that Cologne largely already has an excellent accessibility.
+copied to implications
+% We know that approximately 69\% of all considered hexagons and with that 69\% of all residential in the administrative district Cologne ("Stadtkreis Köln") are 15-minute city by walking, which shows us that Cologne largely already has an excellent accessibility.
 
-Table \ref{table:hexagons_with_walking_time_above_15_minutes} shows that a majority (67\%) of the hexagons that are currently not 15-minute city regions are not fixed by any of the sustainable modes of travel, which shows that the impact of public transport and bicycle is limited.
-Nevertheless, the impact of bicycle and public transport on making regions valid in terms of the 15-minute city is not negligible, as those modes of transport still achieve to fix 33\% of hexagons that are not yet valid in terms of the 15-minute city by walking alone.
+% Table \ref{table:hexagons_with_walking_time_above_15_minutes} shows that a majority (67\%) of the hexagons that are currently not 15-minute city regions are not fixed by any of the sustainable modes of travel, which shows that the impact of public transport and bicycle is limited.
+% Nevertheless, the impact of bicycle and public transport on making regions valid in terms of the 15-minute city is not negligible, as those modes of transport still achieve to fix 33\% of hexagons that are not yet valid in terms of the 15-minute city by walking alone.
 
-% some of this should be moved up
-Figure \ref{fig:problematic_hexagons} shows hexagons that are valid in terms of the 15-minute city by walking in green, those that are valid only by the addition of any sustainable mode of travel in yellow, and those that are not valid through any sustainable mode of travel in red.
-We suspect that the very noticeable yellow ring around the city center is in an area where there are fewer POIs, but still a high availability of bicycles, that can compensate this sparsity.
-This spatially shows where sustainable modes of travel are important to compensate for the sparsity of POIs.
-These areas don't provide a close enough proximity to be considered valid in terms of the 15-minute city by walking alone.
-However, with bicycle sharing and public transport they are.
-In Figure \ref{fig:fixable_hexagons} we see that most of the hexagon in the ring are orange or green, which means that they are either fixable by bicycle sharing or by either bicycle sharing or public transport.
-This again underlines that bicycle sharing is more effective, if it is present, than public transport.
-In the same figure, we can see that yellow hexagons, those that are only fixable through public transport, tend to exist in the regions that are more far away.
+% copied to "effectiveness of bicycle sharing"
+% Figure \ref{fig:problematic_hexagons} shows hexagons that are valid in terms of the 15-minute city by walking in green, those that are valid only by the addition of any sustainable mode of travel in yellow, and those that are not valid through any sustainable mode of travel in red.
+% We suspect that the very noticeable yellow ring around the city center is in an area where there are fewer POIs, but still a high availability of bicycles, that can compensate this sparsity.
+% This spatially shows where sustainable modes of travel are important to compensate for the sparsity of POIs.
+% These areas don't provide a close enough proximity to be considered valid in terms of the 15-minute city by walking alone.
+% However, with bicycle sharing and public transport they are.
+% In Figure \ref{fig:fixable_hexagons} we see that most of the hexagon in the ring are orange or green, which means that they are either fixable by bicycle sharing or by either bicycle sharing or public transport.
+% This again underlines that bicycle sharing is more effective, if it is present, than public transport.
+% In the same figure, we can see that yellow hexagons, those that are only fixable through public transport, tend to exist in the regions that are more far away.
 
-The unfixable regions mostly don't have bicycles near them, but they often have public transport nearby.
-This suggests that bicycles are more effective than public transport to help a region become sub 15-minute.
+% copied to "effectiveness of bicycle sharing"
+% The unfixable regions mostly don't have bicycles near them, but they often have public transport nearby.
+% This suggests that bicycles are more effective than public transport to help a region become sub 15-minute.
+
+\subsection{Implications}
+\label{sec:implications}
+
+From our interpretation of the results, we can derive several implications for the city of Cologne and for accessibility in cities in general.
+We will structure our implications into two sections, first we will discuss what already works well, and then we will discuss measures that can be taken to improve accessibility.
+
+What already works well is the improvement of accessibility through public transport in remote areas.
+As long as there are areas with low accessibility, that is caused by a low availability of POIs, public transport will be an effective measure.
+Also bicycle sharing is able to improve the accessibility everywhere, where there are bicycles available.
+For the most part, at least for Cologne, this means that bicycle sharing is highly effective where the "Flez-Zone" is located.
+It is important to understand the relation between its effectiveness and the location of this zone.
+As most of Cologne's central parts are covered by the zone, we already observe it's massive positive effects on accessibility.
+In addition, approximately 69\% of all considered hexagons and with that 69\% of all residential in the administrative district Cologne ("Stadtkreis Köln") are 15-minute city by walking, which shows us that Cologne largely already has an excellent accessibility.
+Interestingly, this \cite{nicolettiDisadvantagedCommunitiesHave2023} calculated a vastly higher number. 
+
+The observation that approximately 31\% of Cologne's area lacks access to essential services within a 15-minute walk highlights the potential for improvements.
+We hypothesized that the introduction of bicycle sharing and enhanced public transport could significantly reduce these areas by improving accessibility.
+However, as indicated in Table \ref{table:hexagons_with_walking_time_above_15_minutes}, a majority (67\%) of the hexagons currently not meeting 15-minute city criteria remain to not meet the criteria even with these sustainable modes.
+Yet, it is important to note the impact of bicycles and public transport in converting 33\% of these hexagons into areas meeting the 15-minute city criteria.
+To further amplify their effectiveness, we propose two strategies.
+Firstly, expanding the 'flex zone' areas where bicycles are available, into regions with currently poor accessibility. 
+Given the observed correlation between bicycle availability and enhanced accessibility, this approach will very likely yield substantial improvements.
+Secondly, we recommend establishing high-frequency public transport lines to connect to remote, low-accessible areas. 
+Our findings suggest that public transport effectively improves accessibility in these regions. 
+However, considering the potential impracticality of extending the flex zone to these distant areas, adding or enhancing public transport routes could be a more feasible solution.
+
+
+
+% Fazit bicycle sharing vs public transport
+% In general, bicycle sharing brings larger improvements than public transport, while remaining more cost-effective.
+% The improvements of bicycle sharing are effective for the most accessible regions, while the improvements of public transport are not.
+% This shows that extending the bicycle sharing system might be a good way to improve the accessibility in Cologne.
+%
+% However, for the least accessible regions, public transport is more effective than bicycle sharing.
+% This most likely means that there are regions in the region of Cologne, where some categories of POIs are not present.
+% We suspect that those regions are characterized by low accessibility and low or no availability of bicycles.
+% In those regions public transport becomes more effective than bicycles, as it essentially allows to relocate to better areas.
+% In the spirit of the 15-minute city, it might be more desirable to fix the sparsity of POIs than to substitute public transport.
+
+\subsubsection{Specific Recommendations for Cologne}
+% This section should be made obsolete
+
+% Merkenich & rhine bridge
+In Figure \ref{fig:optimal_map} we observed that Merkenich, which is located at the other side of the Rhine next to Leverkusen, is one of the least accessible regions in Cologne.
+From Figure ???, we now that there are plenty of POIs for all categories in Leverkusen, which are very close to the problematic region.
+This indicates a lack of mobility crossing the Rhine river.
+As a bridge is already existing, we suggest providing a frequent public transport line to improve the accessibility in Merkenich.
+
