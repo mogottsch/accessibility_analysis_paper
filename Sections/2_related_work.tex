@@ -2,21 +2,22 @@
 \section{Related Work}
 \label{sec:related_work}
 
-The landscape of urban planning and transportation is evolving rapidly in response to the increasing emphasis on sustainability and proximity-based accessibility. 
+Urban planning and transportation is evolving rapidly in response to the increasing emphasis on sustainability and proximity-based accessibility. 
 This section consists of a comprehensive review of existing literature by focusing on key areas such as accessibility analysis, routing algorithms, and the integration of public transport data with street network data. 
-The objective is to build a robust theoretical foundation for the development of methodologies aimed at optimizing urban accessibility. 
+The objective is to build a theoretical foundation for the development of methodologies aimed at optimizing urban accessibility. 
 The first part of this section explores the paradigm shift from traditional mobility-based planning to accessibility-based planning.
-This shift is crucial in addressing contemporary urban challenges such as reducing greenhouse gas emissions and promoting sustainable transportation. 
-Subsequently, we examine various routing algorithms that are pivotal for effective accessibility analysis. 
+This shift is crucial in addressing modern urban challenges such as reducing greenhouse gas emissions and promoting sustainable transportation. 
+Subsequently, we examine various routing algorithms that are central to effectively assess accessibility. 
 These include established algorithms like Dijkstra, Multi-Label-Correcting (MLC), and innovative approaches tailored for public transport networks, such as RAPTOR, McRAPTOR, and Multimodal Multicriteria RAPTOR (MCR). 
 Furthermore, the integration of public transport data, primarily through the General Transit Feed Specification (GTFS), and street network data sourced from OpenStreetMap (OSM) are discussed. 
-This integration is vital for realistic simulation and analysis of urban transport dynamics.
+This integration is vital for a realistic simulation of urban dynamics and to enable the reproducibility of our results. 
 Finally, we address the significance of multimodality and intermodality in urban planning.
-This is important because considering diverse transport modes, including bicycle sharing and public transport, and investigating their synergies are important to retrieve a holistic view of urban accessibility.
+This is important because considering diverse transport modes, including bicycle sharing and public transport, and investigating their synergies are vital to retrieve a holistic view of urban accessibility.
 This literature review sets the stage for the subsequent sections, where we develop and test a new tool for accessibility-based planning, incorporating multimodal and intermodal transport options.
 
-\subsection{Accessibility Analysis}
-\label{subsec:accessibility_analysis}
+% \subsection{Accessibility Analysis}
+% \label{subsec:accessibility_analysis}
+% TODO: insert another intro sentence
 
 \subsection{Accessibility-Based Planning}
 \label{subsec:accessibility_based_planning}
@@ -98,7 +99,7 @@ Utility-Based &
 \label{subsec:15_minute_city}
 
 % ----INTRO OF 15 MINUTE CITY ----
-Drawing from the innovative concept of the 15-minute city, the X-minute city metric emerges as a nuanced form of location-based accessibility. 
+Drawing from the innovative concept of the 15-minute city, the X-minute city metric emerges as a form of location-based accessibility. 
 This metric is predicated on the principle that essential services and amenities should be reachable within a 'X-minute' radius, reflecting a focus on reducing travel times and enhancing urban livability.
 The 15-minute city concept was first introduced by Carlos Moreno, a professor at the Sorbonne University in Paris \cite{morenoIntroducing15MinuteCity2021}.
 It was popularized by the mayor of Paris, Anne Hidalgo, who made it a central part of her re-election campaign \cite{gongadzeParisVision15Minute2023}.
@@ -114,8 +115,8 @@ The concept of the 15-minute city is that all the things a person needs to live 
 The 15-minute city model offers several advantages that are instrumental in shaping modern urban environments.
 Primarily, it fosters the cultivation of stronger social relationships \shortcite{allamProximityBasedPlanning15Minute2020}.
 In a city where essential amenities are within a 15-minute walking or cycling radius, residents are more likely to encounter each other regularly. 
-This frequent interaction fosters community bonds and a sense of belonging, an aspect crucial for urban livability.
-Additionally, this model inadvertently promotes a unique form of social distancing. 
+This frequent interaction fosters community bonds and a sense of belonging which is beneficial for urban livability.
+Additionally, this model inevitably promotes a unique form of social distancing. 
 As residents primarily travel by walking or cycling, there's a natural reduction in the gathering of large crowds, typically seen in mass transit systems. 
 This not only aids in maintaining public health standards but also diminishes the stress often associated with crowded urban transportation \cite{allamProximityBasedPlanning15Minute2020}.
 Moreover, the shift towards walking and cycling represents a more environmentally sustainable mode of urban transport. 
@@ -208,11 +209,11 @@ Here, \( v_0 \) denotes the origin, \( v_n \) the destination, and the edges mus
 \[ e_i = (v_i, v_{i+1}) \quad \text{for} \quad i \in \{0, \dots, n-1\} \]
 In accessibility contexts, the primary concern frequently revolves around determining the accumulated cost, \( d(v_n) \), to reach the destination rather than the actual path.
 
-In more complex real-world scenarios, the problem often encompasses multiple objectives, such as considering both time and monetary cost of travel.
+The problem may also encompass multiple objectives, such as considering both time and monetary cost of travel.
 Under these circumstances, the edge weight is represented as a vector:
 \[ w(e) \in \mathbb{R}^k \]
 where \( k \) stands for the total objectives count.
-Unlike the simpler single-objective case with a singular optimal path, the multi-objective scenario yields a Pareto set, constituting several optimal routes.
+Unlike the simpler single-objective case with a singular optimal path, the multi-objective optimization yields a Pareto set, constituting several optimal routes.
 A Pareto set refers to a set of solutions that are non-dominated by any other solution.
 This means that for each solution in the Pareto set, there is no other solution that is better in all objectives.
 The Pareto set represents an optimal trade-off among the different objectives, where improving one aspect would worsen another.
@@ -226,13 +227,12 @@ The Pareto set associated with destination node \( v_n \) is often termed as a b
 Domination is defined as follows: \( l' \) dominates \( l \) if \( l'_i \leq l_i \) for all \( i \in \{1, \dots, k\} \) and \( l'_i < l_i \) for at least one \( i \in \{1, \dots, k\} \).
 Intuitively, this means that \( l' \) is at least as good as \( l \) in all objectives and strictly better in at least one objective.
 
-The goal of routing algorithms used in accessibility analysis is finding the distance in the single objective case and the bag in the multi objective case.
+The goal of routing algorithms used in accessibility analysis is finding the distance in the single objective case and the bag in the multi objective case, often discarding the actual paths.
 For accessibility analysis routing algorithms are often altered to not find the optimal path(s) between two nodes, referred to as one-to-one query, but the path from a single origin to all other nodes in the network, which we call one-to-all query.
 
 \subsubsection{Dijkstra}
 \label{subsubsec:dijkstra}
 The most straightforward approach to compute the shortest paths in a graph is the Dijkstra algorithm \cite{dijkstra1959note}.
-
 Dijkstra's algorithm initiates at a designated start node \( s \in V \) and employs a priority queue to systematically determine the shortest path to each subsequent node \( v \in V \).
 Initially, the distance to the start node \( s \) is set to zero, while the distances to all other nodes are set to infinity.
 In each iteration, the algorithm dequeues the node \( u \) with the smallest known distance from the priority queue.
@@ -274,13 +274,13 @@ In the context of accessibility analysis the previously mentioned algorithms can
 %These transfer edges repre
 However, public transport networks pose a challenge, since they contain time-dependent information, such as the departure time of a trip.
 To overcome this challenge two different approaches are commonly used, the time-expanded and the time-dependent approach, as explained by \cite{muller-hannemannTimetableInformationModels2007}.
-While enabling the use of graph-based algorithms, both approaches still suffer from the previously mentioned runtime problems Dijkstra's algorithm and MLC have.
+While enabling the use of graph-based algorithms to solve routing in time-dependent transport networks, both approaches result in huge graphs and therefore suffer from the previously mentioned runtime problems.
 
 \subsubsection{RAPTOR}
 \label{subsubsec:raptor}
 
 To overcome the runtime problems of graph-based approaches, \cite{dellingRoundBasedPublicTransit2015} introduce one of the most prominent routing algorithms for public transport, called Round based Public Transit Optimized Router algorithm (RAPTOR). % which is also used by R5
-Unlike traditional Dijkstra-based algorithms, RAPTOR operates in rounds, looking at each route (such as a bus line) in the network at most once per round.
+Unlike traditional Dijkstra-based algorithms, RAPTOR operates in rounds, looking at each route (such as a bus line) in the network at most once per round, where one round represents a single trip.
 
 As RAPTOR does not operate on a graph, we first introduce the problem statement.
 Raptor operates on a scheduled network consisting of routes \(r\), trips \(t\), stops \(p\), and stop times that associate trips with stops.
@@ -329,32 +329,26 @@ If there are two marked stops that are connected to the same route, we choose th
 Now, we clear the set of marked stops.
 
 % Step  2: (l.21-l.33)
-We iterate the route-stop pairs in \(Q\).
+We iterate the route-stop pairs in \(Q\) visually depicted in Figure \ref{fig:raptor}.
 The following step can be regarded as hopping on the earliest possible trip that we can catch of that route at that stop.
 For each route-stop \((r,p)\) pair, we iterate over the stops in \(r\) in the sequence that is associated with \(r\), beginning with \(p\).
 We check for the earliest possible trip that we can catch regarding the last arrival time at the current stop \(\tau_{k-1}(p)\) and the minimum exchange time \(\tau_{ch}(p)\).
 If there is a trip that is possible to catch, we save it as the current trip \(t_{curr}\) and continue to iterate the stops of the route \(r\).
 Now that we are on a trip, we have to check whether we need to update the earliest possible arrival time of the current stop \(\tau_k(p)\) and \(\tau^\star(p)\) by comparing the stop time of the current trip with the best earliest arrival time of that stop \(\tau^\star(p)\), formally:
 \[\tau_k(p) = \min\{\tau_k(p), arrivalTime(t_{curr}, p)\}\]
-Here one optimization comes into play.
+% Here one optimization comes into play.
 %We can also keep in mind the best earliest possible arrival time of the target stop \(\tau^\star(p_t)\).
 %Whenever the current stop time is later than that, our current trip won't contribute to finding a faster route to the target stop, and we disregard the potential update.
 In the case an update is necessary, we also add the current stop \(p\) to the marked stops.
-
-% Step 3: (l.34-l.40)
 Lastly, we check all marked stops for potential footpaths.
 Remember: the marked stops are those for which the earliest possible arrival time was updated in this iteration.
 For each footpath that is connected to a marked stop, we check whether the earliest possible arrival time of the other stop could be improved by the footpath.
 If that is the case, we update the earliest arrival times and also mark that stop.
-
-% Stopping criterion: (l.40-l.42)
 If no stops are marked, then there are no new routes to iterate, and the algorithm stops.
-
-After termination \[\tau_k(p)\] contains the earliest possible arrival time at stop \(p\) with at most \(k\) transfers.
-
+After termination \(\tau_k(p)\) contains the earliest possible arrival time at stop \(p\) with at most \(k\) transfers.
 \begin{figure}
     \centering
-    \includegraphics{Figures/related_work/raptor.pdf}
+    \includegraphics[width=0.70\textwidth]{Figures/related_work/raptor.pdf}
     \caption{Iterating a route in RAPTOR}
     \label{fig:raptor}
 \end{figure}
@@ -369,7 +363,6 @@ To keep the transfer graph small, one could limit the maximum walking distance.
 However, this may remove optimal journeys from the search space.
 In general, creating the transfer graph requires some amount of preprocessing.
 Therefore, finding a fitting transfer graph is challenging.
-
 Through its round-based nature, RAPTOR is able to optimize for two criteria at the same time.
 However, RAPTOR cannot incorporate more criteria and one of the criteria will always be the number of transfers.
 
@@ -384,8 +377,7 @@ McRAPTOR does not pose any restrictions on how the objectives are updated during
 The algorithm of McRAPTOR only requires slight modifications to the algorithm of RAPTOR.
 In the initialization step, each stop \(p\) is assigned an empty bag, except the source stop \(p_s\), which is assigned a bag containing a starting label.
 The starting label can be defined as an input, but is usually \((\tau, 0, 0, \dots, 0)\), where \(\tau\) is the departure time at the source stop.
-
-When iterating over the route-stop pairs \((r, p\), McRAPTOR creates a route bag that contains all labels that are in the current bag of \(p\).
+When iterating over the route-stop pairs \((r, p)\), McRAPTOR creates a route bag that contains all labels that are in the current bag of \(p\).
 In addition labels in the route bag are associated with a trip.
 During creation of the route bag, each label in the route bag is associated with the first trip that is possible to catch according to the labels earliest arrival time at the current stop \(p\).
 Then the route is processed, stop by stop, just like in RAPTOR.
@@ -395,10 +387,8 @@ After the route has been processed, the route bag is merged into the bag of the 
 Merging a bag \(B_1\) into a bag \(B_2\) means that all labels in \(B_1\) that are not dominated by any label in \(B_2\) are added to \(B_2\) and all labels in \(B_2\) that are dominated by a label in \(B_1\) are removed from \(B_2\).
 After the route bag has been merged into the bag of the current stop, the bag of the current stop is merged into the route bag.
 Lastly, the trips that are associated with the labels in the route bag are updated according to the labels earliest arrival time at the current stop.
-
 Each time a label is added to a stop bag, this stop is marked.
 If no stop is marked after a round, the algorithm terminates.
-
 Note that McRAPTOR allows updates to the route bags at any time during processing.
 When and how the route bag should be updated fully depends on the objective and what it represents.
 
@@ -411,18 +401,17 @@ However, McRAPTOR still suffers from the same problem as RAPTOR, namely that the
 
 To overcome problem of RAPTOR \cite{dellingComputingMultimodalJourneys2013} introduce Multimodal Multicriteria RAPTOR (MCR).
 MCR modifies McRAPTOR so that the transfer graph must not be transitively closed.
-This enables MCR to directly use the street network as an input and therefore no preprocessing is necessary.
-
-This allows us to use the street network as the transfer graph, which has the benefit that during the traversal of the tranfer graph the objectives can be updated.
+MCR is able to directly use the street network as an input and therefore no preprocessing is necessary.
+Traversing the street network directly during the algorithm has the benefit that it is possible to update the objectives between trips.
 This is important if we want multiple modes of transfer, that contain free-floating vehicle sharing systems.
 For example, consider the following case.
 For an optimal journey a passenger has to first walk five minutes to a free-floating bicycle, with which the passenger then travels to the next stop.
 There is no way to represent this in RAPTOR, because the specifics of the transfer depend on the current label, which is unknown before running the algorithm.
 Therefore, it is not possible to precompute the transfer graph.
 
-MCR is very similar to RAPTOR.
-It only replaces the footpath traversal step through MLC.
-
+MCR as an algorithm shares substantial similarities with McRAPTOR.
+The key difference in MCR is the substitution of the footpath processing step with the MLC algorithm.
+Consequently, MCR can be conceptualized as an algorithm that seamlessly integrates MLC with McRAPTOR, employing each of them in an alternating manner.
 The authors find that the bottleneck of MCR is the MLC step.
 Therefore, they employ a technique called contraction \shortcite{geisbergerExactRoutingLarge2012} to speed up MLC.
 Contraction is a preprocessing technique that reduces the size of the graph by removing nodes and adding shortcut edges.
@@ -436,7 +425,7 @@ Generally using MCR or McRAPTOR is a trade-off of runtime and preprocessing time
 \label{subsubsec:ultra}
 
 \cite{baumUnLimitedTRAnsfersMultiModal2019} propose another algorithm building on MCR, called UnLimited TRAnsfers for Multi-Modal Route Planning (ULTRA).
-ULTRA capitalizes on the observation that extensive exploration of the transfer graph is often unnecessary for transfers between public transport trips, but is more crucial for initial and final transfers.
+ULTRA builds on the observation that extensive exploration of the transfer graph, like done in MCR, is often unnecessary for transfers between public transport trips, but is more crucial for initial and final transfers.
 Therefore, they propose a preprocessing step that computes intermediate transfers that contribute to optimal journeys on the transfer graph.
 They then use these precomputed transfers as the transfer graph for RAPTOR.
 To account for initial and final transfers, ULTRA employs the Bucket Contraction-Hierarchies (Bucket-CH) algorithm \cite{geisbergerContractionHierarchiesFaster2008}, an efficient one-to-many approach, together with RAPTOR.
@@ -445,15 +434,15 @@ While ULTRA demonstrates a runtime improvement over MCR, it is limited to optimi
 Using ULTRA in an accessibility analysis setting is also unsuitable, because ULTRA runs a reverse Bucket-CH query from the end node to all stops, to compute potential final transfers.
 This means that ULTRA, unlike MCR, is incompatible with one-to-many queries.
 
-\subsubsection{McTB}
-\label{subsubsec:mctb}
+% \subsubsection{McTB}
+% \label{subsubsec:mctb}
 
 % addresses the problem that ULTRA is not suitable for more than two objectives
 % However, only allows for a very specific third objective and not general ones
-\cite{potthoffFastMultimodalJourney2021}
+% \cite{potthoffFastMultimodalJourney2021}
 
-\subsubsection{ULTRA-PHAST}
-\label{subsubsec:ultra-phast}
+% \subsubsection{ULTRA-PHAST}
+% \label{subsubsec:ultra-phast}
 
 % addresses the problem that ULTRA is incompatible for one-to-many queries
 % However, does not allow for multiple objectives
@@ -464,24 +453,22 @@ This means that ULTRA, unlike MCR, is incompatible with one-to-many queries.
 \label{subsec:public_transport_data}
 
 In order to run routing algorithms for public transport networks in practice, a common data format is needed.
-
 The General Transit Feed Specification (GTFS) \shortcite{ReferenceGeneralTransit} serves as a standardized format for public transportation schedules and associated geographic details.
 It is divided into two main components: GTFS Schedule and GTFS Realtime.
 GTFS Realtime provides live transit updates.
 On the other hand, GTFS Schedule offers information about routes, schedules, fares, and geographic transit details.
-
 For our study and tool, we focus solely on GTFS Schedule and omit considerations related to GTFS Realtime.
 
 Central to the GTFS format are several core concepts.
-A \textit{route} defines the overall path taken by a particular public transport service, identified by attributes like name, ID, and the mode of transport such as bus or subway.
-A \textit{trip} refers to a specific run of a vehicle along a route, distinguishing between different timings or sequences of service on the same route.
-A \textit{stop} is a specific point along a route where passengers embark or disembark.
+A route defines the overall path taken by a particular public transport service, identified by attributes like name, ID, and the mode of transport such as bus or subway.
+A trip refers to a specific run of a vehicle along a route, distinguishing between different timings or sequences of service on the same route.
+A stop is a specific point along a route where passengers embark or disembark.
 Stops have unique IDs, names, and geographical coordinates.
-\textit{Stop times} specify when a vehicle is expected to be at a particular stop during its trip.
+Stop times specify when a vehicle is expected to be at a particular stop during its trip.
 This data pinpoints both the arrival and departure timings at each stop.
 
-GTFS data is often distributed in plain text (.txt) files which are bundled together and compressed into a .zip file.
-This packaging makes it both compact for distribution and straightforward for developers to parse and use.
+% GTFS data is often distributed in plain text (.txt) files which are bundled together and compressed into a .zip file.
+% This packaging makes it both compact for distribution and straightforward for developers to parse and use.
 
 In essence, GTFS provides a comprehensive overview of a transit agency's service, covering both the spatial aspects of transit and the temporal aspects.
 
@@ -489,36 +476,33 @@ In essence, GTFS provides a comprehensive overview of a transit agency's service
 \label{subsec:street_network_data}
 
 Just as GTFS provides a standardized format for public transport schedules, the need for a consistent data format for street network information is addressed by OpenStreetMap (OSM) \shortcite{OpenStreetMap}.
-
 OSM is a collaborative initiative that offers freely available geographic data.
 This data captures various features on the Earth's surface, including roads, trails, establishments, railway stations, and more.
-
 In the context of street networks, potentially used by routing algorithms, OSM represents roads and paths using interconnected nodes and ways.
-Nodes specify distinct geographical coordinates, defined by latitude and longitude, while ways connect these nodes to delineate linear structures or area boundaries.
+Nodes specify distinct geographical coordinates, defined by latitude and longitude, while ways connect these nodes to define linear structures or area boundaries.
 Importantly, these ways have meta-data assigned to them containing information about what vehicles can travel along them and how long they are.
-
 In addition, OSM offers vast amounts of data about points of interest, potentially useful in accessibility analysis.
-
 OSM is extensive, regularly updated, and most importantly freely available, which makes it indispensable for projects seeking reproducibility and generalizability.
 
 
 \subsection{Importance of Multimodality \& Intermodality}
 \label{subsec:importance_of_multimodality_and_intermodality}
-% don't really know where to put this
+There has been various research underlining the importance of considering multimodality and intermodality in urban planning and transportation.
+Recent studies have especially highlighted the synergistic relationship between bicycle sharing and public transport systems, demonstrating their combined potential in improving urban mobility.
 
-"Results show that bicycles significantly reduce the average transfer times, the average path length of passengers’ trips and the Gini coefficient of an urban public transport network" \cite{yangImpactPublicBicyclesharing2018}.
+\shortciteA{yangImpactPublicBicyclesharing2018} illustrate the significant impact of bicycles in urban transport networks. 
+Their results indicate that bicycles notably reduce average transfer times, the average journey length for passengers, and the Gini coefficient, an indicator of network efficiency. 
+These findings underscore the role of bicycles in optimizing transit network performance.
+Further, reinforcing this point, \shortciteA{radzimskiExploringRelationshipBikesharing2021a} identifies a positive correlation between public transport frequency and the number of bicycle trips, particularly for short and medium distances up to 3 km. 
+This suggests that the availability of bicycles can complement public transport, particularly for covering the initial or final segments of a journey.
+\shortciteA{murphyRoleBicyclesharingCity2015} conducted a survey in Dublin that revealed 39\% of bicycle sharing users combined this service with another mode of transport, primarily public transport (91.5\%) \shortciteA{murphyRoleBicyclesharingCity2015}. 
+This indicates a high level of synergy between bicycle sharing and public transport, as commuters frequently use them together.
+Similarly, \shortciteA{fishmanBikeShareSynthesis2013} reviewed literature on bicycle sharing and concluded that it is synergistic with public transport.
+This synergy is further elucidated by \shortciteA{maBicycleSharingPublic2015} who, through a linear regression analysis, identified a positive correlation between public transport passenger numbers and bicycle sharing trips \shortciteA{maBicycleSharingPublic2015}. 
+They suggest that bicycle sharing effectively addresses the first and last mile problem, providing a crucial link to and from transit hubs.
+\shortciteA{wagnerPublicTransitRouting2017} also contributes to this discussion by demonstrating that unrestricted walking, as part of a multimodal transit system, significantly reduces travel times compared to limited walking scenarios.
+However, it's also noted that computing routes with unrestricted walking is more computationally intensive.
 
-Public transport frequency is significantly positively correlated with the number of bicycle trips, especially short and medium distance trips up to 3 km \cite{radzimskiExploringRelationshipBikesharing2021a}.
-
-\cite{murphyRoleBicyclesharingCity2015} conduct a questionnaire, which shows that 39\% of bicycle sharing users (in Dublin) use bicycle sharing in conjunction with another mode of transport. Of those, 91.5\% use public transport, which indicates that bicycle sharing is synergetic with public transport.
-
-\cite{fishmanBikeShareSynthesis2013} perform a literature review on bicycle sharing in general and find that bicycle sharing is synergetic with public transport.
-
-\cite{maBicycleSharingPublic2015} run a linear regression with data ...
-in which the number of passengers of public transport is regressed on the number of bicycle sharing trips.
-They find a positive correlation between the two and conclude that bicycle sharing and public transport are complementary.
-As a possible reason for this, they state that bicycle sharing can be used to solve the first and last mile problem.
-
-"Through an extensive experimental study, it's demonstrated that allowing unrestricted walking considerably reduces travel times compared to scenarios where walking is limited." \cite{wagnerPublicTransitRouting2017}
-
-Fact: Computing with unrestricted walking takes way longer to compute. \cite{wagnerPublicTransitRouting2017}
+In summary, the interplay between bicycle sharing and public transport is not just complementary but essential for urban planning and transportation.
+Furthermore, incorporating unrestricted walking into transit planning, despite its computational challenges, can substantially reduce overall travel times.
+Thus, considering both multimodality (the use of multiple modes of transport) and intermodality (the chaining of different modes) is vital when designing urban transportation systems and evaluating accessibility.

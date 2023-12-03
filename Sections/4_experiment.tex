@@ -2,9 +2,7 @@
 \section{Experiment}
 \label{sec:experiment}
 
-To answer the question of how competitive sustainable modes of transport are in comparison to the traditional mode of travel by car, we run an experiment in the city of Cologne.
-We do so by calculating the X-minute city metric for hexagons all over Cologne.
-
+We apply our method to the city of Cologne, to retrieve insights about how different modes of transport interact and how they contribute to the accessibility of the city.
 As we want to compare different modes of transport, we will calculate the metric multiple times for different scenarios, each with a different combination of modes of transport.
 
 \subsection{Scenarios}
@@ -98,7 +96,7 @@ Through pyrosm, we can automatically fetch data from sources like Geofabrik \cit
 In our case, we use the data for the city of Cologne from BBBike.
 However, due to the flexibility of pyrosm, it is easily possible to use data from other sources as well and expand our analysis to other cities.
 
-After retrieving the data, our tool automatically retrieves a graph representation of the street network trimmed to the buffered area of interest.
+After retrieving the data, we retrieve a graph representation of the street network trimmed to the buffered area of interest.
 Using the buffered region is important, because without it calculating the X-minute city metric at the border of the area of interest would result in a higher value than the actual value.
 As a last cleaning step, we remove all nodes, that are not part of the largest weakly connected component.
 A weakly connected component is a subgraph in which, if all directed edges were treated as undirected, any two vertices from the subgraph would be connected.
@@ -109,7 +107,7 @@ To do so, we use pyrosm's built-in filtering functionality.
 For reproducibility, we list the filters that pyrosm uses in Appendix \ref{app:pyrosm_network_filter}.
 
 To retrieve the POIs, we use the Overpass API \shortcite{OverpassAPIOverpass}.
-Our tool will automatically retrieve all POIs that fall into one of our predefined categories specified in Section \ref{subsec:metric} inside of the area of interest plus the buffer mentioned before.
+We retrieve all POIs that fall into one of our predefined categories specified in Section \ref{subsec:metric} inside the area of interest plus the buffer mentioned before.
 
 \subsubsection{Public Transport}
 \label{subs:public_transport}
@@ -117,30 +115,23 @@ Our tool will automatically retrieve all POIs that fall into one of our predefin
 To handle public transport data, we use the General Transit Feed Specification (GTFS) \shortcite{GTFS}.
 To retrieve it we rely on the Mobility Database \shortcite{MobilityDatabase}.
 This database serves as an open-source repository containing links to publicly available GTFS feeds globally, standing as the subsequent version of TransitFeeds \shortcite{OpenMobilityDataPublicTransit}.
-
 Similarly to the OSM data, we trim the GTFS data to the area of interest plus the buffer.
-
 The GTFS data is also cleaned and converted into a format that is more suitable for our algorithm, or more specifically McRAPTOR, which is part of our algorithm.
-
 Specifically, there are two major incompatibilities between the GTFS specification and RAPTOR's notion of routes and trips.
 Firstly, each trip belonging to a single route in RAPTOR visits the same stops in the same order.
 It is not possible that a trip skips some stops that another trip of the same route visits, much less use a completely different sequence of routes.
 In GTFS routes do allow that, as they are much more a group of trips that is presented to the rider under the same name or identifier.
 Secondly, GTFS trips allow visiting the same stop multiple times, which is not allowed in RAPTOR.
-
-To overcome these difference our tool splits up routes into smaller routes, that follow the same sequence of stops.
-Additionally, it also removes circular trips, altogether.
+To overcome these difference we split up routes into smaller routes, that follow the same sequence of stops.
+Additionally, e also remove circular trips, altogether.
 
 
 \subsubsection{Bicycle Sharing}
 \label{subs:bicycle_sharing}
 
 Our bicycle sharing data was retrieved from the NextBike API over a time period of one year.
-TODO: MORE INFORMATION TO BE ADDED HERE
-
 The data consists of all trips that were made with the NextBike system in the city of Cologne from the 15th of January 2022 to the 31st of August 2023.
 To get representative samples of the locations of all bicycles we employ the following strategy.
-
 We first discretize the data spatially and temporally.
 For the temporal discretization, we derive the location of each bicycle every hour.
 For the spatial discretization, we use H3 hexagons with a resolution of 9.
@@ -158,8 +149,8 @@ To identify the residential areas, we use the land use data from the CORINE Land
 The data covers the whole of Europe and is publicly available, which again makes it possible to expand our analysis to other cities in Europe.
 We trimmed the data to the area of interest and then filtered for the land use types "Continuous Urban Fabric" and "Discontinuous Urban Fabric".
 These two land use types represent the residential areas of the city.
-
 The residential areas inside the area of interest are shown in Figure \ref{fig:input_hexagons_residential_areas}.
+Additionally, the Figure shows the hexagons of resolution 9 that are found inside the residential areas.
 
 \begin{figure}
   \begin{center}
@@ -168,8 +159,6 @@ The residential areas inside the area of interest are shown in Figure \ref{fig:i
   \caption{Area of Interest and Buffer Region with Residential Areas and Input Hexagons}
   \label{fig:input_hexagons_residential_areas}
 \end{figure}
-
-Additionally, the Figure shows the hexagons of resolution 9 that are found inside the residential areas.
 
 
 \subsection{Assumptions}
@@ -224,4 +213,4 @@ For any trip that spans more than four stops or any multitude of trips the KVB c
 To depict this we add a hidden values to the labels processed in McRAPTOR that depicts how many stops the traveler already traversed.
 Because two consecutive trips are considered together, we don't need to nullify the hidden value.
 
-TODO: personal car
+% TODO: personal car
