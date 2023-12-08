@@ -98,12 +98,13 @@ Utility-Based &
 \subsection{15-Minute City}
 \label{subsec:15_minute_city}
 
+
 % ----INTRO OF 15 MINUTE CITY ----
-Drawing from the innovative concept of the 15-minute city, the X-minute city metric emerges as a form of location-based accessibility. 
-This metric is predicated on the principle that essential services and amenities should be reachable within a 'X-minute' radius, reflecting a focus on reducing travel times and enhancing urban livability.
+A recent stream of research in the field of urban planning is the concept of the 15-minute city.
+The concept is based around the idea that all essential services and amenities should be reachable within a 15-minute walking radius, reflecting a focus on reducing travel times and enhancing urban livability.
+Even though, it is a concept rather than a concrete metric, the 15-minute city is closely related to location-based planning measures.
 The 15-minute city concept was first introduced by Carlos Moreno, a professor at the Sorbonne University in Paris \cite{morenoIntroducing15MinuteCity2021}.
 It was popularized by the mayor of Paris, Anne Hidalgo, who made it a central part of her re-election campaign \cite{gongadzeParisVision15Minute2023}.
-The concept of the 15-minute city is that all the things a person needs to live a good life should be accessible within 15 minutes of walking or cycling.
 % \cite{willberg15minuteCityAll2023} say that it is important to consider elderly people, that are not able to walk as fast as younger people.
 % We could use that as an argument to why public transport needs to be considered.
 
@@ -134,7 +135,7 @@ However, when incorporating other fare-based modes of transport, such as bicycle
 This consideration is a key reason for the adoption of multi-objective approaches in urban planning, ensuring that the benefits of the 15-minute city are equitably distributed across all sections of society.
 
 
-\subsection{Accessibility Metrics based on the 15-Minute City}
+\subsection{Accessibility Metrics Based on the 15-Minute City}
 \label{subsec:accessibility_metrics_based_on_the_15_minute_city}
 
 % --- NEXI ---
@@ -183,10 +184,12 @@ They derive their categories from the six 15-minute city "urban social functions
 However, they only deal with a subset of four, namely care, education, provisioning and entertainment.
 
 % --- outro & transition to next algorithms ---
-% In order to assess the accessibility from a given origin to one or multiple points of interest, a routing algorithm is required.
-% The routing algorithm finds the shortest path from the origin to the destination.
-% Therefore, we investigate different routing algorithms in the following section and find one that is suitable for our use case.
-%
+While the NEXI and the open data-driven framework are the most prevalent examples for metrics based on the 15-minute city concept, they are not without limitations.
+The NEXI's fragmented multi-metric approach and its complex weighted scoring system can hinder practical interpretation and application.
+Similarly, the exclusive focus on walking in travel time computations overlooks the diverse modes of urban transport, such as cycling and public transportation.
+Acknowledging these shortcomings, we aim to introduce a novel multimodal accessibility metric, which we introduce in Section \ref{subsec:metric}.
+This proposed metric will encompass a broader spectrum of transportation methods, thereby providing a more accurate and comprehensive evaluation of urban accessibility for effective urban planning.
+
 \subsection{Routing Algorithms}
 \label{subsec:routing_algorithms}
 
@@ -349,7 +352,7 @@ After termination \(\tau_k(p)\) contains the earliest possible arrival time at s
 \begin{figure}
     \centering
     \includegraphics[width=0.70\textwidth]{Figures/related_work/raptor.pdf}
-    \caption{Iterating a route in RAPTOR}
+    \caption{Iterating a Route in RAPTOR}
     \label{fig:raptor}
 \end{figure}
 
