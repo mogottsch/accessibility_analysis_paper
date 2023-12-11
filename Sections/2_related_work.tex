@@ -144,56 +144,51 @@ Quantitative studies have developed various ways to measure how well cities matc
 The NEXI-Minutes looks at the accessibility of various urban amenities, ranging from educational institutions to entertainment venues and grocery stores by calculating the time needed to reach the closest facility within each category.
 Complementing this, the NEXI-Global, inspired by the Walk Score method \cite{WalkScoreMethodology}, combines these individual times through a weighted average into an overall score giving a holistic view of the accessibility of a city.
 
-NEXI is unique because it is both global and local - globally applicable due to its reliance on OpenStreetMap data, yet sufficiently detailed to assess local conditions.
+NEXI is unique because it is both global and local. 
+Namely, it is globally applicable due to its reliance on OpenStreetMap data, yet sufficiently detailed to assess local conditions.
 This has been proven by applying it all over Italy, where it's showcased on an interactive map through a hexagonal grid that makes it easy to see which areas are doing well and need improvement.
 The significance of the NEXI, as underscored by \cite{olivariAreItalianCities2023}, is its role in enabling data-driven policy-making, to develop cities in the fashion of the 15-minute city framework. 
 Therefore, their index enables accessibility-based planning.
-Despite the potential benefits, \cite{olivariAreItalianCities2023} acknowledge the challenges in realizing the 15-minute city model, notably the substantial investments and strategic planning required. 
+% Despite the potential benefits, \cite{olivariAreItalianCities2023} acknowledge the challenges in realizing the 15-minute city model, notably the substantial investments and strategic planning required. 
 
 However, there are some limitations in the NEXI metrics. 
 The NEXI-Minutes offers separate metrics for each category, which may lead to a fragmented understanding of urban accessibility. 
 This multi-metric approach can make comprehensive evaluation challenging. 
 In addition, the NEXI-Global, while aggregating these categories, introduces complexity through its weighted scoring system. 
-The weights are hard for humans to evaluate and the score from 0 to 100 disconnects the metric from the intuitive meaning of minutes.
+The weighted average is hard for humans to interpret and the score from 0 to 100 disconnects the metric from the intuitive meaning of minutes.
 This makes it more difficult for urban planners and policymakers to interpret and utilize the results effectively. 
 These factors suggest a need for refinement in the NEXI methodology to enhance its practical utility in urban development and planning.
 
 
 % --- CITYACCESSMAPS ---
-Another study that deals with an accessibility metric built on the concept of the 15-minute city by \cite{nicolettiDisadvantagedCommunitiesHave2023} explores the connection between urban infrastructure and social inequality. 
+Another study by \cite{nicolettiDisadvantagedCommunitiesHave2023} introduces an accessibility metric that explores the connection between urban infrastructure and social inequality. 
 The researchers developed an open, data-driven framework to analyze how different communities within cities access essential services, and they discovered that access to urban amenities like healthcare, education, and transportation is not evenly distributed. 
-In particular, communities with more minorities, lower incomes, and fewer university-educated individuals often have less access to these important services.
 The study examined over 50 types of amenities across 54 cities worldwide and found a common pattern: in all cities, access to infrastructure followed a log-normal distribution, indicating that disparities in accessibility are linked to the city's growth. 
-This pattern was consistent even when considering various socio-economic factors.
+This pattern was consistent even when considering various socioeconomic factors.
+In particular, communities with more minorities, lower incomes, and fewer university-educated individuals often have less access to these important services.
 
-The framework introduced by \cite{nicolettiDisadvantagedCommunitiesHave2023} is flexible and adaptable, allowing city planners to tailor it to local needs and priorities. 
-It's a tool that can help identify which groups in a city are most affected by inequality in access to services. 
+This framework developed by \cite{nicolettiDisadvantagedCommunitiesHave2023} is flexible and adaptable, allowing city planners to tailor it to local needs and priorities. 
+It's a tool that can help identify which groups in a city are most affected by inequality concerning accessibility to services. 
 Similar to \cite{olivariAreItalianCities2023} they emphasize the role of open data to guide urban planning and policy.
 While \cite{olivariAreItalianCities2023} simply provide a tool to measure accessibility and leave the analysis and interpretation to practitioners, \cite{nicolettiDisadvantagedCommunitiesHave2023} directly reveal the disparities in accessibility and provide a framework to analyze them.
 
-% --- critique on both ---
-However, the computation of travel time by all previously named authors is based on walking simulations. 
-This fails to capture the reality of urban mobility, which consists of various modes of transport, such as public transport, cycling, and driving.
-The potential benefits of infrastructure such as dedicated bicycle lanes, bicycle sharing systems, and highly available public transport are thus not reflected within the research of \cite{olivariAreItalianCities2023} and \cite{nicolettiDisadvantagedCommunitiesHave2023}.
-To provide a more accurate measure, we propose to enhance the computation of accessibility by integrating a multimodal accessibility metric that accounts for these various transportation methods and their respective infrastructural elements.
-
 % --- barcelona
-% TODO: this is written like shit
-\cite{ferrer-ortizBarcelona15MinuteCity2022} calculate whether a certain area has access to a certain category within 15 minutes for Barcelona
+% TODO: more about this paper
+Another metric introduced by \shortciteA{ferrer-ortizBarcelona15MinuteCity2022} calculates whether a certain area has access to a certain category within 15 minutes for Barcelona.
 They derive their categories from the six 15-minute city "urban social functions" defined by Moreno.
-However, they only deal with a subset of four, namely care, education, provisioning and entertainment.
+However, they only consider a small subset of four categories, namely care, education, provisioning and entertainment.
 
 % --- outro & transition to next algorithms ---
-While the NEXI and the open data-driven framework are the most prevalent examples for metrics based on the 15-minute city concept, they are not without limitations.
-The NEXI's fragmented multi-metric approach and its complex weighted scoring system can hinder practical interpretation and application.
-Similarly, the exclusive focus on walking in travel time computations overlooks the diverse modes of urban transport, such as cycling and public transportation.
+However, the computation of travel time by all previously named authors is based on walking simulations. 
+This fails to capture the reality of urban mobility, which consists of various modes of transport, such as public transport, cycling, and driving.
+Moreover, the NEXI's fragmented multi-metric approach and its complex weighted scoring system can hinder practical interpretation and application.
 Acknowledging these shortcomings, we aim to introduce a novel multimodal accessibility metric, which we introduce in Section \ref{subsec:metric}.
-This proposed metric will encompass a broader spectrum of transportation methods, thereby providing a more accurate and comprehensive evaluation of urban accessibility for effective urban planning.
+This proposed metric will encompass a broader spectrum of transportation modes, thereby providing a more accurate and comprehensive evaluation of urban accessibility for effective urban planning.
 
 \subsection{Routing Algorithms}
 \label{subsec:routing_algorithms}
 
-Following the discussion of accessibility metrics and their application in urban planning, particularly in the context of the 15-minute city model, this subsection transitions to a vital component underpinning these metrics: routing algorithms.
+Following the discussion of accessibility metrics and their application in urban planning, particularly in the context of the 15-minute city model, this subsection transitions to an important component that is necessary to calculate these metrics: routing algorithms.
 The focus here is on the exploration of various routing algorithms that are instrumental in calculating the shortest and most efficient paths within urban environments. 
 
 \subsubsection{Theoretical Backgrounds}
@@ -202,7 +197,7 @@ Before exploring the specific algorithms, it is important to understand the theo
 The primary goal of routing algorithms is to identify the optimal path between a designated origin and a specific destination.
 Typically, this is captured using a graph representation:
 \[ G = (V, E) \]
-where $V$ represents a set of nodes (or locations) and $E$ encapsulates the set of edges, which correspond to connections between these nodes.
+where $V$ represents a set of nodes or locations and $E$ encapsulates the set of edges, which correspond to connections between these nodes.
 
 For each edge \( e \in E \), there's an associated weight \( w(e) \in \mathbb{R} \) that characterizes the cost of traversing it.
 This cost might be determined by factors such as distance or travel time.
@@ -210,7 +205,7 @@ Consequently, the shortest path can be expressed as:
 \[ \langle v_0, e_0, v_1, e_1, \dots, v_n \rangle \]
 Here, \( v_0 \) denotes the origin, \( v_n \) the destination, and the edges must connect the nodes in the sequence:
 \[ e_i = (v_i, v_{i+1}) \quad \text{for} \quad i \in \{0, \dots, n-1\} \]
-In accessibility contexts, the primary concern frequently revolves around determining the accumulated cost, \( d(v_n) \), to reach the destination rather than the actual path.
+In accessibility contexts, the primary concern frequently revolves around determining the accumulated cost, \( d(v_n) = \sum_{e \in E} w(e) \), to reach the destination rather than the actual path.
 
 The problem may also encompass multiple objectives, such as considering both time and monetary cost of travel.
 Under these circumstances, the edge weight is represented as a vector:
@@ -231,7 +226,7 @@ Domination is defined as follows: \( l' \) dominates \( l \) if \( l'_i \leq l_i
 Intuitively, this means that \( l' \) is at least as good as \( l \) in all objectives and strictly better in at least one objective.
 
 The goal of routing algorithms used in accessibility analysis is finding the distance in the single objective case and the bag in the multi objective case, often discarding the actual paths.
-For accessibility analysis routing algorithms are often altered to not find the optimal path(s) between two nodes, referred to as one-to-one query, but the path from a single origin to all other nodes in the network, which we call one-to-all query.
+For accessibility analysis, routing algorithms are often altered to not find the optimal paths between two nodes, referred to as one-to-one query, but the path from a single origin to all other nodes in the network, which we call one-to-all query.
 
 \subsubsection{Dijkstra}
 \label{subsubsec:dijkstra}
