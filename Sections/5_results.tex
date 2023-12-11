@@ -2,14 +2,32 @@
 \section{Results}
 \label{sec:results}
 
-% TODO introduce results & reiterate RQ
+This section presents the findings of our comprehensive analysis, addressing the research questions outlined in the introduction.
+Recall, our primary inquiries revolved around understanding the role of bicycle sharing and public transport in shaping cities into 15-minute cities (\ref{rq:bicycle_pt}), the impact of cost on accessibility (\ref{rq:cost_accessibility}), the measurement of accessibility considering multiple transport modes and associated costs (\ref{rq:measure_accessibility}), and deriving specific urban planning recommendations for Cologne (\ref{rq:recommendations}).
 
-From our experiment, we retrieve the following data:
-For each (sub)-scenario and hexagon we get the Pareto set of the X-minute city metric and cost.
-In addition, we also retrieve the more fine granular version where we get a Pareto set of the time it takes to get to the closest POI for a specific category.
+The results are the output of experiment which consists of a novel method for accessibility-based planning that incorporates multiple modes of transport, extending the 15-minute city concept to include a broader range of sustainable transport options, while also considering cost.
+The data retrieved from our experiments consists of two parts:
+Firstly, for each (sub)-scenario and hexagon we get the Pareto set of the X-minute city metric and cost.
+Secondly, we also retrieve the more fine granular version where we get a Pareto set of the time it takes to get to the closest POI for a specific category.
+In the following subsections, we delve into this data as well as observing the runtime and memory usage of our method.
+
+% For each scenario and hexagon, we present the Pareto sets of the X-minute city metric and associated costs.
+% Additionally, we provide a more detailed analysis by presenting Pareto sets of the time required to reach the closest Point of Interest (POI) for specific categories.
+% This granular view allows us to examine the interplay between accessibility, mode of transport, and cost more closely, providing insights pertinent to the research questions.
+
 
 \subsection{Runtime Observations}
 \label{subsec:runtime_observations}
+
+% TODO: data prep is missing
+Observing the runtime and memory usage required to run our experiment enables us to evaluate the practicality of our approach.
+To execute our experiment, we used a machine with an AMD Ryzen 7 5800H CPU and 32 GB of RAM.
+As explained in Section \ref{sec:method} our routine is split into three parts, the input, main and metric routine.
+The input routine took X minutes to run and required no more than Y gigabytes of memory.
+The main routine took the longest with X minutes and required Y gigabytes of memory, however, we only utilized eight of the 16 available cores for parallelization.
+Lastly, the metric routine took X minutes to run and required Y gigabytes of memory.
+
+We found that the memory consumption mostly stems from the graph-based representation of the street network of Cologne.
 
 \subsection{15-Minute City Metric}
 \label{subsec:15_minute_city_metric}
@@ -548,7 +566,6 @@ The first benchmark focuses on the costs incurred when reaching the nearest POI 
 Conversely, the second benchmark assesses the costs for a similar journey, but within a more constrained 10-minute limit.
 However, to be able to compare these costs, we have to assume that for each hexagon and each scenario such a journey is possible, which is not always the case.
 
-Therefore, we first show how often a journey is possible within the given timeframe in Figure \ref{fig:percentage_inf_x}.
 
 \begin{figure}
   \centering
@@ -569,6 +586,7 @@ Therefore, we first show how often a journey is possible within the given timefr
   \label{fig:percentage_inf_x}
 \end{figure}
 
+Therefore, we first show how often a journey is possible within the given timeframe in Figure \ref{fig:percentage_inf_x}.
 For both benchmarks we see that walking alone fails the most to accomplish the journeys in the given timeframe and that car never fails to accomplish the journeys.
 After car the combined scenario of bicycle sharing and public transport fails the least, followed by public transport and bicycle sharing.
 In the 15-minute benchmark, bicycle sharing and public transport perform almost equally well, while in the 10-minute benchmark bicycle sharing performs better than public transport.
