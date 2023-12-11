@@ -7,7 +7,7 @@ Our method is split into three parts.
 Initially, we establish a metric based on the concept of the 15-minute city and complement it with a cost metric.
 Following this, our focus shifts to finding a fitting routing algorithm to calculate this metric.
 We do so by clearly stating the requirements we pose on such an algorithm, explaining why existing algorithms don't meet our criteria, and introducing our own algorithm, designed to meet our requirements. 
-The final stage merges our advanced routing algorithm with our metric, clearly explaining how we combine both to calculate our metric on a large scale, creating a comprehensive method for accessibility analysis. 
+The final stage explains how we use our routing algorithm to calculate our metric. 
 This integrated approach allows us to thoroughly assess and improve accessibility in urban settings, offering valuable insights for urban planners and decision-makers.
 
 \subsection{Metric}
@@ -20,32 +20,13 @@ To measure this, we categorize amenities into seven essential services: grocery,
 Each category is populated with Points of Interest (POIs) sourced from OSM, providing a comprehensive database of locations.
 The POIs are identified by their respective OSM tags.
 OSM tags are descriptive labels used to define the attributes and characteristics of geographic features in the OSM database. 
-They consist of a key and a value pair, like "amenity=restaurant", which helps in categorizing and detailing map elements such as roads, buildings, and natural features for accurate and comprehensive mapping.
+They consist of a key and a value pair, like "amenity=restaurant", which enables categorizing map elements such as roads, buildings, and natural features for accurate and comprehensive mapping.
 In our case, we use the OSM tags to identify nodes that represent POIs, like a supermarket or a park.
-The categories and their respective tags can be seen in Table \ref{tab:categories}.
-
-\begin{table}[ht]
-\centering
-\caption{Categories and Their Corresponding OSM Tags}
-\label{tab:categories}
-\footnotesize
-\begin{tabular}{|l|l|p{10cm}|}
-\hline
-\textbf{Category} & \textbf{OSM Key} & \textbf{OSM Value} \\ \hline
-Grocery           & shop             & alcohol, bakery, beverages, brewing supplies, butcher, cheese, chocolate, coffee, confectionery, convenience, deli, dairy, farm, frozen food, greengrocer, health food, ice-cream, pasta, pastry, seafood, spices, tea, water, supermarket, department store, general, kiosk, mall \\ \hline
-Education         & amenity          & college, driving school, kindergarten, language school, music school, school, university \\ \hline
-Health            & amenity          & clinic, dentist, doctors, hospital, nursing home, pharmacy, social facility \\ \hline
-Banks             & amenity          & atm, bank, bureau de change, post office \\ \hline
-Parks             & leisure          & park, dog park \\ \hline
-Sustenance        & amenity          & restaurant, pub, bar, cafe, fast-food, food court, ice-cream, biergarten \\ \hline
-Shops             & shop             & department store, general, kiosk, mall, wholesale, baby goods, bag, boutique, clothes, fabric, fashion accessories, jewelry, leather, watches, wool, charity, secondhand, variety store, beauty, chemist, cosmetics, erotic, hairdresser, hairdresser supply, hearing aids, herbalist, massage, medical supply, nutrition supplements, optician, perfumery, tattoo, agrarian, appliance, bathroom furnishing, do-it-yourself, electrical, energy, fireplace, florist, garden centre, garden furniture, fuel, glaziery, groundskeeping, hardware, houseware, locksmith, paint, security, trade, antiques, bed, candles, carpet, curtain, flooring, furniture, household linen, interior decoration, kitchen, lighting, tiles, window blind, computer, electronics, hifi, mobile phone, radio-technics, vacuum cleaner, bicycle, boat, car, car repair, car parts, caravan, fishing, golf, hunting, jet ski, military surplus, motorcycle, outdoor, scuba diving, ski, snowmobile, swimming pool, trailer, tyres, art, collector, craft, frame, games, model, music, musical instrument, photo, camera, trophy, video, videogames, anime, books, gift, lottery, newsagent, stationery, ticket, bookmaker, cannabis, copy shop, dry cleaning, e-cigarette, funeral directors, laundry, moneylender, party, pawnbroker, pet, pet grooming, pest control, pyrotechnics, religion, storage rental, tobacco, toys, travel agency, vacant, weapons, outpost \\ \hline
-\end{tabular}
-\normalsize
-\end{table}
+The categories and their respective tags can be seen in Appendix \ref{app:categories_and_osm_tags}.
 
 The core of our metric is the determination of temporal proximity to these amenities. 
 For each category, we calculate the minimum travel time required to reach at least one POI of that category. 
-The metric is then defined as the maximum value among these minimal times across all categories and we refer to it as the X-minute city metric, where X is the maximum value among the minimum travel times.
+The metric is then defined as the maximum value among these minimal times across all categories and we refer to it as the X-minute city metric, where X represents the maximum value among the minimum travel times.
 This approach yields a singular measure that reflects the most significant time distance barrier within an urban area, which effectively captures the least accessible category for any given area.
 We think that it is beneficial to focus on the least accessible category, as measuring accessibility in cities by averaging accessibility across all categories can mask disparities categories. 
 This ensures that the metric is targeted to areas of greatest need. 
@@ -252,6 +233,12 @@ The ticket that costs 3.20euro allows traveling any number of trips within Colog
 Therefore, if we were to first travel two stations with one trip and then get out to catch another trip that consists of five stops, we would still have the information that we already commuted two stops.
 Therefore, we can charge 3.20euro, instead of charging 2.20euro two times, which is more realistic.
 These enhanced versions of MLC and McRAPTOR are used in our modules, so that we can use the more realistic dynamic pricing schemes.
+
+While running our experiment, we see that MLC based modules present a significant computational bottleneck.
+We observe that in order to calculate our metric, we don't actually need to have the labels of every single node, but only of those, that impact the X-minute city and time Pareto front.
+We therefore introduce a runtime optimization into MLC, which eliminates some bags from being processed that are guaranteed to not impact the Pareto front.
+While iterating the unprocessed bags in MLC, we keep track of the minimum time required to reach a POI node of each category for each cost value.
+If we encounter a bag whose time and cost values are both greater than the minimum time and cost values for all categories, we can safely discard this bag, as it will not impact the Pareto front.
 
 
 \subsubsection{Example}

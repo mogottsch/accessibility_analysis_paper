@@ -4,10 +4,11 @@
 
 \subsection{Interpretation of Results}
 
-% both bicycles and pt improve
-% Analyzing the mean and quantiles of the optimal X-minute city in Table \ref{tab:optimal_x_minute_city_metric} for each hexagon and scenario, revealed that both bicycle sharing and public transport, when added to another scenario, can decrease the time it takes to reach all necessities.
-% The average improvement that comes from adding bicycle to the mix varies between 1:16 minute and 1:36 and the average improvement that comes from adding public transport to the mix varies between 0:56 and 1:18.
-% Therefore, we conclude that both methods are effective in improving accessibility.
+\subsubsection{Runtime Observations}
+We've shown that our method is applicable to a large city like Cologne, running in a reasonable amount of time on consumer hardware.
+While the memory footprints may exceed 32 GB, using swap memory did not degrade the runtime beyond a reasonable amount.
+We therefore conclude that our method is applicable to cities of similar size.
+Also, because our method is parallelizable, we expect that it will scale well when using more powerful hardware.
 
 \subsubsection{Public Transport Effectiveness}
 Our findings indicate that public transport effectively enhances accessibility, particularly in remote, low-POI-density suburban areas near high-frequency transport lines. 
