@@ -83,9 +83,10 @@ The specific query can be found in Appendix \ref{app:overpass_query} and the res
   \caption{Area of Interest and Buffer Region}\label{fig:area_plus_buffer}
 \end{figure}
 
-Additionally, the Figure also shows a buffer region around our area of interest.
-This larger region adds a buffer of approximately 5 km and is used by some in parts of our data processing.
 
+The figure additionally depicts a buffer zone surrounding the area of interest.
+This expanded area incorporates an additional buffer of approximately 5 km, which is important, as it directly impacts the plausibility of our accessibility analysis.
+Specifically, employing a larger underlying street network than the core area of interest circumvents the problem of underestimating accessibility in border regions.
 
 \subsubsection{Street Network \& POIs}
 \label{subs:street_network_pois}
@@ -214,4 +215,6 @@ For any trip that spans more than four stops or any multitude of trips the KVB c
 To depict this we add a hidden values to the labels processed in McRAPTOR that depicts how many stops the traveler already traversed.
 Because two consecutive trips are considered together, we don't need to nullify the hidden value.
 
-% TODO: personal car
+For personal vehicles, we use a cost per minute of 19 cents, which we derived from the average cost per kilometer of 28 cents given by \cite{OriginalSpritrechnerBenzinrechner} and an average speed of \SI{40}{\kilo\meter\per\hour}.
+These cost incorporate fuel costs, repair costs, insurance, tax, but not acquisition costs.
+

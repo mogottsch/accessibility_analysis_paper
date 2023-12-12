@@ -175,20 +175,21 @@ Before running MLC on the respective vehicle graph, the module filters our all b
 In addition, the vehicle graph is augmented with a walking graph. 
 This means that at nodes in the vehicle graph, where it is allowed to park the vehicle, there is an edge to the closest node in the walking graph.
 This augmentation is necessary, as the output bags of the free-floating vehicle sharing module need to be associated with nodes in the walking graph, as it is the common network.
-The module may also define any form of monetary cost.
+The module may also define cost depending on the time spent on the trip.
 
 For the personal vehicle module, we assume that there is only one personal vehicle and that it is located at the starting node.
 Therefore, the module filters out all bags that are not located at the starting node.
 Obviously, this module is only useful for the first trip, or more precisely, the module should only be used in the first row of the initial module matrix.
 After that MLC is run on the vehicle graph again augmented with the walking graph.
-% TODO: monetary cost
+As this module is also based on MLC, it may define costs just like the free-floating vehicle sharing module.
 
 In comparison to the unscheduled modules, the public transport module does not use MLC, but McRAPTOR.
 As a first step the module filters out all bags that are associated with a node that is not near a stop in the public transport system.
 Next, the module performs a single iteration of McRAPTOR, which represents a single trip within the public transport system.
 Last, the resulting bags have to be associated with nodes in the walking network again.
 To do so, the modules simply use the node that is closest to the coordinates of the public transport stop.
-Just like the free-floating vehicle module, the public transport module may define any form of monetary cost.
+Similarly to the free-floating vehicle sharing and personal vehicle module, the public transport module may define costs.
+The cost may depend on the number of stops that are traversed during the trip.
 
 \subsubsection{Merging}
 \label{subsubsec:merging}
@@ -309,12 +310,6 @@ The input routine also filters out uninteresting hexagons.
 For, example we filter out hexagons that don't contain any residential areas, as there are no people living there is no need to access any amenities.
 Next the input routine retrieves the centroid of each hexagon and then calculates the Euclidean distance between the centroids and the OSM nodes in order to assign the closest OSM node to each centroid.
 The result of the input routine is a set of OSM nodes, for which we want to compute the accessibility.
-
-% TODO:
-% START this does not belong here
-% The underlying street network needs to be larger than the area of interest.
-% Otherwise, border regions will have a lower accessibility than they should, as the street network is incomplete.
-% END this does not belong here
 
 
 % Main routine

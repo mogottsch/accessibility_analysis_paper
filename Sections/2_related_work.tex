@@ -15,10 +15,6 @@ Finally, we address the significance of multimodality and intermodality in urban
 This is important because considering diverse transport modes, including bicycle sharing and public transport, and investigating their synergies are vital to retrieve a holistic view of urban accessibility.
 This literature review sets the stage for the subsequent sections, where we develop and test a new tool for accessibility-based planning, incorporating multimodal and intermodal transport options.
 
-% \subsection{Accessibility Analysis}
-% \label{subsec:accessibility_analysis}
-% TODO: insert another intro sentence
-
 \subsection{Accessibility-Based Planning}
 \label{subsec:accessibility_based_planning}
 
@@ -173,10 +169,12 @@ Similar to \shortciteA{olivariAreItalianCities2023} they emphasize the role of o
 While \shortciteA{olivariAreItalianCities2023} simply provide a tool to measure accessibility and leave the analysis and interpretation to practitioners, \shortciteA{nicolettiDisadvantagedCommunitiesHave2023} directly reveal the disparities in accessibility and provide a framework to analyze them.
 
 % --- barcelona
-% TODO: more about this paper
 Another metric introduced by \shortciteA{ferrer-ortizBarcelona15MinuteCity2022} calculates whether a certain area has access to a certain category within 15 minutes for Barcelona.
 They derive their categories from the six 15-minute city "urban social functions" defined by Moreno.
 However, they only consider a small subset of four categories, namely care, education, provisioning and entertainment.
+Their data is taken from a variety of sources, all of which are specific to Spain or Barcelona.
+This makes it difficult to apply their method to other cities.
+To calculate the distances between the amenities and the areas, they use ESRI's ArcGIS Network Analyst, which is a proprietary software, again making it difficult to apply their method to other cities.
 
 % --- outro & transition to next algorithms ---
 However, the computation of travel time by all previously named authors is based on walking simulations. 
