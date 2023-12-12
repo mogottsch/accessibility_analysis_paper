@@ -192,9 +192,12 @@ This proposed metric will encompass a broader spectrum of transportation modes, 
 Following the discussion of accessibility metrics and their application in urban planning, particularly in the context of the 15-minute city model, this subsection transitions to an important component that is necessary to calculate these metrics: routing algorithms.
 The focus here is on the exploration of various routing algorithms that are instrumental in calculating the shortest and most efficient paths within urban environments. 
 
-\subsubsection{Theoretical Backgrounds}
+\subsubsection{Graph-based Algorithms}
 
-Before exploring the specific algorithms, it is important to understand the theoretical foundations of routing algorithms.
+Before exploring the specific algorithms, it is important to understand the theoretical foundations of graph-based routing algorithms, which is why we present the theoretical background first.
+
+\paragraph{Theoretical Background}
+
 The primary goal of routing algorithms is to identify the optimal path between a designated origin and a specific destination.
 Typically, this is captured using a graph representation:
 \[ G = (V, E) \]
@@ -229,7 +232,7 @@ Intuitively, this means that \( l' \) is at least as good as \( l \) in all obje
 The goal of routing algorithms used in accessibility analysis is finding the distance in the single objective case and the bag in the multi objective case, often discarding the actual paths.
 For accessibility analysis, routing algorithms are often altered to not find the optimal paths between two nodes, referred to as one-to-one query, but the path from a single origin to all other nodes in the network, which we call one-to-all query.
 
-\subsubsection{Dijkstra}
+\paragraph{Dijkstra}
 \label{subsubsec:dijkstra}
 The most straightforward approach to compute the shortest paths in a graph is the Dijkstra algorithm \shortcite{dijkstra1959note}.
 Dijkstra's algorithm initiates at a designated start node \( s \in V \) and employs a priority queue to systematically determine the shortest path to each subsequent node \( v \in V \).
@@ -245,7 +248,7 @@ However, this simple approach has multiple problems.
 Firstly, the Dijkstra algorithm is not able to handle multiple criteria.
 Secondly, the runtime of Dijkstra's algorithm is \( O(|E| + |V| \log |V|) \), which is too slow for large graphs.
 
-\subsubsection{MLC}
+\paragraph{MLC}
 \label{subsubsec:mlc}
 
 The Multi-Label-Correcting (MLC) \shortcite{hansenBicriterionPathProblems1980} algorithm is an extension of Dijkstra's algorithm to handle multi-objective scenarios.
@@ -263,7 +266,7 @@ The algorithm terminates when the priority queue is empty.
 The major drawback of the MLC algorithm is its runtime, which is even slower than Dijkstra's algorithm, because each node can be visited multiple times.
 
 
-\subsubsection{Graph-based Algorithms in Public Transport}
+\paragraph{Graph-based Algorithms in Public Transport}
 \label{subsubsec:graph_based_algorithms_in_public_transport}
 
 
@@ -273,9 +276,15 @@ In the context of accessibility analysis the previously mentioned algorithms can
 %These transfer edges repre
 However, public transport networks pose a challenge, since they contain time-dependent information, such as the departure time of a trip.
 To overcome this challenge two different approaches are commonly used, the time-expanded and the time-dependent approach, as explained by \shortciteA{muller-hannemannTimetableInformationModels2007}.
-While enabling the use of graph-based algorithms to solve routing in time-dependent transport networks, both approaches result in huge graphs and therefore suffer from the previously mentioned runtime problems.
+The idea behind these methods is to artificially craft a graph that represents the public transport network in a way that allows the use of graph-based algorithms.
+While enabling the use of graph-based algorithms to solve routing in time-dependent transport networks, both approaches result in huge graphs and therefore suffer from runtime problems, which is why we won't go into detail about them, but instead introduce algorithms that take advantage of the specifics of time-dependent transport networks.
 
-\subsubsection{RAPTOR}
+\subsubsection{Schedule-based Algorithms}
+
+Schedule-based Algorithms are a class of algorithms that are specifically designed to solve routing problems in time-dependent transport networks.
+We start with the most influential algorithm in this class, which is RAPTOR \shortcite{dellingRoundBasedPublicTransit2015} and then introduce some of its extensions, as well as, other algorithm that are based on it.
+
+\paragraph{RAPTOR}
 \label{subsubsec:raptor}
 
 To overcome the runtime problems of graph-based approaches, \shortciteA{dellingRoundBasedPublicTransit2015} introduce one of the most prominent routing algorithms for public transport, called Round based Public Transit Optimized Router algorithm (RAPTOR). % which is also used by R5
@@ -366,7 +375,7 @@ Through its round-based nature, RAPTOR is able to optimize for two criteria at t
 However, RAPTOR cannot incorporate more criteria and one of the criteria will always be the number of transfers.
 
 
-\subsubsection{McRAPTOR}
+\paragraph{McRAPTOR}
 \label{subsubsec:mcraptor}
 
 McRAPTOR \shortcite{dellingRoundBasedPublicTransit2015} is an extension of RAPTOR that allows an arbitrary number of criteria.
@@ -395,7 +404,7 @@ While McRAPTOR has a slower runtime than RAPTOR it is still magnitudes faster th
 However, McRAPTOR still suffers from the same problem as RAPTOR, namely that the transfer graph is hard to compute.
 
 
-\subsubsection{MCR}
+\paragraph{MCR}
 \label{subsubsec:mcr}
 
 To overcome problem of RAPTOR \shortciteA{dellingComputingMultimodalJourneys2013} introduce Multimodal Multicriteria RAPTOR (MCR).
@@ -420,7 +429,7 @@ However, when comparing the runtime of a simple query of MCR and McRAPTOR, MCR i
 Generally using MCR or McRAPTOR is a trade-off of runtime and preprocessing time.
 
 
-\subsubsection{ULTRA}
+\paragraph{ULTRA}
 \label{subsubsec:ultra}
 
 \shortciteA{baumUnLimitedTRAnsfersMultiModal2019} propose another algorithm building on MCR, called UnLimited TRAnsfers for Multi-Modal Route Planning (ULTRA).
@@ -433,14 +442,14 @@ While ULTRA demonstrates a runtime improvement over MCR, it is limited to optimi
 Using ULTRA in an accessibility analysis setting is also unsuitable, because ULTRA runs a reverse Bucket-CH query from the end node to all stops, to compute potential final transfers.
 This means that ULTRA, unlike MCR, is incompatible with one-to-many queries.
 
-% \subsubsection{McTB}
+% \paragraph{McTB}
 % \label{subsubsec:mctb}
 
 % addresses the problem that ULTRA is not suitable for more than two objectives
 % However, only allows for a very specific third objective and not general ones
 % \cite{potthoffFastMultimodalJourney2021}
 
-% \subsubsection{ULTRA-PHAST}
+% \paragraph{ULTRA-PHAST}
 % \label{subsubsec:ultra-phast}
 
 % addresses the problem that ULTRA is incompatible for one-to-many queries
