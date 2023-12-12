@@ -565,7 +565,7 @@ The derivation of these numbers can be found in Appendix \ref{app:monthly_visits
 To understand and compare the usual monthly costs caused by travelling with different modes of transport we first establish two time based benchmarks at which we will compare the cost incurred.
 The first benchmark focuses on the costs incurred when reaching the nearest POI of a given category within a 15-minute timeframe. 
 Conversely, the second benchmark assesses the costs for a similar journey, but within a more constrained 10-minute limit.
-However, to be able to compare these costs, we have to assume that for each hexagon and each scenario such a journey is possible, which is not always the case.
+However, to be able to compare these costs, a journey in that time span has to be possible, which is not always the case.
 
 
 \begin{figure}
@@ -588,35 +588,34 @@ However, to be able to compare these costs, we have to assume that for each hexa
 \end{figure}
 
 Therefore, we first show how often a journey is possible within the given timeframe in Figure \ref{fig:percentage_inf_x}.
-For both benchmarks we see that walking alone fails the most to accomplish the journeys in the given timeframe and that car never fails to accomplish the journeys.
-After car the combined scenario of bicycle sharing and public transport fails the least, followed by public transport and bicycle sharing.
+The combined scenario of bicycle sharing and public transport fails the least, followed by public transport and bicycle sharing.
 In the 15-minute benchmark, bicycle sharing and public transport perform almost equally well, while in the 10-minute benchmark bicycle sharing performs better than public transport.
 
 Category-wise banks seem to be the least accessible category, followed by parks and health.
 Sustenance, education, grocery and shops all seem to be similarly accessible.
 
-With the impossible journeys filtered out, we can now observe the monthly costs for each hexagon and scenario in Figure \ref{fig:costs_sub_x}.
-
-\begin{figure}
-  \centering
-  \begin{subfigure}[b]{0.45\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{Figures/results/monthly_costs/cost_sub_10.png}
-    \caption{10 Minutes}
-    \label{fig:costs_sub_10}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.45\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{Figures/results/monthly_costs/cost_sub_10.png}
-    \caption{15 Minutes}
-    \label{fig:costs_sub_15}
-  \end{subfigure}
-  \caption{Monthly Cost for Sub-X-Minute Journeys for each Hexagon and Scenario}
-  \label{fig:costs_sub_x}
-\end{figure}
-
-We see that the combined scenario of bicycle sharing and public transport is by far the most expensive scenario for both benchmarks.
+% With the impossible journeys filtered out, we can now observe the monthly costs for each hexagon and scenario in Figure \ref{fig:costs_sub_x}.
+%
+% \begin{figure}
+%   \centering
+%   \begin{subfigure}[b]{0.45\textwidth}
+%     \centering
+%     \includegraphics[width=\textwidth]{Figures/results/monthly_costs/cost_sub_10.png}
+%     \caption{10 Minutes}
+%     \label{fig:costs_sub_10}
+%   \end{subfigure}
+%   \hfill
+%   \begin{subfigure}[b]{0.45\textwidth}
+%     \centering
+%     \includegraphics[width=\textwidth]{Figures/results/monthly_costs/cost_sub_10.png}
+%     \caption{15 Minutes}
+%     \label{fig:costs_sub_15}
+%   \end{subfigure}
+%   \caption{Monthly Cost for Sub-X-Minute Journeys for each Hexagon and Scenario}
+%   \label{fig:costs_sub_x}
+% \end{figure}
+%
+% We see that the combined scenario of bicycle sharing and public transport is by far the most expensive scenario for both benchmarks.
 
 % we could reason about the costs of a car being 19ct/min through https://www.spritkostenrechner.de/
 % but the current problem is that car costs are super high for some reason, probably because they are never zero, eventhough they should be 
@@ -624,21 +623,78 @@ We see that the combined scenario of bicycle sharing and public transport is by 
 % TODO: we need to fix the above problem before continuing
 
 
-\begin{figure}
-  \centering
-  \begin{subfigure}[b]{0.45\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{Figures/results/monthly_costs/cost_all_reachable_in_10.png}
-    \caption{10 Minutes}
-    \label{fig:costs_all_reachable_10}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.45\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{Figures/results/monthly_costs/cost_all_reachable_in_15.png}
-    \caption{15 Minutes}
-    \label{fig:costs_all_reachable_15}
-  \end{subfigure}
-  \caption{Monthly Cost for Sub-X-Minute Journeys for Each Hexagon That Is Reachable by Each Mode}
-  \label{fig:costs_all_reachable_x}
-\end{figure}
+% \begin{figure}
+%   \centering
+%   \begin{subfigure}[b]{0.45\textwidth}
+%     \centering
+%     \includegraphics[width=\textwidth]{Figures/results/monthly_costs/cost_all_reachable_in_10.png}
+%     \caption{10 Minutes}
+%     \label{fig:costs_all_reachable_10}
+%   \end{subfigure}
+%   \hfill
+%   \begin{subfigure}[b]{0.45\textwidth}
+%     \centering
+%     \includegraphics[width=\textwidth]{Figures/results/monthly_costs/cost_all_reachable_in_15.png}
+%     \caption{15 Minutes}
+%     \label{fig:costs_all_reachable_15}
+%   \end{subfigure}
+%   \caption{Monthly Cost for Sub-X-Minute Journeys for Each Hexagon That Is Reachable by Each Mode}
+%   \label{fig:costs_all_reachable_x}
+% \end{figure}
+
+As seen in the previous Figure, the number of impossible journeys is different across scenarios.
+This again makes it hard to compare the costs across scenarios.
+Therefore, we will now only look at hexagons and category combination where a journey is possible within the given timeframe for all scenarios.
+In addition, we also filter out hexagon category combinations where the cost is zero, i.e. where walking suffices, as those are not interesting for our cost analysis.
+
+\begin{table}
+  \caption{Monthly costs per scenario (<15 minutes)}
+  \label{tab:monthly_costs_per_scenario_15}
+  \begin{center}
+    \begin{tabular}{lrrrrrrr}
+     & mean & std & min & 25\% & 50\% & 75\% & max \\
+    Scenario &  &  &  &  &  &  &  \\
+    Bicycle & 5.79 & 5.95 & 0.42 & 0.42 & 4.00 & 9.00 & 29.00 \\
+    Combined & 5.79 & 5.95 & 0.42 & 0.42 & 4.00 & 9.00 & 29.00 \\
+    Public Transport & 12.93 & 13.26 & 0.93 & 0.93 & 8.80 & 19.80 & 63.80 \\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+
+\begin{table}
+  \caption{Monthly costs per scenario (<10 minutes)}
+  \label{tab:monthly_costs_per_scenario_10}
+  \begin{center}
+    \begin{tabular}{lrrrrrrr}
+     & mean & std & min & 25\% & 50\% & 75\% & max \\
+    Scenario &  &  &  &  &  &  &  \\
+    Bicycle & 10.49 & 7.72 & 0.42 & 2.42 & 9.00 & 20.00 & 24.54 \\
+    Combined & 10.49 & 7.72 & 0.42 & 2.42 & 9.00 & 20.00 & 24.54 \\
+    Public Transport & 23.08 & 16.98 & 0.93 & 5.32 & 19.80 & 44.00 & 53.98 \\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+Table \ref{tab:monthly_costs_per_scenario_15} shows the average monthly costs to reach all categories within 15 minutes for each scenario and Table \ref{tab:monthly_costs_per_scenario_10} shows the same for 10 minutes.
+As we can see the total cost averages at 5.8\euro{} for the bicycle and combined scenario and 12.9\euro{} for the public transport scenario in the 15-minute benchmark.
+The cost reaches a maximum of 29\euro{} for the bicycle and combined scenario and 63.8\euro{} for the public transport scenario, while the 25\% most expensive hexagons require residents to pay 9\euro{} for the bicycle and combined scenario and 19.80 for the public transport scenario.
+Note that the bicycle and combined scenario always have the same cost.
+In the 10-minute benchmark, the average cost is 10.5\euro{} for the bicycle and combined scenario and 23.1\euro{} for the public transport scenario.
+Here the cost reaches a maximum of 24.54\euro{} for the bicycle and combined scenario and 53.98\euro{} for the public transport scenario, while the 25\% most expensive hexagons require residents to pay 20\euro{} for the bicycle and combined scenario and 44\euro{} for the public transport scenario.
+
+\begin{table}
+  \caption{Monthly costs for cars}
+  \label{tab:monthly_costs_for_cars}
+  \begin{center}
+    \begin{tabular}{lrrrrrrr}
+     & mean & std & min & 25\% & 50\% & 75\% & max \\
+    Car (15 Minutes) & 1.79 & 1.69 & 0.00 & 0.46 & 1.71 & 1.79 & 7.00 \\
+    Car (10 Minutes) & 2.87 & 2.89 & 0.00 & 0.46 & 1.79 & 3.91 & 10.88 \\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+Next, we will also look at the monthly costs for the car scenario in the same hexagons, we looked at before in Figure \ref{tab:monthly_costs_for_cars}.
+This allows us to compare the cost of cars with that of other modes of transport.
+Remember that the cost of 19ct/min tries to capture fuel costs, repair costs, insurance, tax, but not acquisition costs.

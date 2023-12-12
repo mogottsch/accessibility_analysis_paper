@@ -234,7 +234,25 @@ This means that currently on average the sustainable modes of travel are too exp
 
 Even when looking at the least accessible regions (90\% quantile) separately in Figure \ref{fig:90_quantile_time_per_cost}, where we have the largest improvement possible, the most cost-efficient mode of transport, which is bicycle, only yields an improvement of two minutes per euro, which again does not result in a net positive for people who earn the minimum wage.
 
-% TODO: monthly costs here
+
+With the help of the monthly cost depicted in in Table \ref{tab:monthly_costs_per_scenario_15} and \ref{tab:monthly_costs_per_scenario_10} we are able to derive recommendations for the price of a monthly ticket or subscription that is appealing to residents, that have to use public transport or bicycle sharing in order to reach certain amenities in under 10 or 15 minutes.
+We expect that such a monthly ticket would reduce the cost the trips necessary to reach the ameneties to zero.
+In our experiment in the city of Cologne, this is plausible, as the public transport tickets indeed allow for unlimited travel within the city, while NextBike's subscription makes trips that are under 30 minutes free.
+
+Looking at the Tables we note that the monthly cost for the combined scenario and the bicycle scenario are the same, which shows that in the combined scenario only bicycle sharing is used.
+In the 15-minute benchmark, we see that in order to appeal to at least 50\% of the population, a public transport ticket should cost less than 8.80\euro{}, while a bicycle sharing subscription should cost less than 4 \euro{}.
+In the 10-minute benchmark we see a similar pattern: the median cost for the bicycle and combined scenario is 9\euro{}, while the median cost for the public transport scenario is 19.80\euro{}.
+Currently, a NextBike subscription costs 10\euro{} per month, while the most common public transport ticket, the "Deutschlandticket", costs 49\euro{} per month.
+Both of these prices are significantly higher than the median cost for the bicycle and combined scenario, which means that a monthly ticket is not worth it for most people.
+
+Table \ref{tab:monthly_costs_for_cars} shows the monthly cost for cars, excluding acquisition costs.
+With the difference between monthly car cost and the monthly cost of the bicycle, combined and public transport scenario, we can calculate how large acquisition costs for a car can be, so that it is still cheaper than the sustainable modes of travel.
+In the case of the 15-minute benchmark the average car costs are 1.69\euro{}, while the average cost for the bicycle and combined scenario are 5.79\euro{}, resulting in a difference of 4.10\euro{} per month or 49.20\euro{} per year.
+This difference compared to the usual acquisition cost of a car is so low, that it is not monetarily worth it to buy a car, if the same journey can be made with bicycle sharing or public transport.
+In addition, we have to keep in mind that our estimates for the speed of cars are very optimistic, as we assume that there is no traffic and that parking is always available.
+Obviously, we can only state this for areas in which the accessibility using sustainable modes of travel suffices.
+From table \ref{table:hexagons_with_walking_time_above_15_minutes} we know that 67\% of hexagons in which walking alone is not sufficient, only cars are able to make all amenities accessible in under 15 minutes.
+
 
 
 \subsubsection{Uncertainty}
@@ -254,9 +272,9 @@ We could get a more realistic picture, if we would add more times with non-zero 
 We should also note that the comparison of variances should be taken with caution as the method for selecting the sub-scenarios differ per scenario.
 For bicycle sharing we employed a clustering method, while for public transport we made a qualitative choice. 
 
-\subsubsection{Potential of Sustainable Modes To Transform Cities To 15-Minute Cities}
-
-copied to implications
+% \subsubsection{Potential of Sustainable Modes To Transform Cities To 15-Minute Cities}
+%
+% copied to implications
 % We know that approximately 69\% of all considered hexagons and with that 69\% of all residential in the administrative district Cologne ("Stadtkreis Köln") are 15-minute city by walking, which shows us that Cologne largely already has an excellent accessibility.
 
 % Table \ref{table:hexagons_with_walking_time_above_15_minutes} shows that a majority (67\%) of the hexagons that are currently not 15-minute city regions are not fixed by any of the sustainable modes of travel, which shows that the impact of public transport and bicycle is limited.
