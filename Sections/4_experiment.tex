@@ -91,10 +91,10 @@ Specifically, employing a larger underlying street network than the core area of
 \subsubsection{Street Network \& POIs}
 \label{subs:street_network_pois}
 
-For the street network and the POIs, we use data from OpenStreetMap (OSM) \shortcite{OpenStreetMap}.
+For the street network and the POIs, we use data from OpenStreetMap (OSM) \shortcite{openstreetmapfoundationOpenStreetMap2023}.
 To use OSM data in practice various tools and services have been developed.
-Among these we use, pyrosm \shortcite{Pyrosm} which is a Python library designed specifically for reading OSM data in different formats and conducting data processing operations.
-Through pyrosm, we can automatically fetch data from sources like Geofabrik \shortcite{GeofabrikDownloadServer} and BBBike \cite{BBBikeExtractsOpenStreetMap}, which are two of the most popular OSM data providers.
+Among these we use, pyrosm \shortcite{tenkanenPyrosm2023} which is a Python library designed specifically for reading OSM data in different formats and conducting data processing operations.
+Through pyrosm, we can automatically fetch data from sources like Geofabrik \shortcite{geofabrikGeofabrikDownloadServer2018} and BBBike \cite{schneiderBBBikeExtractsOpenStreetMap2023}, which are two of the most popular OSM data providers.
 In our case, we use the data for the city of Cologne from BBBike.
 However, due to the flexibility of pyrosm, it is easily possible to use data from other sources as well and expand our analysis to other cities.
 
@@ -114,9 +114,9 @@ We retrieve all POIs that fall into one of our predefined categories specified i
 \subsubsection{Public Transport}
 \label{subs:public_transport}
 
-To handle public transport data, we use the General Transit Feed Specification (GTFS) \shortcite{GTFS}.
-To retrieve it we rely on the Mobility Database \shortcite{MobilityDatabase}.
-This database serves as an open-source repository containing links to publicly available GTFS feeds globally, standing as the subsequent version of TransitFeeds \shortcite{OpenMobilityDataPublicTransit}.
+To handle public transport data, we use the General Transit Feed Specification (GTFS) \shortcite{mobilitydataGeneralTransitFeed2023}.
+To retrieve it we rely on the Mobility Database \shortcite{mobilitydataMobilityDatabase2023}.
+This database serves as an open-source repository containing links to publicly available GTFS feeds globally, standing as the subsequent version of TransitFeeds \shortcite{mobilitydataOpenMobilityDataPublicTransit2023}.
 Similarly to the OSM data, we trim the GTFS data to the area of interest plus the buffer.
 The GTFS data is also cleaned and converted into a format that is more suitable for our algorithm, or more specifically McRAPTOR, which is part of our algorithm.
 Specifically, there are two major incompatibilities between the GTFS specification and RAPTOR's notion of routes and trips.
@@ -206,15 +206,15 @@ We also assume that bicycles and cars can be parked anywhere on their respective
 
 We try to implement a pricing scheme in our scenarios that represents the real-world circumstances as closely as possible.
 
-For bicycle sharing, we use the pricing scheme of NextBike, which is 1euro every 15 minutes.
+For bicycle sharing, we use the pricing scheme of NextBike, which is 1\euro every 15 minutes.
 To depict this we add a hidden value to the labels processed in MLC that depicts how long the current bicycle trip is.
 As two consecutive bicycle trips are considered separately we nullify this hidden value after each run of MLC.
 
-For public transport, we use the pricing scheme of the Cologne Transport Authority (KVB), which is 2.20euro for trips that span four stops or less.
-For any trip that spans more than four stops or any multitude of trips the KVB charges 3.20euro.
+For public transport, we use the pricing scheme of the Cologne Transport Authority (KVB), which is 2.20\euro for trips that span four stops or less.
+For any trip that spans more than four stops or any multitude of trips the KVB charges 3.20\euro.
 To depict this we add a hidden values to the labels processed in McRAPTOR that depicts how many stops the traveler already traversed.
 Because two consecutive trips are considered together, we don't need to nullify the hidden value.
 
-For personal vehicles, we use a cost per minute of 19 cents, which we derived from the average cost per kilometer of 28 cents given by \cite{OriginalSpritrechnerBenzinrechner} and an average speed of \SI{40}{\kilo\meter\per\hour}.
+For personal vehicles, we use a cost per minute of 19 cents, which we derived from the average cost per kilometer of 28 cents given by \cite{kieferSpritkostenrechner2023} and an average speed of \SI{40}{\kilo\meter\per\hour}.
 These cost incorporate fuel costs, repair costs, insurance, tax, but not acquisition costs.
 
