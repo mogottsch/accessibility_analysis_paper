@@ -2,19 +2,12 @@
 \section{Introduction}
 \label{sec:introduction}
 
-%the introduction should be max. 3 pages
-
 % --- CLIMATE CHANGE & SUSTAINABILITY ---
 
-% more needs to be done in order to reach the goals of the Paris Agreement \cite{mitchellMyriadChallengesParis2018}.
-% in order to reach the goals of the Paris Agreement emission reduction needs to start immediately \cite{krieglerPathwaysLimitingWarming2018}.
-% say that it is unlikely that countries will reach the goals of the paris agreement \cite{liuCountrybasedRateEmissions2021}.
-% 72\% of global transport emissions are from road vehicles \cite{Sims2014Transport}.
-
 Climate change poses a significant threat to our planet, and reducing emissions is crucial in addressing this global challenge.
-The Paris Agreement, with its ambitious goals to reduce global warming, serves as a call to action.
-However, current trends suggest that without immediate action to reduce emissions, achieving these goals is unlikely \shortcite{krieglerPathwaysLimitingWarming2018, liuCountrybasedRateEmissions2021}.
-61.8\% of global emissions in 2015 came from cities, and predictions for 2100 estimate the share to exceed 80\% by 2100 \shortcite{gurneyGreenhouseGasEmissions2021}.
+With its ambitious goals to reduce global warming, the Paris Agreement serves as a call to action.
+However, current trends suggest that achieving these goals without immediate action to reduce emissions is unlikely \shortcite{krieglerPathwaysLimitingWarming2018, liuCountrybasedRateEmissions2021}.
+61.8\% of global emissions in 2015 came from cities and predictions for 2100 estimate the share to exceed 80\% by 2100 \shortcite{gurneyGreenhouseGasEmissions2021}.
 % I need a citation that says that cities contribute majorly to global emissions
 The connection between the large share of city emissions and climate change has led to a critical examination of urban planning and transportation.
 In response to the urgent need to reduce emissions, the concept of emission-free cities has emerged as a pivotal strategy.
@@ -23,35 +16,35 @@ Transitioning to these cities is a proactive step toward sustainable living and 
 
 % ---- ACCESSIBILTY-BASED PLANNING ----
 
-With vehicles on the roads accounting for 72\% of all transport-related emissions \shortcite{Sims2014Transport}, it is clear that urban transportation is a key area to reduce emissions.
-In order to reduce the amount of car traffic, cities need to be planned in a way that allows people to conveniently access everything they need with alternative, sustainable, and more environmentally friendly modes of transport.
-Therefore, one of the main areas of research in the field of urban planning is the accessibility-based planning, which was investigated by many studies including \shortciteA{proffittAccessibilityPlanningAmerican2019, geursAccessibilityEvaluationLanduse2004a}.
+With vehicles on the roads accounting for 72\% of all transport-related emissions \shortcite{Sims2014Transport}, it is clear that urban transportation is a crucial area to reduce emissions.
+To reduce the amount of car traffic, cities need to be planned in a way that allows people to conveniently access everything they need with alternative, sustainable, and more environmentally friendly modes of transport.
+Therefore, one of the main areas of research in the field of urban planning is accessibility-based planning, which was investigated by many studies, including \shortciteA{proffittAccessibilityPlanningAmerican2019, geursAccessibilityEvaluationLanduse2004a}.
 % ---- ACCESSIBILTY METRICS ----
-However, for practitioners to be able to plan cities in an accessibility-based way, they first need to be able to measure the accessibility.
+However, for practitioners to plan cities in an accessibility-based way, they first need to be able to measure the accessibility.
 
 
-% ---- 15 MINUTE CITIES ---- into multi modal & needs for our tool
+% ---- 15 MINUTE CITIES ---- into multi-modal & needs for our tool
 A modern way of measuring accessibility is to use the X-minute city metric.
 This approach is inspired by the 15-minute city concept, which recently gained traction during the COVID pandemic \shortcite{morenoIntroducing15MinuteCity2021}.
 The 15-minute city envisions a lifestyle where all the essential components for a fulfilling life are conveniently reachable within a 15-minute walking or cycling radius.
 Traditionally, the modes of transport within the 15-minute city studies don't include public transportation or vehicle-sharing systems.
-However, we argue that in order to fully grasp the potential of sustainable transportation systems, it's essential to incorporate all available modes of modes, not merely a subset, in the measurement of accessibility.
-Little research has been done on the impact of sustainable transportation modes, beyond walking and personal cycling, on a city's accessibility within the 15-minute city framework, and how these different modes interact with each other.
+However, we argue that to fully grasp the potential of sustainable transportation systems, it's essential to incorporate all available modes of modes, not merely a subset, in measuring accessibility.
+Little research has been done on the impact of sustainable transportation modes, beyond walking and personal cycling, on a city's accessibility within the 15-minute city framework and how these modes interact.
 We therefore formulate our first research questions as follows:
 
 \begin{enumerate}
   \renewcommand{\labelenumi}{RQ \theenumi.}
-  \item How can bicycle sharing and/or public transport contribute to a city being a 15-minute city?
+  \item How can bicycle sharing and public transport contribute to a city being a 15-minute city?
   \label{rq:bicycle_pt}
   \begin{enumerate}
     \item In what cases is bicycle sharing or public transport more beneficial?
-    \item Is a combination of bicycle sharing and public transport necessary or are they substitutable?
+    \item Is a combination of bicycle sharing and public transport necessary, or are they substitutable?
   \end{enumerate}
 \end{enumerate}
 
 % ---- COST ----
-However, incorporating other modes of transport, that potentially are fare-based, poses a new challenge.
-In order to be able to use these modes of transport, people need to be able to afford them, which might cause inequality in accessibility.
+However, incorporating other modes of transport that potentially are fare-based poses a new challenge.
+To be able to use these modes of transport, people need to be able to afford them, which might cause inequality in accessibility.
 There has been research that investigates the influence of cost on accessibility \shortcite{conwayGettingCharlieMTA2019, el-geneidyCostEquityAssessing2016, guzmanAccessibilityAffordabilityAddressing2017, cuiFullCostAccessibility2018}, but not in the domain of the 15-minute city concept.
 Therefore, we formulate our second research question as follows:
 
@@ -63,11 +56,11 @@ Therefore, we formulate our second research question as follows:
 \end{enumerate}
 
 To answer these questions, we develop a new method for accessibility-based planning that incorporates an arbitrary amount of modes of travel.
-In addition, this method will incorporate a metric based on the concept of the 15-minute city, extending it to include all modes of transport and therefore presenting a more holistic view on accessibility via sustainable modes of transport.
+In addition, this method will incorporate a metric based on the concept of the 15-minute city, extending it to include all modes of transport and, therefore, presenting a more holistic view of accessibility via sustainable modes of transport.
 To also consider the interaction between cost and accessibility, our metric will also account for the cost of using the different modes of transport.
-To the best of our knowledge, there exists no method that is able to compute accessibility metrics for an arbitrary amount of modes of transport and also considers the cost of using these modes.
-Lastly, to retrieve actual data, we apply our method to the city of Cologne.
-With that we formulate our third and fourth research questions as follows:
+To the best of our knowledge, no method exists that can compute accessibility metrics for an arbitrary amount of modes of transport and also consider the cost of using these modes.
+Lastly, we apply our method to the city of Cologne to retrieve actual data.
+With that, we formulate our third and fourth research questions as follows:
 
 \begin{enumerate}
   \renewcommand{\labelenumi}{RQ \theenumi.}
@@ -79,16 +72,16 @@ With that we formulate our third and fourth research questions as follows:
 \end{enumerate}
 
 Our research makes significant contributions both theoretically and practically. Theoretically, our contributions are threefold:
-Theoretically, we first introduce a new method for accessibility-based urban planning that incorporates various modes of transport and takes into account the cost of using these modes.
+Theoretically, we introduce a new method for accessibility-based urban planning that incorporates various modes of transport and considers the cost of using these modes.
 Our second contribution is the development of a novel metric rooted in the 15-minute city concept, offering a fresh perspective on assessing urban accessibility.
-Thirdly, we provide an analysis of the influence and interaction between multiple transportation modes within the 15-minute city framework, while also examining how cost factors impact accessibility.
-On a practical level, our work yields a significant tool for urban planners. 
+Thirdly, we analyze the influence and interaction between multiple transportation modes within the 15-minute city framework and examine how cost factors impact accessibility.
+Practically, our work yields a significant tool for urban planners. 
 This tool facilitates the planning of cities with a focus on accessibility, aligning closely with the 15-minute city concept. 
-It offers a pragmatic approach to urban design, enabling planners to create more accessible, efficient, and cost-effective urban environments.
+It offers a pragmatic approach to urban design, enabling planners to create more accessible, efficient, cost-effective urban environments.
 
 The remainder of this paper is structured as follows.
-In Section \ref{sec:related_work}, we present related work on accessibility-based planning, the 15-minute city concept, and routing algorithms.
-Next, in Section \ref{sec:method}, we describe the specifics of our method, including the data collection process, the routing algorithm, and the accessibility metric.
-After that, we introduce the use case on which we will apply our method on in Section \ref{sec:experiment} and present the results in Section \ref{sec:results}.
+Section \ref{sec:related_work} presents related work on accessibility-based planning, the 15-minute city concept, and routing algorithms.
+Next, in Section \ref{sec:method}, we describe the specifics of our approach, including the data collection process, the routing algorithm, and the accessibility metric.
+After that, we introduce the use case on which we will apply our method in Section \ref{sec:experiment} and present the results in Section \ref{sec:results}.
 Finally, we conclude with our discussion Section \ref{sec:discussion}.
 
