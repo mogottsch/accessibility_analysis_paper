@@ -213,7 +213,7 @@ To address the multi-objective optimization involving both time and monetary cos
 The standard versions of MLC and McRAPTOR do not adequately capture dynamic pricing models, which is necessary to realistically represent monetary costs.
 
 % \paragraph{Challenges in the Original Algorithms} 
-The original MLC associates a fixed cost with an edge, which cannot represent variable pricing, such as a bike-sharing tariff that costs 1euro per 15-minute increment. 
+The original MLC associates a fixed cost with an edge, which cannot represent variable pricing, such as a bike-sharing tariff that costs 1\euro per 15-minute increment. 
 Labels are only updated by adding the cost of a given edge to the label's values.
 Similarly, McRAPTOR updates the labels at each stop during route traversal only based on the information of the current trip and stop. 
 With this McRAPTOR is unable to represent a pricing scheme that varies with the number of stops, like the one used by the Cologne Transport Authority.
@@ -223,10 +223,10 @@ These hidden values carry additional information which is not considered when co
 In the case of MLC, the hidden values may be updated along any edge, just like the regular values of the label.
 A hidden value, may carry information on how long the current trip with the shared vehicle is.
 We then additionally allow defining a function that updates while traversing an edge and may use the values and hidden values both before and after the traversal to do the update.
-With this functionality it is easy to increment the cost by 1euro every time the time spent on the trip exceeds the 15-minute interval.
+With this functionality it is easy to increment the cost by 1\euro every time the time spent on the trip exceeds the 15-minute interval.
 
 Similarly, the hidden values may be updated during McRAPTOR after every iteration of a stop.
-We can, therefore, store how many stops the current trip already traversed and if that number exceeds four, we can easily increase the price from 2.20euro to 3.20euro.
+We can, therefore, store how many stops the current trip already traversed and if that number exceeds four, we can easily increase the price from 2.20\euro to 3.20\euro.
 
 Additionally, as the concept of hidden values isn't specific to MLC or McRAPTOR, the hidden values can be transferred across iterations and modules.
 To understand the benefit, again consider the example of the pricing of the Cologne Transport Authority.
