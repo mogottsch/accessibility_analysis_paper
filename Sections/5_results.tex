@@ -102,7 +102,7 @@ Figure \ref{fig:optimal_map} shows the optimal X-minute city metric for each hex
 \end{figure}
 We can see that the least accessible hexagons require 44 minutes to reach all categories if only sustainable modes of travel are used.
 The least accessible regions are in the suburban areas in the north and south of Cologne. 
-Especially the region on the left side of the Rhine river next to Leverkusen, which is the district of Merkenenich, is very inaccessible.
+Especially the region on the left bank of the Rhine river next to Leverkusen, which is the district of Merkenenich, is very inaccessible.
 
 Figure \ref{fig:optimal_map_per_scenario} shows multiple maps of the optimal X-minute city metric for each hexagon, one for bicycle sharing, one for public transport and one for walking.
 \begin{figure}
@@ -131,7 +131,7 @@ Figure \ref{fig:optimal_map_per_scenario} shows multiple maps of the optimal X-m
         \label{fig:optimal_map_per_scenario}
 \end{figure}
 We see that the areas in and around the city center are more accessible by bicycle sharing than by public transport and walking.
-At the east of the city, near the forest "Königsforst", we see the district of Rath/Neumar, with a low accessibility for all scenarios.
+In the east of the city, near the forest "Königsforst", we see the district of Rath/Neumar, with a low accessibility for all scenarios.
 However, one can see that the region is more accessible by public transport than by bicycle sharing and walking.
 
 \subsection{Cost of 15-Minute City}
@@ -158,9 +158,10 @@ We can immediately see that there is no cost for hexagons at the 25\% and 50\% q
 Looking at the 75\% quantile and the maximum of the required cost for an optimal x-minute city metric for public transport, we see that the benefits we observed earlier come at a cost.
 Similarly, bicycle sharing and the combined mode both have zero cost at the 25\% quantile, also implying that they are not used for those hexagons.
 
-Looking at the maximum values reach by each sustainable mode of transport tells us that bicycles are used for no more than 15 minutes, as a 15-minute ride costs \euro{1}.
-Next, the long distance ticket of public transport (more than four stops) is used.
-Also, in the combined scenario, the long distance ticket of public transport is used together with a 15-minute ride of bicycle sharing, in at least one sub scenario, resulting in the maximum price of \euro{3.95}.
+Looking at the maximum cost values of each sustainable mode of transport shows us that bicycles never require more than \euro{1}.
+As \euro{1} allows to travel a maximum of 15 minutes, this shows that it is never necessary to travel longer than 15 minutes after a bicycle is reached.
+The maximum cost incurred by public transport is \euro{3.20}, the long-distance ticket of public transport (more than four stops) is used.
+Similarly, in the combined scenario, the long-distance ticket is used together with a 15-minute ride of bicycle sharing in at least one sub-scenario, resulting in the maximum price of \euro{3.95}.
 
 We can make similar observations with more granularity when looking at the distribution of the required cost in Figure \ref{fig:maximum_required_cost_for_x_minute_city}.
 \begin{figure}
