@@ -221,7 +221,7 @@ Our proposed modifications involve the use of 'hidden values' within the labels 
 These hidden values carry additional information which is not considered when comparing labels, but that may be used to update cost dynamically.
 
 In the case of MLC, the hidden values may be updated along any edge, just like the regular values of the label.
-A hidden value, may carry information on how long the current trip with the shared vehicle is.
+A hidden value may carry information on how long the current trip with the shared vehicle is.
 We then additionally allow defining a function that updates while traversing an edge and may use the values and hidden values both before and after the traversal to do the update.
 With this functionality it is easy to increment the cost by \euro{1} every time the time spent on the trip exceeds the 15-minute interval.
 
