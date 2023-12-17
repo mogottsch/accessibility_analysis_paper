@@ -83,9 +83,188 @@ Shops             & shop             & department store, general, kiosk, mall, w
 \section{Appendix - Experiment Module Matrix Configuration}
 \label{app:experiment_module_matrix_configuration}
 
-TODO: add module matrix configuration for each scenario here
+% walking step
+    % initial_steps = [[walking_step]]
+    % repeating_steps = []
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \[
+        \begin{pmatrix}
+            \text{walking module} \\
+        \end{pmatrix}
+        \]
+        \caption{Initial Matrix}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \[
+        \begin{pmatrix}
+            \\
+        \end{pmatrix}
+        \]
+        \caption{Repeating Matrix}
+    \end{subfigure}
+    \caption{Walking Scenario Module Matrices}
+    \label{fig:walking_scenario_module_matrix}
+\end{figure}
+
+% combined mode 
+    % initial_steps = [[walking_step]]
+    % repeating_steps = [
+    %     [bicycle_step, public_transport_step],
+    %     [walking_step],
+    % ]
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \[
+        \begin{pmatrix}
+            \text{walking module} \\
+        \end{pmatrix}
+        \]
+        \caption{Initial Matrix}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \[
+        \begin{pmatrix}
+            \text{free-floating vehicle} & \text{public transport} \\
+            \text{sharing module} & \text{module} \\
+            \\
+            \text{walking module} & \\
+        \end{pmatrix}
+        \]
+        \caption{Repeating Matrix}
+    \end{subfigure}
+    \caption{Combined scenario module matrices}
+    \label{fig:combined_scenario_module_matrix}
+\end{figure}
+
+% personal car
+    % initial_steps = []
+    % repeating_steps = [[car_step]]
+
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \[
+        \begin{pmatrix}
+            \\
+        \end{pmatrix}
+        \]
+        \caption{Initial Matrix}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \[
+        \begin{pmatrix}
+            \text{personal car module}\\
+        \end{pmatrix}
+        \]
+        \caption{Repeating Matrix}
+    \end{subfigure}
+    \caption{Personal Car Scenario Module Matrices}
+    \label{fig:personal_car_scenario_module_matrix}
+\end{figure}
+
+% bicycle only
+    % initial_steps = [[walking_step]]
+    % repeating_steps = [
+    %     [bicycle_step],
+    %     [walking_step],
+    % ]
+
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \[
+        \begin{pmatrix}
+            \text{walking module} \\
+        \end{pmatrix}
+        \]
+        \caption{Initial Matrix}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \[
+        \begin{pmatrix}
+            \text{public transport module} \\
+            \text{walking module} \\
+        \end{pmatrix}
+        \]
+        \caption{Repeating Matrix}
+    \end{subfigure}
+    \caption{Public Transport Scenario Module Matrices}
+    \label{fig:public_transport_scenario_module_matrix}
+\end{figure}
+
+% public transport only
+    % initial_steps = [[walking_step]]
+    % repeating_steps = [[public_transport_step], [walking_step]]
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \[
+        \begin{pmatrix}
+            \text{walking module} \\
+        \end{pmatrix}
+        \]
+        \caption{Initial Matrix}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\linewidth}
+        \centering
+        \[
+        \begin{pmatrix}
+            \text{free-floating vehicle sharing module} \\
+            \text{walking module} \\
+        \end{pmatrix}
+        \]
+        \caption{Repeating Matrix}
+    \end{subfigure}
+    \caption{Bicycle Scenario Module Matrices}
+    \label{fig:bicycle_scenario_module_matrix}
+\end{figure}
+
 
 \section{Appendix - Monthly Visits per Category}
 \label{app:monthly_visits_per_category}
 
-TODO
+\paragraph{Grocery}
+3 times per week according to \shortciteA{nilssonWhoShopsGroceries2015}.
+Resulting in approximately 12 times per month.
+
+\paragraph{Education}
+5 times per week, as we assume that students visit their school or university 5 times per week.
+
+\paragraph{Health}
+5.09 per year according to \shortciteA{eurostatHowOftenYou2019}.
+Resulting in approximately 0.42 times per month.
+
+\paragraph{Banks}
+9 per month according to \shortciteA{optconnectATMStatistics}.
+
+\paragraph{Parks}
+29 per year according to \shortciteA{nationalrecreationandparkassociationNumberTimesAmericans2016}.
+Resulting in approximately 2.42 times per month.
+
+\paragraph{Sustenance}
+6.12 per month according to \shortciteA{saprykinImpactSocialMedia2016}.
+
+\paragraph{Shops}
+4 per month according to \shortciteA{businessplusHowOftenPeople2019}.
