@@ -158,9 +158,9 @@ We can immediately see that there is no cost for hexagons at the 25\% and 50\% q
 Looking at the 75\% quantile and the maximum of the required cost for an optimal x-minute city metric for public transport, we see that the benefits we observed earlier come at a cost.
 Similarly, bicycle sharing and the combined mode both have zero cost at the 25\% quantile, also implying that they are not used for those hexagons.
 
-Looking at the maximum values reach by each sustainable mode of transport tells us that bicycles are used for no more than 15 minutes, as a 15-minute ride costs 1 euro.
+Looking at the maximum values reach by each sustainable mode of transport tells us that bicycles are used for no more than 15 minutes, as a 15-minute ride costs \euro{1}.
 Next, the long distance ticket of public transport (more than four stops) is used.
-Also, in the combined scenario, the long distance ticket of public transport is used together with a 15-minute ride of bicycle sharing, in at least one sub scenario, resulting in the maximum price of 3.95\euro.
+Also, in the combined scenario, the long distance ticket of public transport is used together with a 15-minute ride of bicycle sharing, in at least one sub scenario, resulting in the maximum price of \euro{3.95}.
 
 We can make similar observations with more granularity when looking at the distribution of the required cost in Figure \ref{fig:maximum_required_cost_for_x_minute_city}.
 \begin{figure}
@@ -173,14 +173,14 @@ We can make similar observations with more granularity when looking at the distr
 A new pattern stands out when focussing on the comparison between public transport and the combined mode.
 We see that the combined mode has higher costs earlier, which are then surpassed by public transport, only to be surpassed again by the combined mode.
 % discussion stuff (not sure where to put this)
-The first price increase in the combined mode can simply be explained by the 1\euro cost of 15-minute bicycle sharing.
+The first price increase in the combined mode can simply be explained by the \euro{1} cost of 15-minute bicycle sharing.
 Then public transport surpasses the combined mode. 
 This probably is because bicycle sharing, to some degree is able to compensate public transport, and is more cost-efficient.
 The fact that the combined mode then surpasses public transport again, most likely stems from the fact that the combined mode is able to achieve faster access than public transport by using bicycle sharing additionally, which is, however, more expensive than a short distance ticket alone.
 % END
 
 Figure \ref{fig:cost_map_per_scenario} shows the cost required to reach the optimal X-minute city metric for each hexagon for public transport, bicycle sharing and the combined scenario of bicycle sharing and public transport.
-Note that, we don't show the cost for the walking scenario, as it is always 0\euro.
+Note that, we don't show the cost for the walking scenario, as it is always \euro{0}.
 In these figures, we see that sometimes the cost is zero.
 As the portrayed scenarios all have costs associated with them, a cost of zero means that only walking is used.
 \begin{figure}
@@ -208,7 +208,7 @@ As the portrayed scenarios all have costs associated with them, a cost of zero m
        \caption{Map of Required Cost for Optimal for Each Hexagon}
         \label{fig:cost_map_per_scenario}
 \end{figure}
-We see almost in all hexagons in and around the city center, where NextBike's flex zone is located, the cost for the bicycle sharing scenario is 1.00\euro.
+We see almost in all hexagons in and around the city center, where NextBike's flex zone is located, the cost for the bicycle sharing scenario is \euro{1}.
 This sometimes also extends outside the city center.
 
 The cost of public transport is more scattered around the whole region. 
@@ -233,9 +233,9 @@ The line shows us what X-minute city metric is achievable for a given cost in a 
   \label{fig:example_pareto_front}
 \end{figure}
 
-In our example, all modes begin with being able to reach all categories within 22 minutes for a cost of 0\euro.
-Increasing, the cost only yields improvements when reaching a cost of 1\euro, where the bicycle and combined scenarios are able to reach all categories within approximately 10 minutes.
-Further, increasing the price to 2.20\euro yields an improvement for the public transport scenario, where it is now possible to reach all categories within approximately 19 minutes.
+In our example, all modes begin with being able to reach all categories within 22 minutes for a cost of \euro{0}.
+Increasing, the cost only yields improvements when reaching a cost of \euro{1}, where the bicycle and combined scenarios are able to reach all categories within approximately 10 minutes.
+Further, increasing the price to \euro{2.20} yields an improvement for the public transport scenario, where it is now possible to reach all categories within approximately 19 minutes.
 Further cost increases do not yield any improvements for any scenario.
 
 We can also quantify the value of the improvements as seen in Table \ref{tab:differences_in_example_hexagon}.
@@ -253,7 +253,7 @@ In addition we can calculate the benefit in minutes per one euro of cost, to mak
     \end{tabular}
   \end{center}
 \end{table}
-As we can see the bicycle scenarios' increase at a cost of 1\euro is larger than the public transport scenario's increase and also has a higher value per euro.
+As we can see the bicycle scenarios' increase at a cost of \euro{1} is larger than the public transport scenario's increase and also has a higher value per euro.
 
 % generalization
 To generalize these findings over all hexagons we take the average over the X-minute city for each cost and scenario to generate an average Pareto front.
@@ -267,10 +267,10 @@ The resulting Pareto front can be seen in Figure \ref{fig:mean_time_per_cost}.
   \label{fig:mean_time_per_cost}
 \end{figure}
 
-Similarly to the example of the single hexagon from before, we can see improvements for the bicycle scenario, as well as, the combined scenario at a cost of 1\euro of about 1.5 minutes.
-We can also see the improvements of public transport at a cost of 2.20\euro.
-Unlike the example of the single hexagon, we can also see the improvement at a cost of 2.20\euro for the combined scenario.
-Lastly, there is also a slight improvement for the public transport scenario, as well as, the combined scenario at a cost of 3.20\euro.
+Similarly to the example of the single hexagon from before, we can see improvements for the bicycle scenario, as well as, the combined scenario at a cost of \euro{1} of about 1.5 minutes.
+We can also see the improvements of public transport at a cost of \euro{2.20}.
+Unlike the example of the single hexagon, we can also see the improvement at a cost of \euro{2.20} for the combined scenario.
+Lastly, there is also a slight improvement for the public transport scenario, as well as, the combined scenario at a cost of \euro{3.20}.
 
 To compare these improvements we can again look at the differences in Table \ref{tab:differences_in_mean_pareto_front}.
 Note that we won't be analyzing the differences that occur in the combined scenario, as they may be skewed by prior improvements of other modes and are therefore hard to interpret.
@@ -288,9 +288,9 @@ Note that we won't be analyzing the differences that occur in the combined scena
   \end{center}
 \end{table}
 
-We see that the improvements of the bicycle scenarios at a cost of 1\euro are the largest with an improvement of 1.68 minutes and also the most cost-effective with a value of 1.68 minutes per euro.
-They are followed by the improvements of the public transport scenario at a cost of 2.20\euro with an improvement of 1.28 minutes and a value of 0.58 minutes per euro.
-The improvement at a cost of 3.20\euro is very small and the least cost-effective.
+We see that the improvements of the bicycle scenarios at a cost of \euro{1} are the largest with an improvement of 1.68 minutes and also the most cost-effective with a value of 1.68 minutes per euro.
+They are followed by the improvements of the public transport scenario at a cost of \euro{2.20} with an improvement of 1.28 minutes and a value of 0.58 minutes per euro.
+The improvement at a cost of \euro{3.20} is very small and the least cost-effective.
 
 Next, we are going to look at the quantiles of the aggregated Pareto front.
 Figure \ref{fig:quantile_time_per_cost} shows the 25\%, 75\% and 90\% quantiles of the aggregated Pareto front.
@@ -323,11 +323,11 @@ Note that, because we aggregate all the values of the X-minute city metric for a
         \label{fig:quantile_time_per_cost}
 \end{figure}
 
-The 25\% quantile Pareto front shown in Figure \ref{fig:25_quantile_time_per_cost} only contains a single improvement at the cost of 1\euro for scenarios containing bicycle sharing of 1.75 minutes with a cost-effectiveness of 1.75 minutes per euro.
+The 25\% quantile Pareto front shown in Figure \ref{fig:25_quantile_time_per_cost} only contains a single improvement at the cost of \euro{1} for scenarios containing bicycle sharing of 1.75 minutes with a cost-effectiveness of 1.75 minutes per euro.
 
 
-The 75\% quantile Pareto front shown in Figure \ref{fig:75_quantile_time_per_cost} with its steps shown in Table \ref{tab:differences_in_75_quantile_pareto_front} also has a similar improvement of 1.5 minutes at the cost of 1\euro for bicycle scenarios.
-In addition to that, it also shows a smaller increase at 2.20\euro for public transport scenarios of 1 minute and an even smaller increase at 3.20euro for bicycle sharing and public transport scenario.
+The 75\% quantile Pareto front shown in Figure \ref{fig:75_quantile_time_per_cost} with its steps shown in Table \ref{tab:differences_in_75_quantile_pareto_front} also has a similar improvement of 1.5 minutes at the cost of \euro{1} for bicycle scenarios.
+In addition to that, it also shows a smaller increase at \euro{2.20} for public transport scenarios of 1 minute and an even smaller increase at 3.20euro for bicycle sharing and public transport scenario.
 
 \begin{table}
   \caption{Steps in 75\% Quantile Pareto Front}
@@ -343,7 +343,7 @@ In addition to that, it also shows a smaller increase at 2.20\euro for public tr
 
 
 The 90\% quantile Pareto Front shown in Figure \ref{fig:90_quantile_time_per_cost} with its steps shown in Table \ref{tab:differences_in_90_quantile_pareto_front} shows a similar pattern to the 75\% quantile Pareto front.
-The major difference is that the increase at 2.20\euro for public transport scenarios is larger than the increase at 1euro for bicycle scenarios.
+The major difference is that the increase at \euro{2.20} for public transport scenarios is larger than the increase at 1euro for bicycle scenarios.
 More precisely, while bicycle sharing is more effective in decreasing the 15-minute city metric on average and also for the 75\% most accessible regions, public transport is more effective than bicycle sharing for the 10\% least accessible regions.
 We should, however, note that even though the improvement in the public transport scenario is larger it is still less cost-effective than the improvement in the bicycle sharing scenario.
 
@@ -675,11 +675,11 @@ In addition, we also filter out hexagon category combinations where the cost is 
 \end{table}
 
 Table \ref{tab:monthly_costs_per_scenario_15} shows the average monthly costs to reach all categories within 15 minutes for each scenario and Table \ref{tab:monthly_costs_per_scenario_10} shows the same for 10 minutes.
-As we can see the total cost averages at 5.8\euro{} for the bicycle and combined scenario and 12.9\euro{} for the public transport scenario in the 15-minute benchmark.
-The cost reaches a maximum of 29\euro{} for the bicycle and combined scenario and 63.8\euro{} for the public transport scenario, while the 25\% most expensive hexagons require residents to pay 9\euro{} for the bicycle and combined scenario and 19.80 for the public transport scenario.
+As we can see the total cost averages at \euro{5.80} for the bicycle and combined scenario and \euro{12.90} for the public transport scenario in the 15-minute benchmark.
+The cost reaches a maximum of \euro{29} for the bicycle and combined scenario and \euro{63.8} for the public transport scenario, while the 25\% most expensive hexagons require residents to pay 9\euro{} for the bicycle and combined scenario and 19.80 for the public transport scenario.
 Note that the bicycle and combined scenario always have the same cost.
-In the 10-minute benchmark, the average cost is 10.5\euro{} for the bicycle and combined scenario and 23.1\euro{} for the public transport scenario.
-Here the cost reaches a maximum of 24.54\euro{} for the bicycle and combined scenario and 53.98\euro{} for the public transport scenario, while the 25\% most expensive hexagons require residents to pay 20\euro{} for the bicycle and combined scenario and 44\euro{} for the public transport scenario.
+In the 10-minute benchmark, the average cost is \euro{10.5} for the bicycle and combined scenario and \euro{23.1} for the public transport scenario.
+Here the cost reaches a maximum of \euro{24.54} for the bicycle and combined scenario and \euro{53.98} for the public transport scenario, while the 25\% most expensive hexagons require residents to pay \euro{20} for the bicycle and combined scenario and \euro{44} for the public transport scenario.
 
 \begin{table}
   \caption{Monthly costs for cars}

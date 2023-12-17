@@ -206,12 +206,12 @@ We also assume that bicycles and cars can be parked anywhere on their respective
 
 We try to implement a pricing scheme in our scenarios that represents the real-world circumstances as closely as possible.
 
-For bicycle sharing, we use the pricing scheme of NextBike, which is 1\euro every 15 minutes.
+For bicycle sharing, we use the pricing scheme of NextBike, which is \euro{1} every 15 minutes.
 To depict this we add a hidden value to the labels processed in MLC that depicts how long the current bicycle trip is.
 As two consecutive bicycle trips are considered separately we nullify this hidden value after each run of MLC.
 
-For public transport, we use the pricing scheme of the Cologne Transport Authority (KVB), which is 2.20\euro for trips that span four stops or less.
-For any trip that spans more than four stops or any multitude of trips the KVB charges 3.20\euro.
+For public transport, we use the pricing scheme of the Cologne Transport Authority (KVB), which is \euro{2.20} for trips that span four stops or less.
+For any trip that spans more than four stops or any multitude of trips the KVB charges \euro{3.20}.
 To depict this we add a hidden values to the labels processed in McRAPTOR that depicts how many stops the traveler already traversed.
 Because two consecutive trips are considered together, we don't need to nullify the hidden value.
 
