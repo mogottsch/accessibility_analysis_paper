@@ -34,23 +34,23 @@ By leveraging this metric, we aim to help city planners to create urban environm
 
 % --- comparison to NEXI
 Our metric presents several advantages compared to the NEXI-minutes and NEXI-global, as outlined by \shortciteA{olivariAreItalianCities2023}.
-Firstly, unlike the NEXI-minutes which calculates separate metrics for each of seven categories, our metric evaluates all categories together. 
+Firstly, unlike the NEXI-minutes which calculates separate metrics for each of the seven categories, our metric evaluates all categories together. 
 This unified approach makes it more straightforward and easier to understand. 
 In contrast, while NEXI-global also considers all categories in one assessment, it converts the results into a 0-100 score. 
 This percentage system can obscure the real value of the data, making it more difficult to interpret.
 
 Moreover, the NEXI-global's practice of assigning different weights to each category complicates its analysis. 
-Our metric, by focusing on the lowest-performing category across all areas, simplifies the understanding and highlights where improvement is most needed. 
+By focusing on the lowest-performing category across all areas, our metric simplifies the understanding and highlights where improvement is most needed. 
 This method prevents the dominance of stronger areas over weaker ones, ensuring a more balanced and fair evaluation of urban development. 
 
 % --- cost
 In addition to the time dimension, we also incorporate a cost dimension into our metric.
 As, we want to incorporate more modes than just walking, some of which may have a monetary cost associated with them, we need to consider the cost of the trip.
-We recognize that time and cost are measures of different units and cannot be combined in a sensible way.
+We recognize that time and cost are measures of different units and cannot be combined sensibly.
 Therefore, we draw upon the notion of Pareto optimality to create a multi-objective metric that considers both time and cost.
 We define a Pareto set as a set of tuples, where each tuple contains a time value and a cost value.
 A tuple can be considered the time that is needed to reach all categories given the cost value.
-The Pareto set will allow answering questions in the form of "What is fastest time I can reach all categories given a certain cost?" or "What is the lowest cost I need to pay to reach all categories given a certain time?".
+The Pareto set will allow answering questions in the form of "What is the fastest time I can reach all categories given a certain cost?" or "What is the lowest cost I need to pay to reach all categories given a certain time?".
 
 % ---- START section about alternative modes
 % explain different modes - maybe(?) this belongs to related work
@@ -63,9 +63,9 @@ Therefore, we continue with the discussion of requirements we pose on our routin
 \subsection{Routing Algorithm}
 \label{subs:routing_algorithm}
 
-In this section we will first define the requirements we pose on our routing algorithm and explain why existing algorithms don't meet our criteria.
+In this section, we will first define the requirements we pose on our routing algorithm and explain why existing algorithms don't meet our criteria.
 Next, we will explain our algorithm in detail, which is based on a modular approach, where one module represents one mode of transport.
-After that we will explain the modules we use in our experiments, which are either based on MLC or McRAPTOR.
+After that, we will explain the modules we use in our experiments, which are either based on MLC or McRAPTOR.
 Lastly, we will explain some enhancements we made to MLC and McRAPTOR in order to support multi-objective optimization with dynamic pricing schemes.
 
 \subsubsection{Requirements}
@@ -80,24 +80,24 @@ Lastly, we will explain some enhancements we made to MLC and McRAPTOR in order t
 
 In order to fully grasp the potential of the combination of the sustainable modes of transport, we require our routing algorithm to be \textbf{multi-modal}, \textbf{multi-objective}, \textbf{unrestricted inter-modal}, and \textbf{modular}.
 
-\textbf{Multi-modal} means that our routing algorithms allows multiple modes of transport, including scheduled transport systems, like public transfer and an arbitrary number of unscheduled transport systems, like walking, cycling and driving.
-In addition, we require that free-floating vehicle sharing systems are incorporated realistically.
+\textbf{Multi-modal} means that our routing algorithm allows multiple modes of transport, including scheduled transport systems, like public transfer, and an arbitrary number of unscheduled transport systems, like walking, cycling, and driving.
+In addition, we require that free-floating vehicle-sharing systems are incorporated realistically.
 That means, that our routing algorithm must consider that switching to a free-floating vehicle is possible at any location, where a free-floating vehicle is available and parking a free-floating vehicle is possible anywhere where it's allowed.
 % note: this extra excludes MCR
 
-\textbf{Multi-objective} means that our algorithm must find all pareto optimal journeys according to an arbitrary amount of objectives.
+\textbf{Multi-objective} means that our algorithm must find all Pareto optimal journeys according to an arbitrary amount of objectives.
 The algorithm must provide the possibility to update the values of any objective whenever a \textit{movement} occurs.
 We define a movement either as an edge traversal in an unscheduled network or a step in the route traversal during McRAPTOR.
 In the case of an edge traversal the new objective must be a function of the old objective and the edge weights, formally: \(l' = f(l, w(e))\), where \(l\) and \(l'\) are the old and new labels, respectively, and \(w(e)\) are the weights of the edge that is traversed.
 In the case of an update during a step of the route traversal, the new objective must be a function of the old objective (to be continued).
 
 \textbf{Inter-modal} means that the different transport modes may be sequenced in any order.
-For example, when considering walking, cycling through a bicycle sharing system and public transport, the algorithm needs to consider journeys with bicycle rides between two consecutive public transport trips.
+For example, when considering walking, cycling through a bicycle-sharing system, and public transport, the algorithm needs to consider journeys with bicycle rides between two consecutive public transport trips.
 
 \textbf{Unrestricted} means that the algorithm fully searches the unscheduled network graphs, and does not pose restrictions like a maximum of 10 minutes walking distance.
 
 \textbf{Modular} means that the algorithm should be easily adaptable to different modes of transport.
-It should be possible to easily add, remove or chain different modes of transport.
+It should be possible to easily add, remove, or chain different modes of transport.
 
 
 % handled:
@@ -111,7 +111,7 @@ Consider the OSM graph of the key regions in Cologne, which comprises 125,176 no
 For RAPTOR to compute a transitively closed graph, it requires calculating the walking distance between each node.
 This computation would yield \(125,176^2 = 15,669,030,976\) edges, a number vastly greater than the original 142,074 edges.
 While MCR does support multi-objective solutions with unrestricted inter-modal transfers, it doesn't fully encapsulate the multi-modal concept we require.
-Although it theoretically permits various modes of unscheduled transport, it is primarily tailored for station-based vehicle sharing systems.
+Although it theoretically permits various modes of unscheduled transport, it is primarily tailored for station-based vehicle-sharing systems.
 Our focus, however, is on the increasingly prevalent free-floating systems.
 In MCR, unscheduled networks are contracted, leading to the removal of certain nodes.
 If an optimal route requires a mode change at a deleted node, MCR will be unable to identify that path.
@@ -123,12 +123,12 @@ Also note, that none of the algorithms mentioned so far are modular.
 
 % introduction modules
 As said, our algorithm should be easily adaptable to different modes of transport, therefore, we formulate it in a modular fashion.
-The algorithm described next presents a scaffolding that needs to be augmented by different modules, where a module represents a specific mode of transport and running a module may be seen as fully exploring the network through this mode of transport.
-One module, for example, would be walking, and running the walking module would mean to traverse the whole walking graph given the current state of bags.
+The algorithm described next presents a scaffolding that needs to be augmented by different modules, where a module represents a specific mode of transport, and running a module may be seen as fully exploring the network through this mode of transport.
+One module, for example, would be walking, and running the walking module would mean to traverse the whole walking graph given the current state of the bags.
 
 % explanation of bags & need for common network 
 A module always takes bags as an input and returns bags as an output.
-As explained in Section \ref{sec:related_work} a bag is a set of labels, that are Pareto optimal with respect to the objectives.
+As explained in Section \ref{sec:related_work} a bag is a set of labels, that are Pareto optimal concerning the objectives.
 In addition, in our work, a bag is associated with a node on some network.
 For the bags that are the input and output of the modules, we further require that they are associated with the same network.
 This is necessary in order to merge the bags of different modules.
@@ -141,7 +141,7 @@ The output would be a set of bags, where each node's bag contains exactly one la
 % algorithm
 The scaffolding algorithm is shown in Figure \ref{fig:modular_routing_algorithm}.
 The algorithm takes a start node and time as input and returns bags.
-First it creates the starting bags described above from the start node and the start time.
+First, it creates the starting bags described above from the start node and the start time.
 Next, it runs the initial modules given by the initial module matrix.
 
 A module matrix is an irregular matrix of modules.
@@ -170,7 +170,7 @@ The unscheduled modules consist of walking, free-floating vehicle sharing, and p
 Walking is the simplest unscheduled module, it simply consists of running MLC on the walking graph.
 The edges of the walking graph should contain the time it takes to traverse them by foot and should not have any monetary cost associated with them.
 
-The free-floating vehicle sharing module is a bit more complex.
+The free-floating vehicle-sharing module is a bit more complex.
 Before running MLC on the respective vehicle graph, the module filters our all bags that are located at a node where no free-floating vehicle is available.
 In addition, the vehicle graph is augmented with a walking graph. 
 This means that at nodes in the vehicle graph, where it is allowed to park the vehicle, there is an edge to the closest node in the walking graph.
@@ -300,15 +300,15 @@ Our accessibility analysis routine consists of three parts: the input routine, t
     \caption{Input Routine}
     \label{fig:input_routine}
 \end{figure}
-In the input routine, depicted in Figure \ref{fig:input_routine}, we first create an even grid that covers the whole area of interest, for example a city.
+In the input routine, depicted in Figure \ref{fig:input_routine}, we first create an even grid that covers the whole area of interest, for example, a city.
 To create such a grid, we use H3 \shortcite{H3H3}, which uses hexagons to evenly discretize an area.
-Our goal will be to calculate our metric for each hexagon, so that we get detailed spatial information about the accessibility in the area of interest.
+Our goal will be to calculate our metric for each hexagon so that we get detailed spatial information about the accessibility in the area of interest.
 The chosen H3 resolution determines the size of these hexagons: a higher resolution means smaller hexagons, enhancing the granularity of our analysis. 
 As such, selecting an appropriate H3 resolution is pivotal as it allows us to calculate our metrics for each hexagon with increased spatial accuracy, yielding a detailed spatial dataset that reflects the accessibility variations within the area of interest.
 We recommend a resolution of nine, which corresponds to a hexagon edge length of roughly 200 meters, as it is a good compromise between accuracy and computation time.
 The input routine also filters out uninteresting hexagons.
-For, example we filter out hexagons that don't contain any residential areas, as there are no people living there is no need to access any amenities.
-Next the input routine retrieves the centroid of each hexagon and then calculates the Euclidean distance between the centroids and the OSM nodes in order to assign the closest OSM node to each centroid.
+For, example we filter out hexagons that don't contain any residential areas, as no people are living there.
+Next, the input routine retrieves the centroid of each hexagon and then calculates the Euclidean distance between the centroids and the OSM nodes to assign the closest OSM node to each centroid.
 The result of the input routine is a set of OSM nodes, for which we want to compute the accessibility.
 
 
