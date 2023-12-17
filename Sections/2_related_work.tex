@@ -8,7 +8,7 @@ The objective is to build a theoretical foundation for the development of method
 The first part of this section explores the paradigm shift from traditional mobility-based planning to accessibility-based planning.
 This shift is crucial in addressing modern urban challenges such as reducing greenhouse gas emissions and promoting sustainable transportation. 
 Subsequently, we examine various routing algorithms that are central to effectively assess accessibility. 
-These include established algorithms like Dijkstra, Multi-Label-Correcting (MLC), and innovative approaches tailored for public transport networks, such as RAPTOR, McRAPTOR, and Multimodal Multicriteria RAPTOR (MCR). 
+These include some well established algorithms like Dijkstra, Multi-Label-Correcting (MLC), and innovative approaches tailored for public transport networks, such as RAPTOR, McRAPTOR, and Multimodal Multicriteria RAPTOR (MCR). 
 Furthermore, the integration of public transport data, primarily through the General Transit Feed Specification (GTFS), and street network data sourced from OpenStreetMap (OSM) are discussed. 
 This integration is vital for a realistic simulation of urban dynamics and to enable the reproducibility of our results. 
 Finally, we address the significance of multimodality and intermodality in urban planning.
@@ -19,15 +19,16 @@ This literature review sets the stage for the subsequent sections, where we deve
 \label{subsec:accessibility_based_planning}
 
 Traditional mobility-based planning primarily focuses on reducing congestion and facilitating movement, often prioritizing automobile travel \shortcite{proffittAccessibilityPlanningAmerican2019}.
-However, this approach is becoming more and more out-of-date, as modern challenges like reducing emissions of greenhouse gases are not properly addressed by it.
+However, this approach is becoming more and more out-of-date, as it fails to properly address modern challenges like reducing emissions of greenhouse gases.
 This is where accessibility-based planning comes into play, which focuses on planning cities in a way that provides residents with fast access to all important services \shortcite{proffittAccessibilityPlanningAmerican2019}.
+Thus the need for car ownership and its frequent usage are reduced.
 This shift foregrounds accessibility as the primary goal, rather than merely focusing on mobility, recognizing that mobility is a means to an end and not the ultimate objective in urban planning. 
 
 \shortciteA{geursAccessibilityEvaluationLanduse2004a} describe four types of accessibility-based planning, seen in Table \ref{tab:accessibility_measures}.
 Infrastructure-Based Accessibility is an approach that evaluates the performance and service level of transportation infrastructure.
 It involves an analysis of various factors such as the levels of congestion and average travel speeds. 
 The primary goal of this approach is to optimize the physical layout and capacity of transport networks to improve access to various destinations.
-Even though, \shortciteA{geursAccessibilityEvaluationLanduse2004a} describe this as an accessibility-based approach, it more closely resembles the traditional mobility-based approach.
+Even though, \shortciteA{geursAccessibilityEvaluationLanduse2004a} describe this as an accessibility-based approach, it more closely resembles the traditional mobility-based approach, as it focuses on the infrastructure itself rather than accessibility.
 Location-Based or Place-Based Accessibility focuses on the accessibility of essential services or employment opportunities within certain travel time or cost limits. 
 This method calculates the number of critical destinations, such as schools, hospitals, or workplaces, that are reachable within a reasonable commute. It emphasizes the spatial distribution of resources and services.
 Person-Based Accessibility centers on the individual’s experience in accessing various activities. This perspective acknowledges that accessibility can vary greatly based on personal factors like age, income, or physical ability. It aims to tailor urban planning to address diverse personal needs and constraints, considering personal travel patterns and individual circumstances.
