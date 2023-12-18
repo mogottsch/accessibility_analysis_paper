@@ -2,13 +2,24 @@
 \section{Discussion}
 \label{sec:discussion}
 
+The aim of this discussion is to embed the results and implications of our paper into the broader context of urban planning and accessibility.
+We do so by first deriving implications from our results that are relevant to the city of Cologne, as well as, urban planning in general.
+We then also discuss the limitations of our study and conclude by providing an outlook on future research.
+
 \subsection{Interpretation of Results}
+\label{subsec:interpretation_of_results}
+
+In this section we will derive quantitative and qualitative insights that based on our results.
 
 \subsubsection{Runtime Observations}
 We have shown that our method applies to a large city like Cologne, running in a reasonable amount of time on consumer hardware.
 While the memory footprints may exceed 32 GB, using swap memory did not degrade the runtime beyond a reasonable amount.
-We therefore conclude that our method applies to cities of similar size.
-Also, because our method is parallelizable, we expect it will scale well when using more powerful hardware.
+This shows us two things:
+First, we conclude that our method is efficient enough to be applicable to large cities.
+Second, we see that the implementation of our method can be optimized further by reducing the memory footprint.
+As the usage of swap memory does not significantly degrade the runtime, we know that either we keep unnecessary data in memory or that we are bound by CPU time, which can easily be fixed, as our method is parallelizable.
+Therefore, we expect our method to scale well when using more powerful hardware or distributing the computation over multiple machines.
+We have, therefore, successfully created a method that incorporates an arbitrary amount of transport modes while remaining computationally tractable, even for whole cities.
 
 \subsubsection{Public Transport Effectiveness}
 Our findings indicate that public transport effectively enhances accessibility, particularly in remote, low-POI-density suburban areas near high-frequency transport lines. 
@@ -17,12 +28,11 @@ We summarize our findings for public transport effectiveness in the following in
 \begin{enumerate}
   \renewcommand{\labelenumi}{I\theenumi.}
   \item Public transport improves accessibility \label{item:pt_improves_accessibility}
-  \item Public transport is more effective in remote areas \label{item:pt_effective_in_remote_areas}
-  \item Public transport is more effective in areas with low accessibility \label{item:pt_effective_in_areas_with_low_accessibility}
+  \item Public transport is more effective in remote areas than in the city's center \label{item:pt_effective_in_remote_areas}
+  \item Public transport is more effective in areas with low accessibility than in areas with high accessibility  \label{item:pt_effective_in_areas_with_low_accessibility}
   \item Public transport is costlier than bicycle sharing \label{item:pt_costlier_than_bicycle_sharing}
 \end{enumerate}
-We will reiterate our results and show how they support the above inferences.
-
+We will reiterate the findings in our results and show how they support the above inferences.
 In Figure \ref{fig:mean_time_per_cost}, we can see that when users can afford a short public transport trip (cost of 2.20), their accessibility to POIs increases (I\ref{item:pt_improves_accessibility}).
 
 % pt for areas of low accessibility 
@@ -71,8 +81,8 @@ This may be because the density of the POIs is lower outside the city.
 
 % comparison of usefulness of short and long trips (not assigned to inference)
 With the help of the cost and X-minute city metric Pareto fronts, we can evaluate the usefulness and cost-efficiency of short trips (those that travel no more than four stops) and long trips (those that travel more than four stops).
-Figure \ref{fig:mean_time_per_cost} and Table \ref{tab:differences_in_mean_pareto_front} show that the improvement caused by the short trip tickets is, on average, 1.28 minutes, compared to the 0.074 minutes of long trip tickets, and therefore almost 20 times larger.
-Unlike what we previously inferred (I\ref{item:pt_effective_in_remote_areas}), the most effective and cost-efficient use of public transport consists of short trips.
+Figure \ref{fig:mean_time_per_cost} and Table \ref{tab:differences_in_mean_pareto_front} show that the improvement caused by the short trip tickets is, on average, 1 minute and 17 seconds, compared to the 4 seconds of long trip tickets, and therefore almost 20 times larger.
+Unlike what we previously inferred in I\ref{item:pt_effective_in_remote_areas}, the most effective and cost-efficient use of public transport consists of short trips.
 However, we should note that just because it does not bring as much value to travel more than four stops, this does not mean that trips associated with four stops or fewer are short.
 Especially in suburban areas, where public transport stops are more sparse than in the city center, it might very well be that trips with four stops or fewer still travel multiple kilometers.
 When investigating the 25\% quantile and 75\% quantile Pareto fronts in Figure \ref{fig:quantile_time_per_cost}, there is no benefit of long-distance tickets displayed.
@@ -98,11 +108,9 @@ We summarize our findings for bicycle sharing effectiveness in the following inf
 \end{enumerate}
 
 We will reiterate our results and show how they support the above inferences.
-
-% bicycles improve in general
 In Figure \ref{fig:mean_time_per_cost} we can see that when users can afford a bicycle for 15 minutes (cost of \euro{1}), their accessibility to POIs increases drastically (I\ref{item:bicycle_improves_accessibility}).
 
-As detailed in Table \ref{tab:optimal_x_minute_city_metric} and Figure \ref{fig:optimal_x_minute_city_metric}, the introduction of bicycle sharing yields benefits across almost all hexagons, offering a more uniform impact compared to public transport (\ref{item:bicycle_improves_accessibility}).
+As detailed in Table \ref{tab:optimal_x_minute_city_metric} and Figure \ref{fig:optimal_x_minute_city_metric}, the introduction of bicycle sharing yields benefits across almost all hexagons, offering a more uniform impact compared to public transport (I\ref{item:bicycle_improves_accessibility}).
 Notably, bicycle sharing also yields improvements in already well-accessible areas (I\ref{item:bicycle_improves_accessibility_in_well_connected_areas}).
 We think this is because bicycles have a lower overhead than public transport, which contributes significantly to their practicality in urban settings.
 Firstly, the higher density of bicycle access points compared to public transport stops inherently reduces the initial distance required to access a mode of transport, facilitating quicker access to the transport system. 
@@ -112,11 +120,11 @@ This immediacy and ease of access render bicycles an effective solution for a mo
 Further, the data in Figure \ref{fig:optimal_x_minute_city_metric} reveals that in more accessible hexagons, combining bicycles with public transport offers greater advantages over using public transport alone (I\ref{item:bicycle_improves_accessibility_in_well_connected_areas}).
 Interestingly, looking at the least accessible hexagons, the disparity between these two scenarios narrows. 
 This observation implies that in areas with very low accessibility, which are most likely remote areas, the addition of bicycles does not significantly enhance accessibility.
-This trend is likely due to the limited availability of bicycles in these less accessible areas, underscoring the importance of equitable distribution in bicycle-sharing systems (\ref{item:bicycle_where_available}).
+This trend is likely due to the limited availability of bicycles in these less accessible areas, underscoring the importance of equitable distribution in bicycle-sharing systems (I\ref{item:bicycle_where_available}).
 
 We think the decrease in bicycle effectiveness in areas with low accessibility is linked to the low availability of bicycles in suburban areas, as most bicycles are located in the "Flex-Zone".
 This hypothesis is supported when looking at the difference between Figures \ref{fig:bicycle_optimal_map} and \ref{fig:walking_optimal_map}. 
-Here, an improvement is observed in the bicycle scenario compared to walking, particularly within the "Flex-Zone" as shown in Figure \ref{fig:flex_zones}, which underscores the impact of bicycle availability on its effectiveness (\ref{item:bicycle_where_available}).
+Here, an improvement is observed in the bicycle scenario compared to walking, particularly within the "Flex-Zone" as shown in Figure \ref{fig:flex_zones}, which underscores the impact of bicycle availability on its effectiveness (I\ref{item:bicycle_where_available}).
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.50\textwidth]{Figures/discussion/flex_zones.png}
@@ -194,31 +202,26 @@ We will now reiterate our results and show how they support the complements abov
 
 Table \ref{tab:optimal_x_minute_city_metric} shows that the combined scenario on average yields better accessibility than bicycle sharing and public transport alone.
 This suggests that either complement I or complement II must be present.
-
-% complement I
 We see evidence for complement I in the observation that bicycle sharing is most effective for the 80\% more accessible hexagons, while public transport is mostly only effective for the 20\% least accessible hexagons.
-
 Table \ref{table:hexagons_with_walking_time_above_15_minutes} shows how many hexagons in which people are not able to reach all necessities in 15 minutes by walking can reach all necessities in under 15 minutes by public transport or bicycle sharing.
 We see that bicycle sharing and public transport alone are equally important, as they fix 13\% and 11\% of hexagons, respectively.
 In addition, a lot more hexagons are fixed by only one of them (24\%) than by either (7\%).
 This again suggests that complement I is present.
-
-Figure \ref{fig:maximum_required_cost_for_x_minute_city} contradicts complement I, as we see that the combined mode has higher costs earlier, surpassed by public transport, only to be surpassed again by the combined mode.
-What is especially interesting here is that the public transport costs surpass those of the combined mode, which suggests that public transport can be substituted by bicycle sharing to some degree.
+However, figure \ref{fig:maximum_required_cost_for_x_minute_city} contradicts complement I, as we see that the combined mode has higher costs earlier, surpassed by public transport, only to be surpassed again by the combined mode.
+We think that this contradicts complement I as the public transport costs surpass those of the combined mode, which suggests that public transport can be substituted by bicycle sharing to some degree.
+%TODO explain this better
 
 
 % complement II
-
-Table \ref{table:hexagons_with_walking_time_above_15_minutes} also shows that the combined scenario only fixes around 2\% and is therefore not very impactful.
-Nevertheless, we prove that the effect of complement II is present.
+The only finding that suggests the presence of complement II can be found in table \ref{table:hexagons_with_walking_time_above_15_minutes}, which shows that the combined scenario fixes around 2\%.
+However, compared to the effect that bicycle and public transport have alone, this is not very significant.
+Nevertheless, we see that the effect of complement II is present.
 
 
 % implications
 The presence of complement I should make us aware that the effectiveness of either mode is highly dependent on the spatial circumstances of the region.
 Some regions might benefit more from bicycle sharing, while others benefit more from public transport.
 It is, therefore, necessary to analyze each region separately to maximize the positive effect of sustainable modes of travel.
-% implications END
-%END
 
 % not sure where to put this "conclusion"
 % Our findings conclude that enhancing bicycle availability in areas with low accessibility could yield significant benefits.
@@ -227,18 +230,15 @@ It is, therefore, necessary to analyze each region separately to maximize the po
 % Therefore, removing one mode of transportation cannot be effectively compensated for by simply increasing the other, as each serves distinct and crucial functions in addressing different aspects of urban accessibility.
 
 
-
-
 \subsubsection{Monetary Considerations}
 
 Table \ref{tab:differences_in_mean_pareto_front} shows how a minute of saved time costs for cycling and public transport, respectively.
-The most cost-efficient variant, bicycle sharing, enables users to save 1.68 minutes per euro, which might not be worth it for most people.
+The most cost-efficient variant, bicycle sharing, enables users to save 1 minute and 40 seconds per euro, which might not be worth it for most people.
 The 1.68 minutes per euro spent, in other words, means that to save a minute, people have to spend around 62 cents.
-Comparing this to the minimum wage in Germany of \euro{12} per hour in 2022 \shortcite{federalstatisticalofficegermanyMinimumWages}, which is 20 cents per minute, shows that it takes around three minutes to make enough money to save one minute, which is not worth it.
+Comparing this to the minimum wage in Germany of \euro{12} per hour in 2022 \shortcite{federalstatisticalofficegermanyMinimumWages}, which is 20 cents per minute, shows that it takes around three minutes to make enough money to save one minute, which is obviously not worth it.
 This means that, on average, the sustainable modes of travel are currently too expensive.
 
 Even when looking at the least accessible regions (90\% quantile) separately in Figure \ref{fig:90_quantile_time_per_cost}, where we have the most significant improvement possible, the most cost-efficient mode of transport, which is bicycle, only yields an improvement of two minutes per euro, which again does not result in a net positive for people who earn the minimum wage.
-
 
 With the help of the monthly cost depicted in Table \ref{tab:monthly_costs_per_scenario_15} and \ref{tab:monthly_costs_per_scenario_10}, we can derive recommendations for the price of a monthly ticket or subscription that is appealing to residents, that have to use public transport or bicycle sharing in order to reach certain amenities in under 10 or 15 minutes.
 We expect that such a monthly ticket would reduce the cost of the trips necessary to reach the amenities to zero.
@@ -248,7 +248,7 @@ Looking at the tables, we note that the monthly costs for the combined and bicyc
 In the 15-minute benchmark, we see that in order to appeal to at least 50\% of the population, a public transport ticket should cost less than \euro{8.80}, while a bicycle sharing subscription should cost less than \euro{4}.
 The 10-minute benchmark shows a similar pattern: the median cost for the bicycle and combined scenario is \euro{9}, while the median cost for the public transport scenario is \euro{19.80}.
 Currently, a NextBike subscription costs \euro{10} per month, while the most common public transport ticket, the "Deutschlandticket", costs \euro{49} per month.
-Both of these prices are significantly higher than the median cost for the bicycle and combined scenario, which means that a monthly ticket is not worth it for most people.
+Both of these prices are significantly higher than the median cost for the bicycle and combined scenario, which means that a monthly ticket is not worth it for at least half of the affected hexagons.
 
 Table \ref{tab:monthly_costs_for_cars} shows the monthly car cost, excluding acquisition costs.
 With the difference between the monthly car cost and the monthly cost of the bicycle, combined and public transport scenario, we can calculate how significant acquisition costs for a car can be, so that it is still cheaper than the sustainable modes of travel.
@@ -257,7 +257,6 @@ This difference compared to the usual acquisition cost of a car is so low that i
 In addition, we have to keep in mind that our estimates for the speed of cars are very optimistic, as we assume that there is no traffic and that parking is always available.
 Obviously, we can only state this for areas where accessibility using sustainable modes of travel suffices.
 From table \ref{table:hexagons_with_walking_time_above_15_minutes}, we know that 67\% of hexagons in which walking alone is not sufficient, only cars can make all amenities accessible in under 15 minutes.
-
 
 
 \subsubsection{Uncertainty}
@@ -346,6 +345,12 @@ The usefulness of the X-minute-city metric employed in our study, which assesses
 For example, access to a pet doctor a health POI, is considered equivalent to access to a hospital.
 While this metric provides a quantifiable measure of accessibility, it may not comprehensively represent the diverse needs of an urban population. 
 
+In addition, our metric does not in any way consider the load of the POIs.
+Consider for example a supermarket in the center if Cologne.
+As the population density there is very high, the supermarket might be very crowded, effectively reducing its usefulness.
+Conversely, a supermarket in a less dense area might be less crowded, making it more useful.
+This insight should also be considered when using our method for planning purposes.
+
 Our analysis also reveals a limitation concerning the scalability of transport modes. 
 While bicycles significantly improve the X-minute city metric in our study, suggesting enhanced accessibility, they inherently lack the scalability of public transport. 
 A bicycle may offer a convenient solution for an individual, but it does not address the mass transit needs of a larger population. 
@@ -385,6 +390,9 @@ A comprehensive study on the usage patterns of roads, bicycles, and public trans
 With the help of our current study, it is possible to find the paths people would take if they tried to get from one specific point to another.
 This, together with realistic demand data, yields a set of paths that can be analyzed to find potential bottlenecks.
 The results could inform urban planning and policy decisions, leading to more efficient and responsive urban transport systems.
+
+While we managed to incorporate public transport and bicycle sharing, as well as, the combination of both, we did not consider all common modes of transport.
+For example one might also consider personal bicycles, taxis, or e-scooters.
 
 % Conclusion of Future Research Ideas
 % To conclude, the proposed research directions offer exciting possibilities for advancing our understanding of urban transportation systems. By investigating the impact of public transport disruptions, exploring flex zone enhancements, analyzing the effects of improvements in public transport lines, and conducting a comprehensive analysis of transportation usage, future studies can significantly contribute to developing more efficient, accessible, and resilient urban mobility solutions. These research endeavors will not only build on the foundations laid by our current study but also pave the way for innovative approaches to tackling urban transportation challenges.
