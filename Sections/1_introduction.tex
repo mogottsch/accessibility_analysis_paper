@@ -17,19 +17,16 @@ Transitioning to these cities is a proactive step toward sustainable living and 
 % ---- ACCESSIBILTY-BASED PLANNING ----
 
 With vehicles on the roads accounting for 72\% of all transport-related emissions \shortcite{Sims2014Transport}, it is clear that urban transportation is a crucial area to reduce emissions.
-To reduce the amount of car traffic, cities need to be planned in a way that allows people to conveniently access everything they need with alternative, sustainable, and more environmentally friendly modes of transport.
+To reduce the amount of car traffic, cities need to be planned in a way that allows people to conveniently access everything they need with sustainable, and more environmentally friendly modes of transport.
 Therefore, one of the main areas of research in the field of urban planning is accessibility-based planning, which was investigated by many studies, including \shortciteA{proffittAccessibilityPlanningAmerican2019, geursAccessibilityEvaluationLanduse2004a}.
-% ---- ACCESSIBILTY METRICS ----
-However, for practitioners to plan cities in an accessibility-based way, they first need to be able to measure the accessibility.
-
 
 % ---- 15 MINUTE CITIES ---- into multi-modal & needs for our tool
-A modern way of measuring accessibility is to use the X-minute city metric.
+A modern way of to rethink urban planning is the 15-minute city concept.
 This approach is inspired by the 15-minute city concept, which recently gained traction during the COVID pandemic \shortcite{morenoIntroducing15MinuteCity2021}.
 The 15-minute city envisions a lifestyle where all the essential components for a fulfilling life are conveniently reachable within a 15-minute walking or cycling radius.
 Traditionally, the modes of transport within the 15-minute city studies don't include public transportation or vehicle-sharing systems.
 However, we argue that to fully grasp the potential of sustainable transportation systems, it's essential to incorporate all available modes of modes, not merely a subset, in measuring accessibility.
-Little research has been done on the impact of sustainable transportation modes, beyond walking and personal cycling, on a city's accessibility within the 15-minute city framework and how these modes interact.
+Little research has been done on the impact of sustainable transportation modes, beyond walking and using a personal bicycle, on a city's accessibility within the 15-minute city framework and how these modes interact.
 We therefore formulate our first research questions as follows:
 
 \begin{enumerate}
@@ -56,23 +53,23 @@ Therefore, we formulate our second research question as follows:
 \end{enumerate}
 
 To answer these questions, we develop a new method for accessibility-based planning that incorporates an arbitrary amount of modes of travel.
-In addition, this method will incorporate a metric based on the concept of the 15-minute city, extending it to include all modes of transport and, therefore, presenting a more holistic view of accessibility via sustainable modes of transport.
+This method will compute a metric based on the concept of the 15-minute city, extending it to include all modes of transport and, therefore, presenting a more holistic view of accessibility via sustainable modes of transport.
 To also consider the interaction between cost and accessibility, our metric will also account for the cost of using the different modes of transport.
-To the best of our knowledge, no method exists that can compute accessibility metrics for an arbitrary amount of modes of transport and also consider the cost of using these modes.
+To the best of our knowledge, no method exists that can compute accessibility metrics for an arbitrary combination of different transport modes while computing a metric with multiple objectives, like cost and time.
 Lastly, we apply our method to the city of Cologne to retrieve actual data.
 With that, we formulate our third and fourth research questions as follows:
 
 \begin{enumerate}
   \renewcommand{\labelenumi}{RQ \theenumi.}
   \setcounter{enumi}{2}
-  \item How can we measure accessibility in a way that incorporates an arbitrary amount of modes of transport and also considers the cost of using these modes?
+  \item How can we measure accessibility in a way that incorporates an arbitrary combination of transport modes while considering the associated costs?
   \label{rq:measure_accessibility}
   \item What are specific recommendations for urban planning in Cologne?
   \label{rq:recommendations}
 \end{enumerate}
 
 Our research makes significant contributions both theoretically and practically. Theoretically, our contributions are threefold:
-Theoretically, we introduce a new method for accessibility-based urban planning that incorporates various modes of transport and considers the cost of using these modes.
+Theoretically, we introduce a new method for accessibility-based urban planning that incorporates various transport modes and considers the cost of using these modes.
 Our second contribution is the development of a novel metric rooted in the 15-minute city concept, offering a fresh perspective on assessing urban accessibility.
 Thirdly, we analyze the influence and interaction between multiple transportation modes within the 15-minute city framework and examine how cost factors impact accessibility.
 Practically, our work yields a significant tool for urban planners. 
@@ -81,7 +78,7 @@ It offers a pragmatic approach to urban design, enabling planners to create more
 
 The remainder of this paper is structured as follows.
 Section \ref{sec:related_work} presents related work on accessibility-based planning, the 15-minute city concept, and routing algorithms.
-Next, in Section \ref{sec:method}, we describe the specifics of our approach, including the data collection process, the routing algorithm, and the accessibility metric.
+Then, in Section \ref{sec:method}, we describe the specifics of our approach, including the data collection process, our routing algorithm, and our accessibility metric.
 After that, we introduce the use case on which we will apply our method in Section \ref{sec:experiment} and present the results in Section \ref{sec:results}.
 Finally, we conclude with our discussion Section \ref{sec:discussion}.
 
