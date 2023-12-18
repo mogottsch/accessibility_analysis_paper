@@ -3,7 +3,7 @@
 \label{sec:method}
 
 Our method is split into three parts.
-Initially, we establish a metric based on the concept of the 15-minute city and complement it with a cost metric.
+Initially, we establish a metric based on the concept of the 15-minute city and complement it with cost.
 Following this, we focus on finding a fitting routing algorithm to calculate this metric.
 We do so by clearly stating our requirements for such an algorithm, explaining why existing algorithms don't meet our criteria, and introducing our algorithm, designed to meet our needs. 
 The final stage explains how we use our routing algorithm to calculate our metric. 
@@ -36,7 +36,7 @@ Our metric presents several advantages compared to the NEXI-minutes and NEXI-glo
 Firstly, unlike the NEXI-minutes, which calculates separate metrics for each of the seven categories, our metric evaluates all categories together. 
 This unified approach makes it more straightforward to understand. 
 In contrast, while NEXI-global considers all categories in one assessment, it converts the results into a 0-100 score. 
-This percentage system can obscure the actual value of the data, making it more challenging to interpret.
+This scoring system can obscure the actual value of the data, making it more challenging to interpret.
 
 Moreover, the NEXI-global's practice of assigning different weights to each category complicates its analysis. 
 By focusing on the lowest-performing category across all areas, our metric simplifies the understanding and highlights where improvement is most needed. 
@@ -54,7 +54,7 @@ The Pareto set will allow answering questions in the form of "What is the fastes
 % ---- START section about alternative modes
 Traditionally, the 15-minute city concept is applied to walking and or cycling and ignores other modes of transport.
 In the context of location-based metrics, some researchers even go as far as to only calculate the bee-line distance to the nearest amenity and ignore the street network altogether \shortcite{gastnerOptimalDesignSpatial2006}. At the same time, most only consider walking \shortcite{olivariAreItalianCities2023, nicolettiDisadvantagedCommunitiesHave2023}.
-We, however, believe that to determine the accessibility of a city accurately, all modes of transport must be considered, and the routing needs to be as realistic as possible.
+As seen in Section \ref{subsec:importance_of_multimodality_and_intermodality}, to determine the accessibility of a city accurately, we have to consider all modes of transport.
 Therefore, we continue discussing the requirements we pose on our routing algorithm next.
 
 
@@ -62,7 +62,7 @@ Therefore, we continue discussing the requirements we pose on our routing algori
 \label{subs:routing_algorithm}
 
 This section will first define our requirements for our routing algorithm and explain why existing algorithms don't meet our criteria.
-Next, we will explain our algorithm in detail, based on a modular approach, where one module represents one mode of transport.
+Next, we will explain our algorithm in detail, based on a modular approach, where one module represents the usage one mode of transport for a segment of the trip.
 After that, we will explain the modules we use in our experiments, which are based on MLC or McRAPTOR.
 Lastly, we will explain some enhancements we made to MLC and McRAPTOR to support multi-objective optimization with dynamic pricing schemes.
 
@@ -76,10 +76,10 @@ In addition, we require that free-floating vehicle-sharing systems are incorpora
 That means that our routing algorithm must consider that switching to a free-floating vehicle is possible at any location where a free-floating vehicle is available, and parking a free-floating vehicle is possible anywhere it's allowed.
 
 \textbf{Multi-objective} means that our algorithm must find all Pareto optimal journeys according to an arbitrary amount of objectives.
-The algorithm must provide the possibility to update the values of any objective whenever a \textit{movement} occurs.
+The algorithm must provide the possibility to update the values of any objective whenever a movement occurs.
 We define a movement as an edge traversal in an unscheduled network or a step in the route traversal during McRAPTOR.
-In the case of an edge traversal, the new objective must be a function of the old objective and the edge weights, formally: \(l' = f(l, w(e))\), where \(l\) and \(l'\) are the old and new labels, respectively, and \(w(e)\) are the weights of the edge that is traversed.
-In the case of an update during a step of the route traversal, the new objective must be a function of the old objective (to be continued).
+% In the case of an edge traversal, the new objective must be a function of the old objective and the edge weights, formally: \(l' = f(l, w(e))\), where \(l\) and \(l'\) are the old and new labels, respectively, and \(w(e)\) are the weights of the edge that is traversed.
+% In the case of an update during a step of the route traversal, the new objective must be a function of the old objective (to be continued).
 
 \textbf{Inter-modal} means the different transport modes may be sequenced in any order.
 For example, when considering walking, cycling through a bicycle-sharing system, and public transport, the algorithm must consider journeys with bicycle rides between two consecutive public transport trips.
@@ -90,6 +90,7 @@ For example, when considering walking, cycling through a bicycle-sharing system,
 It should be possible to easily add, remove, or chain different modes of transport.
 
 
+Next, we explain why the algorithsm introduced in Section \ref{subsec:routing_algorithms} don't meet our requirements.
 Both Dijkstra and MLC are not considered due to their impractical runtime.
 Furthermore, the need for multi-objective solutions excludes Dijkstra, RAPTOR, and ULTRA.
 The requirement for unrestricted inter-modal travel makes RAPTOR and McRAPTOR unsuitable in practical scenarios.
@@ -103,26 +104,28 @@ Our focus, however, is on the increasingly prevalent free-floating systems.
 In MCR, unscheduled networks are contracted, leading to the removal of specific nodes.
 If an optimal route requires a mode change at a deleted node, MCR will be unable to identify that path.
 As a result, MCR is not a viable option for our needs.
-Also, note that none of the algorithms mentioned so far are modular.
+Also, note that none of the algorithms mentioned so far are modular, meaning the considered transport modes cannot be easily added or removed.
+Without modularity, it is not possible to compare different combinations of transport modes, which is a crucial aspect of our work.
 
 \subsubsection{Scaffolding Algorithm}
 \label{subsubsec:algorithm}
 
 % introduction modules
 As mentioned, our algorithm should be easily adaptable to different modes of transport; therefore, we formulate it in a modular fashion.
-The algorithm described next presents a scaffolding that needs to be augmented by different modules, where a module represents a specific mode of transport, and running a module may be seen as fully exploring the network through this mode of transport.
+The algorithm described next presents a scaffolding that needs to be augmented by different modules, where a module represents a single usage of a specific transport mode, and running a module can be seen as exploring the network through this mode of transport.
 One module, for example, would be walking, and running the walking module would mean traversing the whole walking graph, given the current state of the bags.
 
 % explanation of bags & need for common network 
 A module always takes bags as an input and returns bags as an output.
-As explained in Section \ref{sec:related_work}, a bag is a set of Pareto optimal labels concerning the objectives.
+As explained in Section \ref{sec:related_work}, a bag is a set of Pareto optimal labels attributing specific values to each objective.
 In addition, in our work, a bag is associated with a node on some network.
 For the bags that are the input and output of the modules, we further require that they are associated with the same network.
-This is necessary to merge the bags of different modules.
+This is necessary to feed the output bags of one module into the input bags of another module.
 The most reasonable choice for the common network is the walking graph, which has a real-world interpretation because walking between different modes of transport is very common.
 
 % example of running a module
-To further explain how running a module looks like, consider the example of calling the walking module on the starting bags, which are a set of bags where every bag is empty, except for the one of the starting node, where precisely one label is present that contains the starting time and zero costs.
+To  explain module operation, consider using the walking module on starting bags.
+In the starting bags each bag is empty except for the starting node's bag, which contains one label with the start time and no costs.
 The output would be a set of bags, where each node's bag contains exactly one label, where the time would be equal to the time it takes to walk to the node, and the cost would be zero, as walking never costs anything.
 
 % algorithm
@@ -158,7 +161,7 @@ Walking is the most straightforward unscheduled module, which consists of runnin
 The edges of the walking graph should contain the time it takes to traverse them by foot and should not have any monetary cost associated with them.
 
 The free-floating vehicle-sharing module is more complex than the walking module.
-Before running MLC on the respective vehicle graph, the module filters all bags located at a node where no free-floating vehicle is available.
+Before running MLC on the respective vehicle graph, the module filters all bags located at a node where no free-floating vehicle is available, as it is only possible to start a trip with a bicycle from nodes where a bicycle is present.
 In addition, the vehicle graph is augmented with a walking graph. 
 This means that at nodes in the vehicle graph where the vehicle is allowed to be parked, there is an edge to the closest node in the walking graph.
 This augmentation is necessary, as the output bags of the free-floating vehicle-sharing module must be associated with nodes in the walking graph, as it is the common network.
@@ -166,15 +169,16 @@ The module may also define cost depending on the time spent on the trip.
 
 For the personal vehicle module, we assume that there is only one personal vehicle and that it is located at the starting node.
 Therefore, the module filters out all bags not located at the starting node.
-Obviously, this module is only helpful for the first trip, or more precisely, the module should only be used in the first row of the initial module matrix.
-After that, MLC is run on the vehicle graph again, augmented with the walking graph.
-This module is also based on MLC, so it may define costs like the free-floating vehicle-sharing module.
+Obviously, this module is intended to be used before any other module is used, i.e. for the first segment of the trip.
+Therefore, it should only appear in the first row of the initial module matrix.
+After that, MLC is run on the vehicle graph, augmented with the walking graph.
+As this module is also based on MLC, so it may define costs like the free-floating vehicle-sharing module.
 
 Compared to the unscheduled modules, the public transport module does not use MLC but McRAPTOR.
-As a first step, the module filters out all bags associated with a node that is not near a stop in the public transport system.
+As a first step, the module filters out all bags associated with nodes that are not near a stop in the public transport system.
 Next, the module performs a single iteration of McRAPTOR, representing a single trip within the public transport system.
-Last, the resulting bags must be again associated with the walking network nodes.
-To do so, the modules use the node closest to the coordinates of the public transport stop.
+Finally, the resulting bags need to be re-associated with the nodes of the walking network.
+To do so, the module uses the node closest to the coordinates of the public transport stop.
 The public transport module may define costs like the free-floating vehicle sharing and personal vehicle modules.
 The cost may depend on the number of stops traversed during the trip.
 
@@ -189,7 +193,7 @@ We differentiate between two cases:
     \item There is only one bag associated with a node.
     \item There are multiple bags associated with the same node.
 \end{enumerate}
-In the first case, we put the bag into the output bags.
+In the first case, we directly put the bag into the output bags.
 In the second case, we create a new bag that contains all labels of all bags associated with the node, which might break the Pareto optimality of the labels.
 Therefore, to restore the Pareto optimality of the labels, we remove all labels dominated by another label.
 
@@ -202,8 +206,8 @@ The standard versions of MLC and McRAPTOR do not adequately capture dynamic pric
 The original MLC associates a fixed cost with an edge, which cannot represent variable pricing, such as a bike-sharing tariff that costs \euro{1} per 15-minute increment. 
 Labels are only updated by adding the cost of a given edge to the label's values.
 Similarly, McRAPTOR updates the labels at each stop during route traversal only based on the information of the current trip and stop. 
-With this, McRAPTOR cannot represent a pricing scheme that varies with the number of stops, like the one used by the Cologne Transport Authority.
-Our proposed modifications involve the use of 'hidden values' within the labels that are used by these algorithms. 
+With this, McRAPTOR cannot represent a pricing scheme that changes in discrete steps depending on the number of stops, like the one used by the Cologne Transport Authority.
+Our proposed modifications involve the use of hidden values within the labels that are used by these algorithms. 
 These hidden values carry additional information that is not considered when comparing labels, but that may be used to update costs dynamically.
 
 In the case of MLC, the hidden values may be updated along any edge, just like the regular values of the label.
@@ -222,7 +226,6 @@ Therefore, we can charge \euro{3.20} instead of \euro{2.20} twice, which is more
 These enhanced versions of MLC and McRAPTOR are used in our modules to use more realistic dynamic pricing schemes.
 
 While running our experiment, we see that MLC based modules present a significant computational bottleneck.
-
 We observe that to calculate our metric, we don't need the labels of every single node but only those that impact the X-minute city and time Pareto front.
 Therefore, we introduce a runtime optimization into MLC, which eliminates some bags from being processed that are guaranteed not to impact the Pareto front.
 While iterating the unprocessed bags in MLC, we keep track of the minimum time required to reach a POI node of each category for each cost value.
@@ -262,7 +265,7 @@ As the starting bags only consist of one non-empty bag at the starting node with
 In the real world, this represents walking to all nodes in the walking network from the start node.
 Note that after the initial walking module, all bags only contain exactly one label, as the cost to go anywhere on foot is zero.
 
-Next, the modules of the first row of the repeating matrix are run.
+Next, the modules of the first row of the repeating matrix are run in parallel.
 In the real world, this means that after an initial walk, the traveler would either drive with a free-floating vehicle starting from a location where one is available or commute by public transport starting from one stop.
 For public transport, one could imagine that we commute with all possible trips from all stops and update the bags at the stops along each route accordingly.
 After running these modules and merging their result bags, each bag may contain more than one label, as public transport and driving with a vehicle may be faster than walking but also cost money.
@@ -277,22 +280,22 @@ The result of the second run of the repeating module matrix is our final result.
 \subsection{Integrated Accessibility Analysis Routine}
 \label{subsec:combining}
 
-We embed the routing algorithm described in Section \ref{subsec:routing_algorithms} in our accessibility analysis routine to compute the metric described in Section \ref{subsec:metric}.
+We embed the modular routing algorithm described in Section \ref{subsec:routing_algorithms} in our accessibility analysis routine to compute the metric described in Section \ref{subsec:metric}.
 Our accessibility analysis routine consists of three parts: the input routine, the main routine, and the metrics routine.
 
 % Input routine
 \begin{figure}
     \centering
-    \includegraphics[scale=0.60]{Figures/method/input_routine}
+    \includegraphics[scale=0.50]{Figures/method/input_routine}
     \caption{Input Routine}
     \label{fig:input_routine}
 \end{figure}
 In the input routine, depicted in Figure \ref{fig:input_routine}, we first create an even grid that covers the whole area of interest, for example, a city.
-We use H3 \shortcite{H3H3}, which uses hexagons to discretize an area to create such a grid evenly.
+We use H3 \shortcite{H3H32023}, which uses hexagons to discretize an area to create such a grid evenly.
 Our goal will be to calculate our metric for each hexagon to get detailed spatial information about the accessibility in the area of interest.
 The chosen H3 resolution determines the size of these hexagons: a higher resolution means smaller hexagons, enhancing the granularity of our analysis. 
 As such, selecting an appropriate H3 resolution is pivotal as it allows us to calculate our metrics for each hexagon with increased spatial accuracy, yielding a detailed spatial dataset that reflects the accessibility variations within the area of interest.
-We recommend a resolution of nine, corresponding to a hexagon edge length of roughly 200 meters, as it is a good compromise between accuracy and computation time.
+We recommend a resolution of nine, corresponding to a hexagon edge length of roughly 200 meters, as it is a good compromise between accuracy and computation time, when running the calculation on consumer hardware. 
 The input routine also filters out uninteresting hexagons.
 For example, we filter out hexagons containing no residential areas, as no people are living there.
 Next, the input routine retrieves the centroid of each hexagon and then calculates the Euclidean distance between the centroids and the OSM nodes to assign the closest OSM node to each centroid.
@@ -302,7 +305,7 @@ The result of the input routine is a set of OSM nodes for which we want to compu
 % Main routine
 \begin{figure}
     \centering
-    \includegraphics[scale=0.75]{Figures/method/main_routine}
+    \includegraphics[scale=0.50]{Figures/method/main_routine}
     \caption{Main Routine}
     \label{fig:main_routine}
 \end{figure}
@@ -312,19 +315,12 @@ This results in a set of bags for each node.
 % Metrics routine
 \begin{figure}
     \centering
-    \includegraphics[scale=0.75]{Figures/method/metric_routine}
+    \includegraphics[scale=0.50]{Figures/method/metric_routine}
     \caption{Metric Routine}
     \label{fig:metric_routine}
 \end{figure}
 The metrics routine, depicted in Figure \ref{fig:metric_routine}, processes the bags into Pareto sets, where one entry in the Pareto set is a tuple of the X-minute city metric and the related cost.
 To do so, we process each collection of bags separately - one co-routine for each OSM node/collection.
-
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.50]{Figures/method/metric_coroutine}
-    \caption{Metric Co-Routine}
-    \label{fig:metric_co_routine}
-\end{figure}
 The co-routine is depicted in Figure \ref{fig:metric_co_routine} and works as follows.
 We start by collecting all unique cost values on each label in each bag and then sorting them in ascending order.
 For each cost value, we then determine the associated X-minute city metric.
@@ -334,3 +330,10 @@ If all categories are reachable, we've found the X-minute city metric, which, to
 If not, we increase the time value by one minute and check again.
 We repeat this until all cost values are processed.
 The result is a Pareto set for each OSM node/collection of bags.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.60]{Figures/method/metric_coroutine}
+    \caption{Metric Co-Routine}
+    \label{fig:metric_co_routine}
+\end{figure}
