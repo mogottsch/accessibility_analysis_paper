@@ -3,7 +3,7 @@
 \label{sec:experiment}
 
 We apply our method to the city of Cologne to retrieve insights about how different modes of transport interact and how they contribute to the city's accessibility.
-As we want to compare different modes of transport, we will calculate the metric multiple times for different scenarios, each with a different combination of modes of transport.
+As we want to compare different modes of transport, we will calculate the metric multiple times for different scenarios, each with a different combination transport modes.
 
 \subsection{Scenarios}
 \label{subs:scenarios}
@@ -14,21 +14,26 @@ Second, most other modes of transport require walking at some point, be it to th
 
 The first scenario we consider is our baseline, which only considers walking.
 This scenario measures what is possible without any additional infrastructure. 
-Distinct from other scenarios, it does not require any additional cost, thus presenting the most basic form of urban mobility.
+Distinct from other scenarios, it does not require any cost, thus presenting the most basic form of urban mobility.
 
 Building on this, the second scenario we consider is using a personal car.
 We consider this scenario the benchmark scenario, as we hope to achieve similar (or even better) results with more sustainable modes of transport.
 Therefore, we use it to answer the question of how competitive sustainable modes of transport are compared to the traditional mode of travel by car. 
 
-Transitioning from the simplest form of mobility, the third scenario focuses on public transport. 
+Transitioning from the benchmark scenario, the third scenario focuses on public transport. 
 It is essential to understand the effectiveness and accessibility of urban transit systems. 
 This scenario evaluates how well-connected and time-efficient public transportation networks are and their role in reducing reliance on personal vehicles. 
 It also investigates the impact of public transport on urban mobility and its potential to contribute to a more sustainable urban environment. 
 Specifically, it assesses whether public transport is a viable alternative to the personal car and whether it offers significant advantages over walking, considering the X-minute city metric.
+In contrast to the previous scenarios the public transport scenario also incorporates uncertainty.
+As the public transport network is scheduled, i.e. time-dependent, we have to consider multiple different starting times, so that we get holistic assessment of this mode.
 
 Next, in the fourth scenario, we focus on the dynamics of bicycle-sharing systems. 
 This scenario is essential for assessing the feasibility and attractiveness of cycling as a primary mode of transportation in urban areas. 
 We will directly compare it to the public transport scenario to understand which sustainable mode of transport is superior.
+Similarly to the public transport scenario, we also incorporate uncertainty in this scenario.
+The availability of bicycles fluctuates temporally and spatially.
+Therefore, we consider multiple different bicycle availability configurations.
 
 Finally, the fifth scenario combines public transport and bicycle sharing, offering insights into the synergy between these two modes of transport.
 For brevity, we refer to this scenario as the combined scenario.
@@ -37,44 +42,44 @@ It underscores how this combination can bridge the gaps in accessibility and eff
 This scenario is expected to be the most competitive against cars, offering a comprehensive and sustainable urban transit model that could reshape the landscape of city mobility.
 
 We summarize the scenarios in Table \ref{table:scenarios}.
+The specific configuration of the module matrices for each scenario can be found in Appendix \ref{app:experiment_module_matrix_configuration}.
 
 \begin{table}[h]
 \centering
 \begin{tabular}{|p{4cm}|p{5cm}|p{4cm}|}
 \hline
-\textbf{Scenario} & \textbf{Modules} & \textbf{Key Points} \\
+\textbf{Scenario} & \textbf{Modules} & \textbf{Uncertainty} \\
 \hline
-Walking & Walking & Baseline scenario \\
+Walking (baseline) & Walking & - \\
 \hline
-Personal Car & Personal Vehicle, Walking & Benchmark scenario \\
+Personal car (benchmark) & Personal vehicle, walking & - \\
 \hline
-Public Transport & Public Transport, Walking & Evaluate the effectiveness public transport systems \\
+Public transport & Public transport, walking & Start time \\
 \hline
-Bicycle Sharing & Vehicle Sharing, Walking & Evaluate the effectiveness of bicycle sharing systems \\
+Bicycle sharing & Vehicle sharing, walking & Bicycle availability \\
 \hline
-Combined & Public Transport, Bicycle Sharing, Walking & Evaluate the effectiveness of sustainable multi-modal transport systems \\
+Combined & Public transport, bicycle sharing, walking & Start time \& bicycle availability \\
 \hline
 \end{tabular}
 \caption{Scenarios for Urban Mobility Analysis}
 \label{table:scenarios}
 \end{table}
 
-The specific configuration of the module matrices for each scenario can be found in Appendix \ref{app:experiment_module_matrix_configuration}.
 
 \subsection{Data}
 \label{subs:data}
 
-We use four different datasets to calculate the Pareto sets of the X-minute city metric for the different scenarios.
+We use four different datasets to calculate the Pareto sets of our metric for the different scenarios.
 First, we require data that depicts the street network of the city of Cologne.
 Second, we need to know the locations of the POIs we want to reach.
 Third, we need to know the locations of the public transport stops and the schedules of the public transport.
 For the bicycle-sharing scenario, we also need to know the locations of the bicycles.
-Lastly, we also use land use data to identify where residential areas are located to calculate the X-minute city metric only for these areas.
+Lastly, we also use land use data to identify where residential areas are located to calculate our metric only for these areas.
 
 As we will query spatial datasets of various formats from different sources, the area covered by the datasets will not be the same.
 Therefore, we first define an area of interest and trim the datasets to this area.
 In our case, this area is defined as the area of the administrative district of Cologne, specifically the "Stadtkreis Köln".
-We retrieve the specific boundary of this area with the help of the Overpass API \shortcite{OverpassAPIOverpass}.
+We retrieve the specific boundary of this area with the help of the Overpass API \shortcite{osm-foundationOverpassAPI2023}.
 The specific query can be found in Appendix \ref{app:overpass_query}, and the resulting region can be seen in Figure \ref{fig:area_plus_buffer}.
 
 \begin{figure}
@@ -92,15 +97,15 @@ Specifically, employing a larger underlying street network than the core area of
 \subsubsection{Street Network \& POIs}
 \label{subs:street_network_pois}
 
-For the street network and the POIs, we use data from OpenStreetMap (OSM) \shortcite{openstreetmapfoundationOpenStreetMap2023}.
+For the street network and the POIs, we use data from OpenStreetMap (OSM) \shortcite{osm-foundationOpenStreetMap2023}.
 Various tools and services have been developed to use OSM data in practice.
-Among these, we use pyrosm \shortcite{tenkanenPyrosm2023}, a Python library designed specifically for reading OSM data in different formats and conducting data processing operations.
-Through pyrosm, we can automatically fetch data from sources like Geofabrik \shortcite{geofabrikGeofabrikDownloadServer2018} and BBBike \cite{schneiderBBBikeExtractsOpenStreetMap2023}, which are two of the most popular OSM data providers.
+Among these, we use Pyrosm \shortcite{tenkanenPyrosm2023}, a Python library designed specifically for reading OSM data in different formats and conducting data processing operations.
+With the help of Pyrosm, we can automatically fetch data from sources like Geofabrik \shortcite{geofabrikGeofabrikDownloadServer2018} and BBBike \cite{schneiderBBBikeExtractsOpenStreetMap2023}, which are two of the most popular OSM data providers.
 In our case, we use the data for the city of Cologne from BBBike.
-However, due to the flexibility of pyrosm, it is easily possible to use data from other sources and expand our analysis to other cities.
+However, due to the flexibility of Pyrosm, it is easily possible to use data from other sources and expand our analysis to other cities.
 
 After retrieving the data, we retrieve a graph representation of the street network trimmed to the buffered area of interest.
-Using the buffered region is important because without it, calculating the X-minute city metric at the border of the area of interest would result in a higher value than the actual value.
+Using the buffered region is important because without it, calculating our metric at the border of the area of interest would result in a higher value than the actual value.
 As a last cleaning step, we remove all nodes not part of the largest weakly connected component.
 A weakly connected component is a subgraph in which any two vertices from the subgraph would be connected if all directed edges were treated as undirected.
 Multiple weakly connected components in graphs derived from OSM data, mostly happen at the border of the considered area and can be neglected.
@@ -109,7 +114,7 @@ Because we consider multiple different modes of transport on the network, it is 
 To do so, we use Pyrosm's built-in filtering functionality.
 For reproducibility, we list the filters that Pyrosm uses in Appendix \ref{app:pyrosm_network_filter}.
 
-To retrieve the POIs, we use the Overpass API \shortcite{OverpassAPIOverpass}.
+To retrieve the POIs, we use the Overpass API \shortcite{osm-foundationOverpassAPI2023}.
 We retrieve all POIs that fall into one of our predefined categories specified in Section \ref{subsec:metric} inside the area of interest plus the buffer mentioned before.
 
 \subsubsection{Public Transport}
@@ -123,16 +128,16 @@ The GTFS data is also cleaned and converted into a format more suitable for our 
 Specifically, two significant incompatibilities exist between the GTFS specification and RAPTOR's notion of routes and trips.
 Firstly, each trip belonging to a single route in RAPTOR visits the same stops in the same order.
 It is impossible for a trip to skip some stops that another trip of the same route visits, much less use a completely different sequence of routes.
-In GTFS, routes allow that, as they are much more a group of trips presented to the rider under the same name or identifier.
+In GTFS, routes allow that, as they are much more a group of trips presented to the passenger under the same name or identifier.
 Secondly, GTFS trips allow visiting the same stop multiple times, which is not permitted in RAPTOR.
 To overcome these differences, we split up routes into smaller routes following the same stop sequence.
-Additionally, we also remove circular trips, altogether.
+Additionally, we also remove circular trips, altogether, as they only in a few cases in Cologne and are not relevant for our analysis.
 
 
 \subsubsection{Bicycle Sharing}
 \label{subs:bicycle_sharing}
 
-Our bicycle-sharing data was retrieved from the NextBike API over one year.
+Our bicycle-sharing data was retrieved by continuously polling the NextBike API over the course of one year.
 The data consists of all trips made with the NextBike system in Cologne from the 15th of January 2022 to the 31st of August 2023.
 To get representative samples of the locations of all bicycles, we employ the following strategy.
 We first discretize the data spatially and temporally.
@@ -143,12 +148,12 @@ This data is then used as an input for k-medoids clustering \shortcite{rdusseeun
 K-medoids, also known as PAM (Partitioning Around Medoids) algorithm, is a clustering technique that partitions a dataset into K clusters, where each is assigned a medoid, the most centrally located object in a cluster. 
 Unlike K-means, which uses mean values as cluster centers, K-medoids use an actual data point as the center of a cluster.
 This has the advantage that the centers are part of the dataset and, therefore, are realistic samples.
-We use the resulting medoids as different configurations of the locations of the bicycles.
+We use the resulting medoids as bicycle availability configurations.
 
 \subsubsection{Land Use}
 \label{subs:land_use}
 
-We use the land use data from the CORINE Land Cover (CLC) project \shortcite{CORINELandCover} to identify the residential areas.
+We use the land use data from the CORINE Land Cover (CLC) project \shortcite{european-environment-agencyCORINELandCover2010} to identify the residential areas.
 The data covers the whole of Europe and is publicly available, making it possible to expand our analysis to other cities in Europe.
 We trimmed the data to the area of interest and then filtered for the land use types "Continuous Urban Fabric" and "Discontinuous Urban Fabric".
 These two land use types represent the residential areas of the city.
@@ -167,7 +172,7 @@ Additionally, the Figure shows the hexagons of resolution nine found inside the 
 \subsection{Assumptions}
 \label{subs:assumptions}
 
-To calculate the X-minute city metric, we have to abstract from reality to some degree.
+To calculate our metric, we have to abstract from reality to some degree.
 We do so by making the following plausible assumptions.
 
 Firstly, we assume that traveling along an edge of the street network by walking, cycling, or driving is always proportional to the length of the edge.
