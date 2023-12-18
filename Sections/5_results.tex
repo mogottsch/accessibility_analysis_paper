@@ -3,7 +3,7 @@
 \label{sec:results}
 
 This section presents the findings of our comprehensive analysis, addressing the research questions outlined in the introduction.
-Recall, our primary inquiries revolved around understanding the role of bicycle sharing and public transport in shaping cities into 15-minute cities (\ref{rq:bicycle_pt}), the impact of cost on accessibility (\ref{rq:cost_accessibility}), the measurement of accessibility considering multiple transport modes and associated costs (\ref{rq:measure_accessibility}), and deriving specific urban planning recommendations for Cologne (\ref{rq:recommendations}).
+Recall, our primary inquiries revolved around understanding the role of bicycle sharing and public transport in shaping cities into 15-minute cities (RQ\ref{rq:bicycle_pt}), the impact of cost on accessibility (RQ\ref{rq:cost_accessibility}), the measurement of accessibility considering multiple transport modes and associated costs (RQ\ref{rq:measure_accessibility}), and deriving specific urban planning recommendations for Cologne (RQ\ref{rq:recommendations}).
 
 The results are the output of our experiment, which consists of a novel method for accessibility-based planning that incorporates multiple modes of transport, extending the 15-minute city concept to include a broader range of sustainable transport options while also considering cost.
 The data retrieved from our experiments consists of two parts:
@@ -24,14 +24,17 @@ As explained in Section \ref{sec:method} our routine is split into three parts, 
 The input routine took X minutes to run and required no more than Y gigabytes of memory.
 The main routine took the longest with X minutes and required Y gigabytes of memory, however, we only utilized eight of the 16 available cores for parallelization.
 Lastly, the metric routine took X minutes to run and required Y gigabytes of memory.
-
 We found that the memory consumption primarily stems from the graph-based representation of the street network of Cologne.
 
-\subsection{15-Minute City Metric}
+\subsection{X-Minute City Metric}
 \label{subsec:15_minute_city_metric}
 
 % table (mean, quantiles) of the optimal X-minute city metric
+We first start to analyze the optimal X-Minute city metric, that is the entry in the Pareto set for which the X-minute city metric is optimal.
 Table \ref{tab:optimal_x_minute_city_metric} shows the mean, as well as, the 25\%, 50\%, and 75\% quantiles of the optimal X-minute city disregarding the cost for each scenario over all hexagons.
+Our findings indicate that cars enable the fastest access to all necessary Points of Interest (POIs), with an average optimal X-minute city time of 3 minutes and 12 seconds. 
+This mode of transport significantly outpaces other methods, establishing a benchmark for urban mobility efficiency.
+However, remember that our car scenario is very optimistic and these numbers should be taken cautiously.
 
 \begin{table}
   \caption{Optimal X-minute City Metric Over All Hexagons Disregarding Cost}
@@ -40,23 +43,19 @@ Table \ref{tab:optimal_x_minute_city_metric} shows the mean, as well as, the 25\
     \begin{tabular}{lrrrr}
        & mean & 25\% & 50\% & 75\% \\
       scenario &  &  &  &  \\
-      bicycle & 12.45 & 7.25 & 10.75 & 15.50 \\
-      bicycle\_public\_transport & 11.51 & 7.25 & 10.33 & 14.31 \\
-      car & 3.21 & 2.00 & 3.00 & 4.00 \\
-      public\_transport & 12.78 & 9.00 & 12.00 & 16.00 \\
-      walking & 14.09 & 9.00 & 12.00 & 17.00 \\
+      Bicycle & 12.45 & 7.25 & 10.75 & 15.50 \\
+      Car & 3.19 & 2.00 & 3.00 & 4.00 \\
+      Combined & 11.51 & 7.25 & 10.29 & 14.33 \\
+      Public Transport & 12.78 & 9.00 & 12.00 & 16.00 \\
+      Walking & 14.09 & 9.00 & 12.00 & 17.00 \\
     \end{tabular}
   \end{center}
 \end{table}
 
-Our findings indicate that cars enable the fastest access to all necessary Points of Interest (POIs), with an average accessibility time of 3.21 minutes. 
-This mode of transport significantly outpaces other methods, establishing a benchmark for urban mobility efficiency.
-However, remember that our car scenario is very optimistic and these numbers should be taken cautiously.
-
 In contrast, sustainable modes of transport, such as bicycles, public transport, a combination of bicycles and public transport, and walking, demonstrate similar accessibility times. 
-These modes record average times ranging from 11.5 to 14 minutes, with walking being the least time-efficient mode at an average of 14.09 minutes. 
+These modes record average times ranging from 11 minutes and 30 seconds to 14 minutes, with walking being the least time-efficient mode at an average of 14 minutes and 5 seconds. 
+Integrating bicycles with public transport emerges as the most time-efficient sustainable mode, with an average time of 11 minutes 30 seconds. 
 
-Integrating bicycles with public transport emerges as the most time-efficient sustainable mode, with an average time of 11.51 minutes. 
 A direct comparison between public transport and walking shows that the time savings offered by public transport stand at 1 minute and 28 seconds. 
 However, this benefit is not evenly distributed across all areas.
 The analysis of quantiles reveals that the time improvement only establishes at the 75\% quantile with a 2-minute gain, while the 25\% and 50\% quantiles don't show any improvements.
@@ -72,6 +71,7 @@ In contrast to adding public transport to bicycles, this improvement already occ
 Adding bicycles to the walking scenario presents an average time reduction of 1 minute and 28 seconds, which denotes a significant enhancement in the accessibility metric. 
 Again, this improvement already occurs at the 25\% quantile, showing that the improvements gained through bicycle sharing are more evenly distributed across all hexagons.
 
+% -----
 % visualization of the distribution of the optimal X-minute city metric
 We can observe a similar pattern when visualizing the distribution of the optimal X-minute city metric in Figure \ref{fig:optimal_x_minute_city_metric}.
 \begin{figure}
@@ -81,7 +81,7 @@ We can observe a similar pattern when visualizing the distribution of the optima
   \caption{Distribution of Optimal X-Minute City Metric}
   \label{fig:optimal_x_minute_city_metric}
 \end{figure}
-As we can see initially (for the most accessible hexagons), public transport and walking are the same, but as we move to less accessible hexagons, public transport improves.
+As we can see initially (for the most accessible hexagons to the left), public transport and walking are the same, but as we move to less accessible hexagons, public transport improves.
 In addition, the public transport scenario is worse than the pure bicycle sharing scenario but can catch up and even overtake it as we move to less accessible hexagons.
 The same pattern can be observed when comparing the bicycle-sharing scenario to the combined scenario of bicycle-sharing and public transport.
 Initially, the combined scenario is the same as the bicycle-sharing scenario, but as we move to less accessible hexagons the combined scenario becomes better.
@@ -131,7 +131,7 @@ The areas in and around the city center are more accessible by bicycle sharing t
 In the east of the city, near the forest "Königsforst", we see the district of Rath/Neumar, with low accessibility for all scenarios.
 However, one can see that the region is more accessible by public transport than by bicycle sharing and walking.
 
-\subsection{Cost of 15-Minute City}
+\subsection{Cost}
 \label{subsec:cost_of_15_minute_city}
 
 % table (mean, quantiles) of required cost
@@ -143,16 +143,16 @@ Table \ref{tab:required_cost} shows the mean, the 25\%, 50\%, and 75\% quantiles
     \begin{tabular}{lrrrrr}
      & mean & 25\% & 50\% & 75\% & max \\
     scenario &  &  &  &  &  \\
-    bicycle & 0.39 & 0.00 & 0.50 & 0.75 & 1.00 \\
-    bicycle public transport & 0.87 & 0.00 & 0.75 & 1.30 & 3.95 \\
-    car & 0.37 & 0.19 & 0.38 & 0.38 & 1.33 \\
-    public transport & 0.65 & 0.00 & 0.00 & 1.47 & 3.20 \\
-    walking & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+    Bicycle & 0.39 & 0.00 & 0.50 & 0.75 & 1.00 \\
+    Car & 0.36 & 0.19 & 0.38 & 0.38 & 1.14 \\
+    Combined & 0.86 & 0.00 & 0.75 & 1.30 & 3.95 \\
+    Public Transport & 0.64 & 0.00 & 0.00 & 1.47 & 3.20 \\
+    Walking & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
     \end{tabular}
   \end{center}
 \end{table}
 We can immediately see that there is no cost for hexagons at the 25\% and 50\% quantile when using public transport, implying that public transport is not used at all for those hexagons.
-Looking at the 75\% quantile and the maximum required cost for an optimal x-minute city metric for public transport, we see that the benefits we observed earlier come at a cost.
+Looking at the 75\% quantile and the maximum required cost for an optimal X-Minute City metric for public transport, we see that the benefits we observed earlier come at a cost.
 Similarly, bicycle sharing and the combined mode have zero cost at the 25\% quantile, implying that they are not used for those hexagons.
 
 Looking at the maximum cost values of each sustainable mode of transport shows us that bicycles never require more than \euro{1}.
@@ -173,7 +173,7 @@ We see that the combined mode has higher costs earlier, surpassed by public tran
 % discussion stuff (not sure where to put this)
 The first price increase in the combined mode can be explained by the \euro{1} cost of 15-minute bicycle sharing.
 Then public transport surpasses the combined mode. 
-This probably is because bicycle sharing is more cost-efficient and can compensate for public transport.
+This is probably because bicycle sharing is more cost-efficient and can somewhat replace public transport.
 The fact that the combined mode then surpasses public transport again most likely stems from the fact that the combined mode can achieve faster access than public transport by using bicycle sharing, which is more expensive than a short-distance ticket alone.
 % END
 
@@ -200,7 +200,7 @@ As the portrayed scenarios all have costs associated with them, a cost of zero m
      \begin{subfigure}[b]{0.3\textwidth}
          \centering
          \includegraphics[width=\textwidth]{Figures/results/cost/bicycle_public_transport_cost_map}
-         \caption{PT + Bicycle}
+         \caption{Combined}
          \label{fig:bicycle_public_transport_cost_map}
      \end{subfigure}
        \caption{Map of Required Cost for Optimal for Each Hexagon}
@@ -211,6 +211,7 @@ This sometimes also extends outside the city center.
 
 The cost of public transport is more scattered around the whole region. 
 We can mostly see single hexagons in the city's center and small groups of hexagons outside the city that have costs have than zero.
+For the combined mode we see a pattern that roughly is equal to the addition of the public transport and bicycle sharing scenario.
 
 \subsection{Interaction Between Cost and 15-Minute City Metric}
 \label{subsec:interaction_between_cost_and_15_minute_city_metric}
@@ -265,7 +266,7 @@ The resulting Pareto front can be seen in Figure \ref{fig:mean_time_per_cost}.
   \label{fig:mean_time_per_cost}
 \end{figure}
 
-Similarly to the example of the single hexagon from before, we can see improvements for the bicycle scenario and the combined scenario at the cost of \euro{1} of about 1.5 minutes.
+Similarly to the example of the single hexagon from before, we can see improvements for the bicycle scenario and the combined scenario at the cost of \euro{1} of about 1 minute and 30 seconds.
 We can also see the improvements in public transport at a cost of \euro{2.20}.
 Unlike the example of the single hexagon, we can also see the improvement at the cost of \euro{2.20} for the combined scenario.
 Lastly, there is a slight improvement for the public transport scenario and the combined scenario at a cost of \euro{3.20}.
@@ -286,8 +287,8 @@ We won't analyze the differences in the combined scenario, as prior improvements
   \end{center}
 \end{table}
 
-We see that the improvements of the bicycle scenarios at the cost of \euro{1} are the largest, with an improvement of 1.68 minutes, and also the most cost-effective, with a value of 1.68 minutes per euro.
-They are followed by the improvements of the public transport scenario at a cost of \euro{2.20} with an improvement of 1.28 minutes and a value of 0.58 minutes per euro.
+We see that the improvements of the bicycle scenarios at the cost of \euro{1} are the largest, with an improvement of 1 minute and 40 seconds, and also the most cost-effective, with a value of 1.68 minutes per euro.
+They are followed by the improvements of the public transport scenario at a cost of \euro{2.20} with an improvement of 1 minute and 16 seconds and a value of 0.58 minutes per euro.
 The improvement at a cost of \euro{3.20} is minimal and the least cost-effective.
 
 Next, we are going to look at the quantiles of the aggregated Pareto front.
@@ -320,13 +321,9 @@ Note that because we aggregate all the values of the X-minute city metric for a 
         \caption{Map of Optimal X-minute City Metric per Scenario}
         \label{fig:quantile_time_per_cost}
 \end{figure}
-
-The 25\% quantile Pareto front shown in Figure \ref{fig:25_quantile_time_per_cost} only contains a single improvement at the cost of \euro{1} for scenarios containing bicycle sharing of 1.75 minutes with a cost-effectiveness of 1.75 minutes per euro.
-
-
-The 75\% quantile Pareto front shown in Figure \ref{fig:75_quantile_time_per_cost} with its steps shown in Table \ref{tab:differences_in_75_quantile_pareto_front} also has a similar improvement of 1.5 minutes at the cost of \euro{1} for bicycle scenarios.
-In addition to that, it also shows a smaller increase at \euro{2.20} for public transport scenarios of 1 minute and an even smaller increase at 3.20 euros for bicycle sharing and public transport scenarios.
-
+The 25\% quantile Pareto front shown in Figure \ref{fig:25_quantile_time_per_cost} only contains a single improvement at the cost of \euro{1} for scenarios containing bicycle sharing of 1 minute and 45 seconds with a cost-effectiveness of 1.75 minutes per euro.
+The 75\% quantile Pareto front shown in Figure \ref{fig:75_quantile_time_per_cost} with its steps shown in Table \ref{tab:differences_in_75_quantile_pareto_front} also has a similar improvement of 1 minute and 30 seconds at the cost of \euro{1} for bicycle scenarios.
+In addition to that, it also shows a smaller increase at \euro{2.20} of 1 minute and an even smaller increase at \euro{3.20} for the public transport and combined scenarios.
 \begin{table}
   \caption{Steps in 75\% Quantile Pareto Front}
   \label{tab:differences_in_75_quantile_pareto_front}
@@ -338,8 +335,6 @@ In addition to that, it also shows a smaller increase at \euro{2.20} for public 
     \end{tabular}
   \end{center}
 \end{table}
-
-
 The 90\% quantile Pareto Front shown in Figure \ref{fig:90_quantile_time_per_cost} with its steps shown in Table \ref{tab:differences_in_90_quantile_pareto_front} shows a similar pattern to the 75\% quantile Pareto front.
 The significant difference is that the increase at \euro{2.20} for public transport scenarios is larger than the increase at 1 euro for bicycle scenarios.
 More precisely, while bicycle sharing is more effective in decreasing the 15-minute city metric on average and for the 75\% most accessible regions, public transport is more effective than bicycle sharing for the 10\% least accessible areas.
@@ -383,10 +378,11 @@ Note that we only display the average standard deviations of the bicycle, public
 \end{table}
 
 
-The mean average standard deviation for bicycle scenarios is around a minute, while it is 0.27 for the public transport scenario.
+The mean average standard deviation for bicycle scenarios is around a minute, while it is 16 seconds for the public transport scenario.
 We can also see that for the bicycle-related scenarios, the uncertainty does not affect the 25\% most accessible hexagons, while for public transport, the 75\% most accessible hexagons are not affected.
 In addition, outliers exist with more than 10 minutes of deviation for the pure bicycle scenario and more than 5 minutes for the public transport-related scenarios.
-Relating the standard deviation to the mean, we also calculated the Coefficient of Variation (CV) in the table, which is calculated as follows:
+Relating the standard deviation to the mean, we also calculated the Coefficient of Variation (CV) in the table, which helps to grasp the relative size of the standard deviation.
+It is defined as
 $$ CV = \frac{\sigma}{\mu} $$
 where $\mu$ is the mean and $\sigma$ is the standard deviation.
 We see that it is approximately 9\% for the bicycle-related scenarios and 2\% for the public transport scenario.
@@ -394,7 +390,7 @@ We see that it is approximately 9\% for the bicycle-related scenarios and 2\% fo
 To further investigate the effects of uncertainty on a more granular level, we plot the best and worst case distribution of the optimal X-minute city for each hexagon in Figure \ref{fig:best_and_worst_case_of_optimal_time_for_each_hexagon}.
 These plots are essentially the upper and lower bounds of the graph, as seen in Figure \ref{fig:optimal_x_minute_city_metric}.
 In addition, we've added a line at the 15-minute mark to better relate the results in the context of the 15-minute city.
-The best and worst-case values are calculated using the scenario that achieves the best X-minute city metric for a given hexagon.
+The best and worst-case values are calculated using the scenarios that achieve the best and worst values X-minute city metric for a given hexagon, respectively.
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.95\textwidth]{Figures/results/uncertainty/optimal_best_worst_case}
@@ -532,12 +528,16 @@ More than half of those (7 out of 10) are located in the southern district of We
 
 
 \subsection{Monthly Costs Per Scenario And Hexagon}
-This section is not ready.
-
 A prevalent measure to incentivize sustainable modes of transport are monthly tickets or subscriptions.
 To measure whether the costs of these subscriptions are worth it, we will calculate the monthly cost incurred by the trips to all necessities.
 To do so, we first collected how often people visited each category we defined earlier.
-Table \ref{tab:monthly_visits} shows the monthly number of visits per category.
+Table \ref{tab:monthly_visits} shows the monthly number of visits per category, we've collected from various sources.
+The derivation of these numbers, as well as, the sources can be found in Appendix \ref{app:monthly_visits_per_category}
+
+To understand and compare the usual monthly costs caused by traveling with different modes of transport, we first establish two time-based benchmarks to compare the cost incurred.
+The first benchmark focuses on the costs incurred when reaching the nearest POI of a given category within a 15-minute timeframe. 
+Conversely, the second benchmark assesses the costs for a similar journey but within a more constrained 10-minute limit.
+However, to compare these costs, a journey in that time has to be possible, which is not always the case.
 
 \begin{table}
   \caption{Number of Monthly Visits per Category}
@@ -558,13 +558,11 @@ Table \ref{tab:monthly_visits} shows the monthly number of visits per category.
   \end{center}
 \end{table}
 
-The derivation of these numbers can be found in Appendix \ref{app:monthly_visits_per_category}
-
-To understand and compare the usual monthly costs caused by traveling with different modes of transport, we first establish two time-based benchmarks to compare the cost incurred.
-The first benchmark focuses on the costs incurred when reaching the nearest POI of a given category within a 15-minute timeframe. 
-Conversely, the second benchmark assesses the costs for a similar journey but within a more constrained 10-minute limit.
-However, to compare these costs, a journey in that time has to be possible, which is not always the case.
-
+Therefore, we show how often a journey is possible within the given timeframe in Figure \ref{fig:percentage_inf_x}.
+The combined scenario of bicycle sharing and public transport fails the least with a maximum of 36\% for the bank category, followed by public transport and bicycle sharing.
+In the 15-minute benchmark, bicycle sharing and public transport perform almost equally well, while in the 10-minute benchmark, bicycle sharing performs better than public transport.
+Category-wise, banks seem to be the least accessible category, followed by parks and health.
+Sustenance, education, grocery, and shops all seem similarly accessible.
 
 \begin{figure}
   \centering
@@ -585,16 +583,9 @@ However, to compare these costs, a journey in that time has to be possible, whic
   \label{fig:percentage_inf_x}
 \end{figure}
 
-Therefore, we show how often a journey is possible within the given timeframe in Figure \ref{fig:percentage_inf_x}.
-The combined scenario of bicycle sharing and public transport fails the least, followed by public transport and bicycle sharing.
-In the 15-minute benchmark, bicycle sharing and public transport perform almost equally well, while in the 10-minute benchmark, bicycle sharing performs better than public transport.
-
-Category-wise, banks seem to be the least accessible category, followed by parks and health.
-Sustenance, education, grocery, and shops all seem similarly accessible.
-
 As seen in the previous Figure, the number of impossible journeys differs across scenarios.
 This, again, makes it hard to compare the costs across scenarios.
-Therefore, we will only look at hexagons and category combinations where a journey is possible within the given timeframe for all scenarios.
+Therefore, we will only look at hexagons and category combinations where a journey is possible within the given timeframe for all sustainable scenarios.
 In addition, we also filter out hexagon category combinations where the cost is zero, i.e. where walking suffices, as those are not interesting for our cost analysis.
 
 \begin{table}
@@ -628,10 +619,10 @@ In addition, we also filter out hexagon category combinations where the cost is 
 
 Table \ref{tab:monthly_costs_per_scenario_15} shows the average monthly costs to reach all categories within 15 minutes for each scenario, and Table \ref{tab:monthly_costs_per_scenario_10} shows the same for 10 minutes.
 As we can see, the total cost averages at \euro{5.80} for the bicycle and combined scenario and \euro{12.90} for the public transport scenario in the 15-minute benchmark.
-The cost reaches a maximum of \euro{29} for the bicycle and combined scenario and \euro{63.8} for the public transport scenario, while the 25\% most expensive hexagons require residents to pay 9\euro{} for the bicycle and combined scenario and 19.80 for the public transport scenario.
-Note that the bicycle and combined scenario always have the same cost.
+The cost reaches a maximum of \euro{29} for the bicycle and combined scenario and \euro{63.8} for the public transport scenario, while the 25\% most expensive hexagons require residents to pay at least \euro{9} for the bicycle and combined scenario and \euro{19.80} for the public transport scenario.
+Note that the bicycle and combined scenario always have the same cost, showing that it is not worth to use public transport, when bicycle sharing is available in those hexagons.
 In the 10-minute benchmark, the average cost is \euro{10.5} for the bicycle and combined scenario and \euro{23.1} for the public transport scenario.
-Here, the cost reaches a maximum of \euro{24.54} for the bicycle and combined scenario and \euro{53.98} for the public transport scenario, while the 25\% most expensive hexagons require residents to pay \euro{20} for the bicycle and combined scenario and \euro{44} for the public transport scenario.
+Here, the cost reaches a maximum of \euro{24.54} for the bicycle and combined scenario and \euro{53.98} for the public transport scenario, while the 25\% most expensive hexagons require residents to pay at least \euro{20} for the bicycle and combined scenario and \euro{44} for the public transport scenario.
 
 \begin{table}
   \caption{Monthly costs for cars}
@@ -645,6 +636,7 @@ Here, the cost reaches a maximum of \euro{24.54} for the bicycle and combined sc
   \end{center}
 \end{table}
 
-Next, we will also look at the monthly costs for the car scenario in the identical hexagons we looked at before in Figure \ref{tab:monthly_costs_for_cars}.
+Next, we will also look at the monthly costs for the car scenario in the same hexagons we considered previously in Figure \ref{tab:monthly_costs_for_cars}.
 This allows us to compare the cost of cars with other modes of transport.
-Remember that the cost of 19ct/min tries to capture fuel costs, repair costs, insurance, and tax, but not acquisition costs.
+We see that the average cost is \euro{1.79} for the 15-minute benchmark and \euro{2.87} for the 10-minute benchmark, which in both cases is less than a third of the cheapest sustainable mode of transport.
+However, remember that the cost of 19ct/min tries to capture fuel costs, repair costs, insurance, and tax, but not acquisition costs.
