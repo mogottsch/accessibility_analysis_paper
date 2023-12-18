@@ -21,7 +21,7 @@ This literature review sets the stage for the subsequent sections, where we deve
 Traditional mobility-based planning primarily focuses on reducing congestion and facilitating movement, often prioritizing automobile travel \shortcite{proffittAccessibilityPlanningAmerican2019}.
 However, this approach is becoming increasingly outdated, failing to address modern challenges like reducing greenhouse gas emissions.
 This is where accessibility-based planning comes into play, which focuses on planning cities in a way that provides residents with fast access to all essential services \shortcite{proffittAccessibilityPlanningAmerican2019}.
-Thus, the need for car ownership and its frequent usage are reduced.
+Having easy access to all essential services has the potential to reduce the need for car ownership and its frequent usage.
 This shift foregrounds accessibility as the primary goal, rather than merely focusing on mobility, recognizing that mobility is a means to an end and not the ultimate objective in urban planning. 
 
 \shortciteA{geursAccessibilityEvaluationLanduse2004a} describe four types of accessibility-based planning, seen in Table \ref{tab:accessibility_measures}.
@@ -139,7 +139,7 @@ This consideration is a crucial reason for adopting multi-objective approaches i
 Quantitative studies have developed various ways to measure how well cities match the 15-minute city concept by developing metrics that encapsulate this principle.  
 \shortciteA{olivariAreItalianCities2023} contribute to this research by creating the NExt proXimity Index (NEXI), which has two components: the NEXI-Minutes and the NEXI-Global. 
 The NEXI-Minutes looks at the accessibility of various urban amenities, ranging from educational institutions to entertainment venues and grocery stores, by calculating the time needed to reach the closest facility within each category.
-Complementing this, the NEXI-Global, inspired by the Walk Score method \shortcite{WalkScoreMethodology}, combines these individual times through a weighted average into an overall score, giving a holistic view of the accessibility of a city.
+Complementing this, the NEXI-Global, inspired by the Walk Score method \shortcite{WalkScoreMethodology2023}, combines these individual times through a weighted average into an overall score, giving a holistic view of the accessibility of a city.
 
 NEXI is unique because it is both global and local. 
 Namely, it is globally applicable due to its reliance on OpenStreetMap data, yet sufficiently detailed to assess local conditions.
@@ -160,9 +160,12 @@ These factors suggest a need for refinement in the NEXI methodology to enhance i
 % --- CITYACCESSMAPS ---
 Another study by \shortciteA{nicolettiDisadvantagedCommunitiesHave2023} introduces an accessibility metric that explores the connection between urban infrastructure and social inequality. 
 The researchers developed an open, data-driven framework to analyze how different communities within cities access essential services, and they discovered that access to urban amenities like healthcare, education, and transportation is not evenly distributed. 
-The study examined over 50 types of amenities across 54 cities worldwide and found a common pattern: in all cities, access to infrastructure followed a log-normal distribution, indicating that disparities in accessibility are linked to the city's growth. 
+The study examined over 50 types of amenities across 54 cities worldwide and found a common pattern: in all cities, access to infrastructure followed a log-normal distribution, indicating that a small number of communities have very high access to amenities, while the majority have moderate to low access. 
+The log-normal distribution suggests that improvements in accessibility are not proportionately distributed across the urban landscape. 
+Instead, there are diminishing returns in accessibility as one moves from the most to the least accessible areas. 
+This skew towards lower accessibility for most communities underscores systemic urban planning and infrastructure development issues that disproportionately affect disadvantaged populations.
 This pattern was consistent even when considering various socioeconomic factors.
-In particular, communities with more minorities, lower incomes, and fewer university-educated individuals often have less access to these essential services.
+
 
 This framework developed by \shortciteA{nicolettiDisadvantagedCommunitiesHave2023} is flexible and adaptable, allowing city planners to tailor it to local needs and priorities. 
 It's a tool that can help identify which groups in a city are most affected by inequality concerning accessibility to services. 
@@ -181,11 +184,11 @@ However, disparities were observed between the city center and suburban areas, i
 The findings underscore the critical role of urban planning in ensuring equitable access to amenities and demonstrate that most of Barcelona's areas align with the 15-Minute City ideal. 
 
 % --- outro & transition to next algorithms ---
-However, the computation of travel time by all previously named authors is based on walking simulations. 
+Meanwhile, the computation of travel time by all previously named authors is based on walking simulations. 
 This fails to capture the reality of urban mobility, which consists of various modes of transport, such as public transport, cycling, and driving.
 Moreover, the NEXI's fragmented multi-metric approach and complex weighted scoring system can hinder practical interpretation and application.
 Acknowledging these shortcomings, we aim to introduce a novel multi-modal accessibility metric, which we present in Section \ref{subsec:metric}.
-This proposed metric will encompass a broader spectrum of transportation modes, providing a more accurate and comprehensive evaluation of urban accessibility for effective urban planning.
+This proposed metric will encompass a broader spectrum of transportation modes and a more intuitive understanding, providing a more accurate and comprehensive evaluation of urban accessibility for effective urban planning.
 
 \subsection{Routing Algorithms}
 \label{subsec:routing_algorithms}
@@ -222,16 +225,14 @@ This means that for each solution in the Pareto set, no other solution is better
 The Pareto set represents an optimal trade-off among the different objectives, where improving one aspect would worsen another.
 For example, a Pareto set could contain multiple paths, where one path is faster but more expensive, while another is slower but cheaper.
 
-The value of these paths is depicted using a label:
-\[ l \in \mathbb{R}^k \]
-where \( l_i \in \mathbb{R} \) denotes the value for the \( i \)-th objective.
+The value of these paths is depicted using a label: \( l \in \mathbb{R}^k \) where \( l_i \in \mathbb{R} \) denotes the value for the \( i \)-th objective.
 This label can be considered a multidimensional extension of \( d(v_n) \) from the single-objective scenario.
 The Pareto set associated with destination node \( v_n \) is often termed as a bag, expressed as \( B(v_n) \), comprising labels that are not dominated by each other.
 Domination is defined as follows: \( l' \) dominates \( l \) if \( l'_i \leq l_i \) for all \( i \in \{1, \dots, k\} \) and \( l'_i < l_i \) for at least one \( i \in \{1, \dots, k\} \).
 Intuitively, this means that \(l' \) is at least as good as \( l \) in all objectives and strictly better in at least one objective.
 
 The goal of routing algorithms used in accessibility analysis is finding the distance in the single objective case and the bag in the multi-objective case, often discarding the actual paths.
-For accessibility analysis, routing algorithms are often altered to not find the optimal paths between two nodes, referred to as one-to-one query, but the path from a single origin to all other nodes in the network, which we call one-to-all query.
+Also, specific to accessibility analysis is the altering of routing algorithms to not find the optimal paths between two nodes, referred to as one-to-one query, but the path from a single origin to all other nodes in the network, which we call one-to-all query.
 
 \paragraph{Dijkstra}
 \label{subsubsec:dijkstra}
@@ -247,7 +248,7 @@ Depending on the goal, the algorithm terminates when the destination node is deq
 
 However, this simple approach has multiple problems.
 Firstly, the Dijkstra algorithm is not able to handle multiple criteria.
-Secondly, the runtime of Dijkstra's algorithm is \( O(|E| + |V| \log |V|) \), which is too slow for large graphs.
+Secondly, the runtime of Dijkstra's algorithm is \( O(|E| + |V| \log |V|) \), which is slow for large graphs.
 
 \paragraph{MLC}
 \label{subsubsec:mlc}
@@ -278,7 +279,8 @@ In the context of accessibility analysis, the previously mentioned algorithms ca
 However, public transport networks pose a challenge since they contain time-dependent information, such as the departure time of a trip.
 To overcome this challenge, two approaches are commonly used, the time-expanded and the time-dependent approach, as explained by \shortciteA{muller-hannemannTimetableInformationModels2007}.
 The idea behind these methods is to artificially craft a graph that represents the public transport network in a way that allows the use of graph-based algorithms.
-While enabling the use of graph-based algorithms to solve routing in time-dependent transport networks, both approaches result in massive graphs and therefore suffer from runtime problems. We won't go into detail about them but introduce algorithms that take advantage of the specifics of time-dependent transport networks.
+While enabling the use of graph-based algorithms to solve routing in time-dependent transport networks, both approaches result in massive graphs and therefore suffer from runtime problems. 
+Because of these runtime problems, we won't go into detail about them but rather introduce algorithms that take advantage of the specifics of time-dependent transport networks, resulting in much better runtimes.
 
 \subsubsection{Schedule-based Algorithms}
 
@@ -367,10 +369,12 @@ One limitation of RAPTOR is the transfer graph, which is used to represent footp
 The transfer graph has to be transitively closed, which means that each node has to be connected with an edge to all other nodes that can be reached from that node.
 This has the advantage that in the algorithm, we only have to check for direct neighbors of a stop, which is very fast.
 In practice, there are many possibilities for how the transfer graph could look.
-First, we should note that a realistic transfer graph should be derived from a street network, as passengers should be able to walk from one stop to another using sidewalks.
+A realistic transfer graph should be derived from a street network, as passengers should be able to walk from one stop to another using sidewalks.
 One could limit the maximum walking distance to keep the transfer graph small.
 However, this may remove optimal journeys from the search space.
-In general, creating the transfer graph requires some amount of preprocessing.
+Creating the transfer graph involves a preprocessing step that becomes exponentially more resource-intensive as the size of the graph increases.
+This escalation in computational demand renders the task infeasible quickly as the graph grows larger and more reflective of real-world complexity.
+
 Therefore, finding a fitting transfer graph is challenging.
 Through its round-based nature, RAPTOR is able to optimize for two criteria at the same time.
 However, RAPTOR cannot incorporate more criteria, and one of the criteria will always be the number of transfers.
@@ -461,7 +465,7 @@ This means that ULTRA, unlike MCR, is incompatible with one-to-many queries.
 \subsection{Public Transport Data}
 \label{subsec:public_transport_data}
 
-In practice, a standard data format is needed to run routing algorithms for public transport networks.
+In practice, a standard data format is needed to retrieve and interpret the data needed to run routing algorithms on public transport networks.
 The General Transit Feed Specification (GTFS) \shortcite{mobilitydataGeneralTransitFeed2023} serves as a standardized format for public transportation schedules and associated geographic details.
 It is divided into two main components: GTFS Schedule and GTFS Realtime.
 GTFS Realtime provides live transit updates.
@@ -470,6 +474,9 @@ For our study and tool, we focus solely on GTFS Schedule and omit considerations
 
 Central to the GTFS format are several core concepts.
 A route defines the overall path a particular public transport service takes, identified by attributes like name, ID, and the mode of transport such as bus or subway.
+A route is not defined by a single path but rather a collection of possible paths.
+For example, in the real world a route often has two paths, one for each direction.
+Similarly, it can happen that a route has to be redirected due to construction work, which would result in a third and fourth path.
 A trip refers to a specific run of a vehicle along a route, distinguishing between different timings or sequences of service on the same route.
 A stop is a specific point along a route where passengers embark or disembark.
 Stops have unique IDs, names, and geographical coordinates.
