@@ -109,15 +109,15 @@ Without modularity, it is not possible to compare different combinations of tran
 \label{subsubsec:algorithm}
 
 % introduction modules
-As mentioned, our routing algorithm should be easily adaptable to different modes of transport; therefore, we formulate it in a modular fashion as a scaffolding framework.
-The framework described next presents a scaffolding that needs to be augmented by different modules, where a module represents a single usage of a specific transport mode, and running a module can be seen as exploring the network through this mode of transport.
-One module, for example, would be walking, and running the walking module would mean traversing the whole walking graph, given the current state.
+As mentioned above, our routing algorithm should be easily adaptable to different modes of transport. Therefore, we formulate it in a modular fashion as a scaffolding framework.
+Next, we describe a scaffolding framework that needs to be augmented by different modules, where a module represents a single usage of a specific transport mode. Running a module can be seen as exploring the corresponding network through this mode of transport.
+One module, for example, would be walking, and running the walking module would mean traversing the whole walking graph, given the current state of the bags.
 
 % explanation of bags & need for common network 
 A module always takes bags as an input and returns bags as an output.
 As explained in Section \ref{sec:related_work}, a bag is a set of Pareto optimal labels attributing specific values to each objective.
-In addition, in our work, a bag is associated with a node on some network.
-For the bags that are the input and output of the modules, we further require that they are associated with the same network.
+In our work, a bag is additionally associated with a node on some network.
+For the bags that are the input and output of the modules, we further require that they are associated with the common network.
 This is necessary to feed the output bags of one module into the input bags of another module.
 The most reasonable choice for the common network is the walking graph, which has a real-world interpretation because walking between different modes of transport is very common.
 
@@ -146,7 +146,7 @@ By convention, we count each iteration of the repeating modules as one trip.
 \begin{figure}
     \centering
     \includegraphics[scale=0.40]{Figures/method/modular_routing_algorithm}
-    \caption{Modular Routing Algorithm}
+    \caption{Scaffolding Framework}
     \label{fig:modular_routing_algorithm}
 \end{figure}
 
