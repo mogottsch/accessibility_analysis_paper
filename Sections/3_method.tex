@@ -161,10 +161,10 @@ Walking is the most straightforward unscheduled module, which consists of runnin
 The edges of the walking graph should contain the time it takes to traverse them by foot and should not have any monetary cost associated with them.
 
 The free-floating bicycle-sharing module is more complex than the walking module.
-Before running MLC on the respective bicycle graph, the module filters all bags located at a node where no free-floating vehicle is available, as it is only possible to start a trip with a bicycle from nodes where a bicycle is present.
-In addition, the vehicle graph is augmented with a walking graph. 
-This means that at nodes in the vehicle graph where the vehicle is allowed to be parked, there is an edge to the closest node in the walking graph.
-This augmentation is necessary, as the output bags of the free-floating vehicle-sharing module must be associated with nodes in the walking graph, as it is the common network.
+Before running MLC on the respective bicycle graph, the module filters all bags located at a node where no free-floating bicycle is available, as it is only possible to start a trip with a bicycle from nodes where a bicycle is present.
+In addition, the bicycle graph is augmented with a walking graph. 
+This means that at nodes in the bicycle graph where the vehicle is allowed to be parked, there is an edge to the closest node in the walking graph.
+This augmentation is necessary, as the output bags of the free-floating bicycle-sharing module must be associated with nodes in the walking graph, as it is the common network.
 The module can also define cost depending on the time spent on the trip.
 
 For the personal vehicle module, we assume that there is only one personal vehicle and that it is located at the starting node.
@@ -172,14 +172,14 @@ Therefore, the module filters out all bags not located at the starting node.
 Obviously, this module is intended to be used before any other module is used, i.e., for the first segment of the trip.
 Therefore, it should only appear in the first row of the initial module matrix.
 After that, MLC is run on the personal vehicle graph, augmented with the walking graph.
-As this module is also based on MLC, it can define costs like the free-floating vehicle-sharing module.
+As this module is also based on MLC, it can define costs like the free-floating bicycle-sharing module.
 
 Compared to the unscheduled modules, the public transport module does not use MLC but McRAPTOR.
 As a first step, the module filters out all bags associated with nodes that are not near a stop in the public transport system.
 Next, the module performs a single iteration of McRAPTOR, representing a single trip within the public transport system.
 Finally, the resulting bags need to be re-associated with the nodes of the walking network.
 To do so, the module uses the node closest to the coordinates of the public transport stop.
-The public transport module can define costs like the free-floating vehicle sharing and personal vehicle modules.
+The public transport module can define costs like the free-floating bicycle sharing and personal vehicle modules.
 The cost may depend on the number of stops traversed during the trip.
 
 \subsubsection{Merging}
@@ -211,7 +211,7 @@ Our proposed modifications involve the use of hidden values within the labels th
 These hidden values carry additional information that is not considered when comparing labels, but that may be used to update costs dynamically.
 
 In the case of MLC, the hidden values may be updated along any edge, just like the regular values of the label.
-A hidden value may carry information on how long the current trip with the shared vehicle is.
+A hidden value may carry information on how long the current trip with the shared bicycle is.
 We also allow defining a function that updates while traversing an edge and may use the values and hidden values before and after the traversal to do the update.
 With this functionality, it is easy to increment the cost by \euro{1} every time the time spent on the trip exceeds the 15-minute interval.
 
@@ -236,9 +236,9 @@ If we encounter a bag whose time and cost values are greater than the minimum ti
 \label{subsubsec:example}
 
 To illustrate our algorithm, we go through an example.
-The module configuration we use in our example represents traveling by free-floating vehicle sharing, public transport, and walking.
-The initial module matrix contains the walking module to reach the free-floating vehicles and the public transport stops.
-The repeating module matrix consists of first the free-floating vehicle sharing module and the public transport module in parallel and then the walking module.
+The module configuration we use in our example represents traveling by free-floating bicycle sharing, public transport, and walking.
+The initial module matrix contains the walking module to reach the free-floating bicycle and the public transport stops.
+The repeating module matrix consists of first the free-floating bicycle sharing module and the public transport module in parallel and then the walking module.
 It can be seen in Figure \ref{fig:example_module_matrix}.
 
 
@@ -246,7 +246,7 @@ It can be seen in Figure \ref{fig:example_module_matrix}.
 \centering
 \[
 \begin{pmatrix}
-\text{free-floating vehicle} & \text{public transport} \\
+\text{free-floating bicycle} & \text{public transport} \\
 \text{sharing module} & \text{module} \\
 \\
 \text{walking module} & \\
@@ -256,7 +256,7 @@ It can be seen in Figure \ref{fig:example_module_matrix}.
 \label{fig:example_module_matrix}
 \end{figure}
 
-In our example, we assume that both public transport and vehicle sharing have some form of cost associated with them.
+In our example, we assume that both public transport and bicycle sharing have some form of cost associated with them.
 The objective is to minimize arrival time and cost.
 We also consider a maximum of two trips.
 
@@ -266,11 +266,11 @@ In the real world, this represents walking to all nodes in the walking network f
 Note that after the initial walking module, all bags contain exactly one label, as the cost to go anywhere on foot is zero.
 
 Next, the modules of the first row of the repeating matrix are run in parallel.
-In the real world, this means that after an initial walk, the traveler would either drive with a free-floating vehicle starting from a location where one is available or commute by public transport starting from some stop.
+In the real world, this means that after an initial walk, the traveler would either drive with a free-floating bicycle starting from a location where one is available or commute by public transport starting from some stop.
 The modules simultaneously compute all possible trips.
 For the public transport module, for example, one could imagine commuting along all possible routes from all stops and updating the bags at the stops along each route accordingly.
-After running these modules and merging their result bags, each bag may contain more than one label, as public transport and driving with a vehicle may be faster than walking but also cost money.
-It may even be that some bags contain three different labels, if, for example, driving with a vehicle is the fastest but also costs the most money and commuting by public transport is faster than walking.
+After running these modules and merging their result bags, each bag may contain more than one label, as public transport and driving with a bicycle may be faster than walking but also cost money.
+It may even be that some bags contain three different labels, if, for example, driving with a bicycle is the fastest but also costs the most money and commuting by public transport is faster than walking.
 The next step consists of running the second row of the repeating module matrix, which, in our case, is the walking module again.
 Running the walking module in the repeating module matrix is essential to reach nearby POIs after commuting through the public transport system.
 After that, the repeating module matrix is rerun, as we consider a maximum of two trips.
