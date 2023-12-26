@@ -132,9 +132,15 @@ It is configured by two module matrices, the initial module matrix and the repea
 A module matrix is an irregular matrix where each entry is a module.
 The matrix specifies the order in which modules are run and whether they are run sequentially or in parallel.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.50]{Figures/method/modular_routing_algorithm}
+    \caption{Scaffolding Framework}
+    \label{fig:modular_routing_algorithm}
+\end{figure}
+
 Running the framework begins with a start node and time as input.
-Its output is a set of bags.
-It first creates the starting bags described above from the start node and the start time.
+It first creates the starting bags from the start node and the start time, as described above.
 Next, it runs the initial modules given by the initial module matrix.
 To run a module matrix, the first row's modules are run in parallel.
 Their respective outputs are then merged into a single set of bags, which is used as the input for the second row's modules.
@@ -142,14 +148,6 @@ This process repeats for each row of the module matrix.
 After the initial module matrix is run, the same is done for the repeating module matrix.
 The repeating module matrix, in comparison to the initial module matrix, is run multiple times, as often as the specified maximum number of transfers.
 By convention, we count each iteration of the repeating modules as one trip.
-
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.40]{Figures/method/modular_routing_algorithm}
-    \caption{Scaffolding Framework}
-    \label{fig:modular_routing_algorithm}
-\end{figure}
-
 
 \subsubsection{Modules}
 \label{subsubsec:modules}

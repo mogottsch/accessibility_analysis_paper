@@ -9,10 +9,10 @@ We then also discuss the limitations of our study and conclude by providing an o
 \subsection{Interpretation of Results}
 \label{subsec:interpretation_of_results}
 
-In this section, we will derive quantitative and qualitative insights that based on our results.
-We start with investigating the runtime and memory usage that is required by our method to evaluate its practicality.
+In this section, we derive quantitative and qualitative insights based on our results.
+We start with investigating the runtime and memory usage that is required by our method in order to evaluate its practicality.
 We then continue by assessing the effectiveness of public transport and bicycle sharing and determining whether they are substitutes or complements.
-Next, we consider the cost that is incurred by the usage of fare-based transport modes like bicycle sharing and public transport.
+Next, we consider the cost that is incurred by the usage of transport modes like bicycle sharing and public transport.
 Finally, we conclude by appraising the uncertainty of our results.
 
 \subsubsection{Runtime Observations}
@@ -26,13 +26,13 @@ Therefore, we expect our method to scale well when using more powerful hardware 
 We have, therefore, successfully created a method that incorporates an arbitrary amount of transport modes while remaining computationally tractable, even for whole cities.
 
 \subsubsection{Public Transport Effectiveness}
-Our findings indicate that public transport effectively enhances accessibility, particularly in remote, low-POI-density suburban areas near high-frequency transport lines. 
+Our findings indicate that public transport effectively enhances accessibility, particularly in remote, low-POI-density suburban areas near public transport lines. 
 However, it is costlier compared to bicycle sharing.
 We summarize our findings for public transport effectiveness in the following inferences:
 \begin{enumerate}
   \renewcommand{\labelenumi}{I\theenumi.}
   \item Public transport improves accessibility \label{item:pt_improves_accessibility}
-  \item Public transport is more effective in remote areas than in the city's center \label{item:pt_effective_in_remote_areas}
+  \item Public transport is more effective in remote areas than in the city center \label{item:pt_effective_in_remote_areas}
   \item Public transport is more effective in areas with low accessibility than in areas with high accessibility  \label{item:pt_effective_in_areas_with_low_accessibility}
   \item Public transport is costlier than bicycle sharing \label{item:pt_costlier_than_bicycle_sharing}
 \end{enumerate}
@@ -46,7 +46,7 @@ However, adding public transport does not make a big difference in areas where i
 This is because using public transport often involves extra steps, such as walking to the bus or train stop and waiting for it to arrive. 
 How much this extra time matters depends on the length of the trip.
 For short trips, getting to and waiting for public transport could be a large part of the overall travel time, making it less valuable. 
-However, for longer trips, especially in the areas that were difficult to reach before, this extra time is a smaller part of the journey. 
+However, this extra time is a smaller part of the journey for longer trips, especially in the areas that were difficult to reach before. 
 This makes public transport more beneficial for these longer trips. 
 
 % pt better than a bicycle for 20% worst
@@ -100,7 +100,8 @@ It also shows us that a high-frequency public transport line from the city cente
 
 \subsubsection{Bicycle Sharing Effectiveness}
 % intro
-Bicycle sharing enhances accessibility in less and well-connected urban areas, offering cost-efficiency over public transport, with its effectiveness highly depending on bicycle allocation.
+Bicycle sharing enhances accessibility in all urban areas, offering cost-efficiency over public transport.
+However, its effectiveness highly depends on bicycle allocation.
 We summarize our findings for bicycle sharing effectiveness in the following inferences:
 
 \begin{enumerate}
@@ -244,11 +245,12 @@ This means that, on average, the sustainable modes of travel are currently too e
 Even when looking at the least accessible regions (90\% quantile) separately in Figure \ref{fig:90_quantile_time_per_cost}, where we have the most significant improvement, the most cost-efficient mode of transport, which is bicycle, only yields an improvement of two minutes per euro, which again does not result in a net positive for people who earn the minimum wage.
 
 With the help of the monthly cost depicted in Tables \ref{tab:monthly_costs_per_scenario_15} and \ref{tab:monthly_costs_per_scenario_10}, we can derive recommendations for the price of a monthly ticket or subscription that is appealing to residents, that have to use public transport or bicycle sharing in order to reach certain amenities in under 10 or 15 minutes.
-We expect that such a monthly ticket would reduce the cost per trip to zero.
-In our experiment in the city of Cologne, this is plausible, as the public transport tickets indeed allow for unlimited travel within the city, while NextBike's subscription makes trips that are under 30 minutes free.
+We make an assumption that there are no extra costs occurring per trip when a monthly ticket is purchased.
+In our experiment in the city of Cologne, this is plausible, as the monthly public transport tickets indeed allow for unlimited travel within the city, while NextBike's subscription makes trips that are under 30 minutes free.
 
 Looking at the monthly cost tables, we also note that the monthly costs for the combined and bicycle scenarios are the same, which shows that only bicycle sharing is used in the combined scenario.
-In the 15-minute benchmark, we see that in order to appeal to at least 50\% of the population, a monthly public transport ticket should cost less than \euro{8.80}, while a bicycle sharing subscription should cost less than \euro{4}.
+In order to appeal to at least 50\% of the population, a monthly public transport ticket should cost less than the median of the monthly cost.
+In the 15-minute benchmark, this means that the monthly public transport ticket should cost less than \euro{8.80}, while a bicycle-sharing subscription should cost less than \euro{4}.
 The 10-minute benchmark shows a similar pattern: the median cost for the bicycle and combined scenario is \euro{9}, while the median cost for the public transport scenario is \euro{19.80}.
 Currently, a NextBike subscription costs \euro{10} per month, while the most common public transport ticket, the "Deutschlandticket", costs \euro{49} per month.
 Both of these prices are significantly higher than the median cost for the bicycle and combined scenario, which means that a monthly ticket is not worth it for at least half of the affected hexagons.
@@ -258,7 +260,7 @@ With the difference between the monthly car cost and the monthly cost of the bic
 In the case of the 15-minute benchmark, the average car costs are \euro{1.69}, while the average cost for the bicycle and combined scenario are \euro{5.79}, resulting in a difference of \euro{4.10} per month or \euro{49.20} per year.
 This difference compared to the usual acquisition cost of a car is so low that it is not monetarily worth it to buy a car if the same journey can be made with bicycle sharing or public transport.
 In addition, we have to keep in mind that our estimates for the speed of cars are very optimistic, as we assume that there is no traffic and that parking is always available.
-Obviously, we can only state this for areas where accessibility using sustainable modes of travel suffices.
+To sum up, it is not worth investing in a private car, but only in the areas where sustainable modes of transport are sufficient.
 From table \ref{table:hexagons_with_walking_time_above_15_minutes}, we know that 67\% of hexagons in which walking alone is not sufficient, only cars can make all amenities accessible in under 15 minutes.
 
 
@@ -276,7 +278,8 @@ We suspect that the variance for public transport would increase more drasticall
 In addition, the schedule of public transport is often the same for full hours.
 
 We should also note that the comparison of variances should be taken with caution as the method for selecting the sub-scenarios differs per scenario.
-We employed a clustering method for bicycle sharing while we made a qualitative choice for public transport. 
+Specifically, we employed a clustering method for the bicycle-sharing scenario.
+At the same time, we manually selected the times for the sub-scenarios of the public transport scenario.
 
 \subsection{Implications}
 \label{sec:implications}
@@ -291,7 +294,7 @@ Also, bicycle sharing can improve accessibility everywhere where bicycles are av
 For the most part, at least for Cologne, bicycle sharing is highly effective where the "Flex-Zone" is located.
 It is essential to understand the relationship between its effectiveness and the location of this zone.
 As most of Cologne's central parts are covered by the zone, we can already observe its massive positive effects on accessibility.
-In addition, approximately 69\% of all considered hexagons and with that are sub-15-minute city areas by walking, which shows us that Cologne essentially already has excellent accessibility.
+In addition, approximately 69\% of all considered hexagons are sub-15-minute city areas by walking, which shows us that Cologne essentially already has excellent accessibility.
 
 % improvements
 % improvement 1: turning more non-15 minute regions into 15-minute regions
@@ -311,7 +314,7 @@ We have demonstrated that the success of bicycle-sharing is closely tied to the 
 This availability primarily hinges on two factors: the location of the "Flex-zone" and how bicycles are distributed within it.
 Significantly, our findings reveal that the effectiveness of bicycle sharing varies greatly across different sub-scenarios, highlighting the importance of strategic bicycle distribution.
 Therefore, carefully managing bicycle placement and timely relocations are crucial for the system's efficiency.
-To optimize the effectiveness of bicycle sharing, it is essential to conduct regular analyses of system demand and adjust bicycle distribution in response to these insights.
+To optimize the effectiveness of bicycle sharing, it is essential to conduct regular analysis of system demand and adjust bicycle distribution in response to these insights.
 \shortciteA{heRobustRepositioningVehicle2020,luOptimizingProfitabilityQuality2018b,benjaafarDynamicInventoryRepositioning2018a} have already researched how to effectively relocate bicycles.
 
 % TODO:
@@ -339,7 +342,7 @@ By not accounting for these factors, our study may not fully capture the complex
 
 Another critical limitation is the exclusion of reliability issues such as public transport outages or traffic disruptions due to accidents. 
 These events can drastically affect transportation dynamics in a city. 
-For instance, a public transport outage might temporarily increase the demand for bicycles, while an accident could impede bicycle routes. 
+For instance, a public transport outage might temporarily increase the demand for bicycles, while bad  weather conditions could increase demand for public transport.
 Not considering these variables limits the scope of our study, particularly in understanding the resilience and adaptability of bicycle-sharing and public transport systems.
 
 The usefulness of the X-minute-city metric employed in our study, which assesses accessibility based on the ability to reach any POI assigned to a category, should also be taken with caution.
