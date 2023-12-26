@@ -32,7 +32,8 @@ This scenario evaluates how well-connected and time-efficient public transportat
 It also investigates the impact of public transport on urban mobility and its potential to contribute to a more sustainable urban environment. 
 Specifically, it assesses whether public transport is a viable alternative to the personal car and whether it offers significant advantages over walking, considering the X-minute city metric.
 In contrast to the previous scenarios the public transport scenario also incorporates uncertainty.
-As the public transport network is scheduled, i.e. time-dependent, we have to consider multiple different starting times, so that we achieve holistic assessment of this mode.
+As the public transport network is scheduled, i.e. time-dependent, we have to consider multiple different starting times, so that we achieve a holistic assessment of this mode.
+We call the instantiation of this scenario with a specific starting time a sub-scenario.
 
 Next, in the fourth scenario, we focus on the dynamics of bicycle-sharing systems. 
 This scenario is essential for assessing the feasibility and attractiveness of cycling as a primary mode of transportation in urban areas. 
@@ -40,10 +41,12 @@ We will directly compare it to the public transport scenario to understand which
 Similarly to the public transport scenario, we also incorporate uncertainty in this scenario.
 The availability of bicycles fluctuates temporally and spatially.
 Therefore, we consider multiple different bicycle availability configurations.
+Again, this scenario with a specific bicycle availability configuration is called a sub-scenario.
 
 Finally, the fifth scenario combines public transport and bicycle sharing, offering insights into the synergy between these two modes of transport.
 For brevity, we refer to this scenario as the combined scenario.
 This scenario mirrors a growing trend in urban mobility solutions, where multi-modal transport options are increasingly favored. 
+It incorporates the uncertainty of both public transport and bicycle sharing.
 We expect it to be the most competitive against cars.
 
 We summarize the scenarios in Table \ref{table:scenarios}.
@@ -140,6 +143,8 @@ Secondly, GTFS trips allow visiting the same stop multiple times, which is not p
 To overcome these differences, we split up routes into smaller routes following the same stop sequence.
 Additionally, we also remove circular trips altogether, as they only appear in a few cases in Cologne and are not relevant to our analysis.
 
+As we previously said, the public transport scenario is subject to uncertainty and therefore, we will run three different sub-scenarios with starting times of 08:00, 12:00, and 18:00, respectively.
+
 
 \subsubsection{Bicycle Sharing}
 \label{subs:bicycle_sharing}
@@ -156,7 +161,8 @@ This data is then used as an input for k-medoids clustering \shortcite{rdusseeun
 K-medoids, also known as PAM (Partitioning Around Medoids) algorithm, is a clustering technique that partitions a dataset into K clusters, where each is assigned a medoid, the most centrally located object in a cluster. 
 Unlike K-means, which uses mean values as cluster centers, K-medoids use an actual data point as the center of a cluster.
 This has the advantage that the centers are part of the original dataset, allowing us to retrieve the unaggregated distribution of bicycles for each center.
-We use the unaggregated distributions of bicycles of each center as an input for our model.
+We use the four unaggregated distributions of bicycles of each center as an input, which then results in our four sub-scenarios for bicycle sharing.
+
 
 \subsubsection{Land Use}
 \label{subs:land_use}
