@@ -2,16 +2,15 @@
 \section{Results}
 \label{sec:results}
 
-This section presents the findings of our comprehensive analysis, addressing the research questions outlined in the introduction.
+This section presents the findings received when carrying out our experiment, addressing the research questions outlined in the introduction.
 Recall, our primary inquiries revolved around understanding the role of bicycle sharing and public transport in shaping cities into 15-minute cities (RQ\ref{rq:bicycle_pt}), the impact of cost on accessibility (RQ\ref{rq:cost_accessibility}), the measurement of accessibility considering multiple transport modes and associated costs (RQ\ref{rq:measure_accessibility}), and deriving specific urban planning recommendations for Cologne (RQ\ref{rq:recommendations}).
 
-The results are the output of our experiment, which consists of a novel method for accessibility-based planning that incorporates multiple modes of transport, extending the 15-minute city concept to include a broader range of sustainable transport options while also considering cost.
-The data retrieved from our experiments consists of two parts:
+The results are the output of our experiment, which consists of a novel method for accessibility-based planning that incorporates multiple modes of transport while also considering cost.
+The data retrieved from our experiments consists of two parts.
 Firstly, for each (sub)-scenario and hexagon, we get the Pareto set of the X-minute city metric and cost.
-Secondly, we also retrieve the more fine granular version where we get a Pareto set of the time it takes to get to the closest POI for a specific category.
-In the following subsections, we delve into this data and observe our method's runtime and memory usage.
-
-
+Secondly, we also retrieve a similar Pareto set for each (sub)-scenario and hexagon, but for each category separately.
+We use this second version for an extensive cost analysis in Section \ref{sec:monthly_costs}.
+In the following subsections, we first observe our method's runtime and memory usage and then analyze the output of our method.
 
 \subsection{Runtime Observations}
 \label{subsec:runtime_observations}
@@ -20,18 +19,21 @@ In the following subsections, we delve into this data and observe our method's r
 % TODO fill in actual numbers
 Observing the runtime and memory usage required to run our experiment enables us to evaluate the practicality of our approach.
 To execute our experiment, we used a machine with an AMD Ryzen 7 5800H CPU and 32 GB of RAM.
-As explained in Section \ref{sec:method} our routine is split into three parts, the input, main, and metric routine.
-The input routine took X minutes to run and required no more than Y gigabytes of memory.
-The main routine took the longest with X minutes and required Y gigabytes of memory, however, we only utilized eight of the 16 available cores for parallelization.
-Lastly, the metric routine took X minutes to run and required Y gigabytes of memory.
-We found that the memory consumption primarily stems from the graph-based representation of the street network of Cologne.
+As explained in Section \ref{sec:method}, our routine is split into three parts: the input, main, and metric routine.
+The input routine is the only routine that we are able to reuse across different sub-scenarios, which means that we only had to run it once.
+It took under two minutes to run and required no more than 19 gigabytes of memory.
+The main routine took the longest, with 6 hours and 11 minutes, and required around 70 gigabytes of memory at max.
+More than half of the memory used by the main routine was provided as swap memory.
+Also, we only utilized 8 of the 16 available cores for parallelization.
+Lastly, the metric routine took under 15 minutes to run and required no more than 20 gigabytes of memory.
+We found that the high memory consumption of the main routine primarily stems from the graph-based representation of the street network of Cologne.
 
 \subsection{X-Minute City Metric}
 \label{subsec:15_minute_city_metric}
 
 % table (mean, quantiles) of the optimal X-minute city metric
-We first start to analyze the optimal X-Minute city metric, that is the entry in the Pareto set for which the X-minute city metric is optimal.
-Table \ref{tab:optimal_x_minute_city_metric} shows the mean, as well as, the 25\%, 50\%, and 75\% quantiles of the optimal X-minute city disregarding the cost for each scenario over all hexagons.
+We first analyze the optimal X-Minute city metric, which is the entry in the Pareto set for which the X-minute city metric is the lowest, disregarding any costs incurred.
+Table \ref{tab:optimal_x_minute_city_metric} shows the mean, as well as the 25\%, 50\%, and 75\% quantiles of the optimal X-minute city, each scenario over all hexagons.
 Our findings indicate that cars enable the fastest access to all necessary Points of Interest (POIs), with an average optimal X-minute city time of 3 minutes and 12 seconds. 
 This mode of transport significantly outpaces other methods, establishing a benchmark for urban mobility efficiency.
 However, remember that our car scenario is very optimistic and these numbers should be taken cautiously.
@@ -41,34 +43,36 @@ However, remember that our car scenario is very optimistic and these numbers sho
   \label{tab:optimal_x_minute_city_metric}
   \begin{center}
     \begin{tabular}{lrrrr}
-       & mean & 25\% & 50\% & 75\% \\
-      scenario &  &  &  &  \\
-      Bicycle & 12.45 & 7.25 & 10.75 & 15.50 \\
-      Car & 3.19 & 2.00 & 3.00 & 4.00 \\
-      Combined & 11.51 & 7.25 & 10.29 & 14.33 \\
-      Public Transport & 12.78 & 9.00 & 12.00 & 16.00 \\
-      Walking & 14.09 & 9.00 & 12.00 & 17.00 \\
+    & mean & 25\% & 50\% & 75\% \\
+    scenario &  &  &  &  \\
+    Bicycle & 12m 26s & 7m 15s & 10m 45s & 15m 30s \\
+    Car & 3m 11s & 2m 00s & 3m 00s & 4m 00s \\
+    Combined & 11m 30s & 7m 15s & 10m 17s & 14m 20s \\
+    Public Transport & 12m 47s & 9m 00s & 12m 00s & 16m 00s \\
+    Walking & 14m 05s & 9m 00s & 12m 00s & 17m 00s \\
     \end{tabular}
   \end{center}
 \end{table}
 
 In contrast, sustainable modes of transport, such as bicycles, public transport, a combination of bicycles and public transport, and walking, demonstrate similar accessibility times. 
-These modes record average times ranging from 11 minutes and 30 seconds to 14 minutes, with walking being the least time-efficient mode at an average of 14 minutes and 5 seconds. 
+These modes record average times ranging from 11 minutes and 30 seconds to 14 minutes, with walking being the least time-efficient mode with an average of 14 minutes and 5 seconds. 
 Integrating bicycles with public transport emerges as the most time-efficient sustainable mode, with an average time of 11 minutes 30 seconds. 
 
-A direct comparison between public transport and walking shows that the time savings offered by public transport stand at 1 minute and 28 seconds. 
+A direct comparison between public transport and walking shows that the time savings offered by public transport are 1 minute and 18 seconds. 
 However, this benefit is not evenly distributed across all areas.
-The analysis of quantiles reveals that the time improvement only establishes at the 75\% quantile with a 2-minute gain, while the 25\% and 50\% quantiles don't show any improvements.
+The analysis of quantiles reveals that the time improvement only establishes at the 75\% quantile with a 1-minute gain, while the 25\% and 50\% quantiles don't show any improvements.
 
-Similarly, adding public transport to bicycle sharing improves the average optimal time to reach all categories by 43 seconds.
-Again, this improvement is not evenly distributed but only applies to the 25\% worst hexagons.
-Specifically, we see no improvement from bicycle sharing to public transport in the 25\% and 50\% quantiles, but a 1-minute improvement in the 75\% quantile.
+Similarly, adding public transport to bicycle sharing, i.e., comparing the combined scenario with the bicycle sharing scenario, improves the average optimal time to reach all categories by 56 seconds.
+Again, this improvement is not evenly distributed but only applies to the 50\% worst hexagons.
+Specifically, we see no improvement from bicycle sharing to public transport in the 25\% quantiles, and the improvement in the 50\% quantile is very minor with 28 seconds.
+The improvement in the 75\% quantile is the largest with 1 minute and 10 seconds.
 While there is an improvement in the mean and 75\% quantile, it is not as large as the improvement from walking to public transport.
 
 We can make the same observation from the standpoint of adding bicycle sharing to walking and public transport.
-Adding bicycle sharing to public transport, the data indicates an improvement in the average accessibility time, reducing it by 1 minute and 16 seconds.
-In contrast to adding public transport to bicycles, this improvement already occurs for the 25\% quantile and is, therefore, more evenly distributed across all hexagons.
-Adding bicycles to the walking scenario presents an average time reduction of 1 minute and 28 seconds, which denotes a significant enhancement in the accessibility metric. 
+Adding bicycle sharing to public transport, i.e., comparing the combined scenario with the public transport scenario, the data indicates an improvement in the average accessibility time, reducing it by 1 minute and 16 seconds.
+In contrast to the previously discussed example of adding public transport to bicycles, this improvement already occurs for the 25\% quantile and is, therefore, more evenly distributed across all hexagons.
+
+Adding bicycles to the walking scenario, i.e., comparing the bicycle scenario to the walking scenario, presents an average time reduction of 1 minute and 38 seconds, which denotes a significant enhancement in the accessibility metric. 
 Again, this improvement already occurs at the 25\% quantile, showing that the improvements gained through bicycle sharing are more evenly distributed across all hexagons.
 
 % -----
@@ -76,17 +80,17 @@ Again, this improvement already occurs at the 25\% quantile, showing that the im
 We can observe a similar pattern when visualizing the distribution of the optimal X-minute city metric in Figure \ref{fig:optimal_x_minute_city_metric}.
 \begin{figure}
   \begin{center}
-    \includegraphics[width=0.65\textwidth]{Figures/results/minute_city_metric/best_x_minute_city}
+    \includegraphics[width=0.85\textwidth]{Figures/results/minute_city_metric/best_x_minute_city}
   \end{center}
   \caption{Distribution of Optimal X-Minute City Metric}
   \label{fig:optimal_x_minute_city_metric}
 \end{figure}
-As we can see initially (for the most accessible hexagons to the left), public transport and walking are the same, but as we move to less accessible hexagons, public transport improves.
-In addition, the public transport scenario is worse than the pure bicycle sharing scenario but can catch up and even overtake it as we move to less accessible hexagons.
+As we can see, for the most accessible hexagons to the left, public transport, and walking are the same, but with the less accessible hexagons to the right, public transport becomes better than walking.
+In addition, the public transport scenario is worse than the pure bicycle sharing scenario but catches up and even overtakes it as we move to less accessible hexagons.
 The same pattern can be observed when comparing the bicycle-sharing scenario to the combined scenario of bicycle-sharing and public transport.
-Initially, the combined scenario is the same as the bicycle-sharing scenario, but as we move to less accessible hexagons the combined scenario becomes better.
+For the most accessible hexagons to the left, the combined scenario is the same as the bicycle-sharing scenario, but as we move to less accessible hexagons to the right, the combined scenario becomes better.
 Similarly, when comparing the bicycle-sharing scenario to the combined scenario, we see that the combined scenario provides much better accessibility initially, but as we move to the least accessible hexagons, both become the same.
-Generally, adding public transport can flatten the drastic increase of the optimal X-minute city metric at the end of the distribution.
+Generally, adding public transport can slow down the drastic increase of the optimal X-minute city metric at the end of the distribution.
 
 
 Figure \ref{fig:optimal_map} shows the optimal X-minute city metric for each hexagon over all sustainable modes of travel, i.e., excluding the car scenario.
@@ -98,7 +102,7 @@ Figure \ref{fig:optimal_map} shows the optimal X-minute city metric for each hex
   \label{fig:optimal_map}
 \end{figure}
 We can see that the least accessible hexagons require 44 minutes to reach all categories if only sustainable modes of travel are used.
-The least accessible regions are suburban areas in the north and south of Cologne. 
+The least accessible regions are suburban areas in the north, south and west of Cologne. 
 The region on the left bank of the Rhine River next to Leverkusen, which is the district of Merkenenich, is especially inaccessible.
 
 Figure \ref{fig:optimal_map_per_scenario} shows multiple maps of the optimal X-minute city metric for each hexagon, one for bicycle sharing, one for public transport, and one for walking.
@@ -159,6 +163,8 @@ Looking at the maximum cost values of each sustainable mode of transport shows u
 As \euro{1} allows to travel a maximum of 15 minutes, it is never necessary to travel longer than 15 minutes after a bicycle is reached.
 The maximum cost incurred by public transport is \euro{3.20}, the long-distance ticket of public transport (more than four stops) is used.
 Similarly, in the combined scenario, the long-distance ticket is used with a 15-minute ride of bicycle sharing in at least one sub-scenario, resulting in the maximum price of \euro{3.95}.
+Remember that the values we observer are average values of all sub-scenarios belong to a scenario.
+Because of this the maximum price is \euro{3.95} and not \euro{4.20} (\euro{1} + \euro{3.20}), as not all sub-scenarios reach the maximum of \euro{4.20}.
 
 We can make similar observations with more granularity when looking at the distribution of the required cost in Figure \ref{fig:maximum_required_cost_for_x_minute_city}.
 \begin{figure}
@@ -528,6 +534,7 @@ More than half of those (7 out of 10) are located in the southern district of We
 
 
 \subsection{Monthly Costs Per Scenario And Hexagon}
+\label{sec:monthly_costs}
 A prevalent measure to incentivize sustainable modes of transport are monthly tickets or subscriptions.
 To measure whether the costs of these subscriptions are worth it, we will calculate the monthly cost incurred by the trips to all necessities.
 To do so, we first collected how often people visited each category we defined earlier.

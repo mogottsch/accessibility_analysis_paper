@@ -3,21 +3,27 @@
 \label{sec:experiment}
 
 We apply our method to the city of Cologne to retrieve insights about how different modes of transport interact and how they contribute to the city's accessibility.
-As we want to compare different modes of transport, we will calculate the metric multiple times for different scenarios, each with a different combination transport modes.
+As we want to compare different modes of transport, we will calculate the metric multiple times for different scenarios, each with a different combination of transport modes.
+We first introduce each scenario by stating with combination of transport modes it incorporates. 
+Next, we present all our sources for the street network data, POIs data, public transport network and schedule data, bicycle sharing data, and land use data.
+Lastly, we clearly state all assumptions we make, including the pricing of the different modes.
 
 \subsection{Scenarios}
 \label{subs:scenarios}
 
-No matter what mode of transport we choose, we always allow for walking for two reasons.
+No matter which mode of transport we choose, we always allow walking for two reasons.
 First, walking is the most accessible mode of transport, available to almost everyone and without additional costs.
 Second, most other modes of transport require walking at some point, be it to the next bus stop or the next available bicycle.
 
-The first scenario we consider is our baseline, which only considers walking.
+The first scenario we consider is our baseline, which only includes walking.
 This scenario measures what is possible without any additional infrastructure. 
 Distinct from other scenarios, it does not require any cost, thus presenting the most basic form of urban mobility.
 
 Building on this, the second scenario we consider is using a personal car.
-We consider this scenario the benchmark scenario, as we hope to achieve similar (or even better) results with more sustainable modes of transport.
+This scenario depicts the benchmark scenario, as we hope to achieve similar (or even better) results with more sustainable modes of transport.
+Travelling by car is highly dependent on traffic and in reality, also requires consideration of the time spent to find parking spots, which is especially impactful in cities.
+We disregard parking costs and traffic, and therefore, the resulting times for the car scenario are very optimistic.
+This is acceptable as we use the car scenario only as a benchmark.
 Therefore, we use it to answer the question of how competitive sustainable modes of transport are compared to the traditional mode of travel by car. 
 
 Transitioning from the benchmark scenario, the third scenario focuses on public transport. 
@@ -26,7 +32,7 @@ This scenario evaluates how well-connected and time-efficient public transportat
 It also investigates the impact of public transport on urban mobility and its potential to contribute to a more sustainable urban environment. 
 Specifically, it assesses whether public transport is a viable alternative to the personal car and whether it offers significant advantages over walking, considering the X-minute city metric.
 In contrast to the previous scenarios the public transport scenario also incorporates uncertainty.
-As the public transport network is scheduled, i.e. time-dependent, we have to consider multiple different starting times, so that we get holistic assessment of this mode.
+As the public transport network is scheduled, i.e. time-dependent, we have to consider multiple different starting times, so that we achieve holistic assessment of this mode.
 
 Next, in the fourth scenario, we focus on the dynamics of bicycle-sharing systems. 
 This scenario is essential for assessing the feasibility and attractiveness of cycling as a primary mode of transportation in urban areas. 
@@ -37,9 +43,8 @@ Therefore, we consider multiple different bicycle availability configurations.
 
 Finally, the fifth scenario combines public transport and bicycle sharing, offering insights into the synergy between these two modes of transport.
 For brevity, we refer to this scenario as the combined scenario.
-This integrated approach mirrors a growing trend in urban mobility solutions, where multi-modal transport options are increasingly favored. 
-It underscores how this combination can bridge the gaps in accessibility and efficiency found when each mode is used independently. 
-This scenario is expected to be the most competitive against cars, offering a comprehensive and sustainable urban transit model that could reshape the landscape of city mobility.
+This scenario mirrors a growing trend in urban mobility solutions, where multi-modal transport options are increasingly favored. 
+We expect it to be the most competitive against cars.
 
 We summarize the scenarios in Table \ref{table:scenarios}.
 The specific configuration of the module matrices for each scenario can be found in Appendix \ref{app:experiment_module_matrix_configuration}.
@@ -69,7 +74,7 @@ Combined & Public transport, bicycle sharing, walking & Start time \& bicycle av
 \subsection{Data}
 \label{subs:data}
 
-We use four different datasets to calculate the Pareto sets of our metric for the different scenarios.
+We require four different datasets to calculate the Pareto sets of our metric for the different scenarios.
 First, we require data that depicts the street network of the city of Cologne.
 Second, we need to know the locations of the POIs we want to reach.
 Third, we need to know the locations of the public transport stops and the schedules of the public transport.
@@ -104,13 +109,14 @@ With the help of Pyrosm, we can automatically fetch data from sources like Geofa
 In our case, we use the data for the city of Cologne from BBBike.
 However, due to the flexibility of Pyrosm, it is easily possible to use data from other sources and expand our analysis to other cities.
 
-After retrieving the data, we retrieve a graph representation of the street network trimmed to the buffered area of interest.
+After retrieving the data, we create a graph representation of the street network trimmed to the buffered area of interest.
 Using the buffered region is important because without it, calculating our metric at the border of the area of interest would result in a higher value than the actual value.
-As a last cleaning step, we remove all nodes not part of the largest weakly connected component.
-A weakly connected component is a subgraph in which any two vertices from the subgraph would be connected if all directed edges were treated as undirected.
+To be more specific, we calculate our metric only for regions in the original zone but also use POIs and the street network of the buffered zone.
+As the last cleaning step, we remove all nodes not part of the largest weakly connected component.
+A weakly connected component is a subgraph in which any two nodes from the subgraph would be connected if all directed edges were treated as undirected.
 Multiple weakly connected components in graphs derived from OSM data, mostly happen at the border of the considered area and can be neglected.
 
-Because we consider multiple different modes of transport on the network, it is essential to filter out all edges that are not accessible by the respective mode of transport.
+Because we consider multiple different modes of transport in the network, it is essential to filter out all edges that are not accessible by the respective mode of transport.
 To do so, we use Pyrosm's built-in filtering functionality.
 For reproducibility, we list the filters that Pyrosm uses in Appendix \ref{app:pyrosm_network_filter}.
 
@@ -122,16 +128,17 @@ We retrieve all POIs that fall into one of our predefined categories specified i
 
 We use the General Transit Feed Specification (GTFS) \shortcite{mobilitydataGeneralTransitFeed2023} to handle public transport data.
 We rely on the Mobility Database \shortcite{mobilitydataMobilityDatabase2023} to retrieve it.
-This database serves as an open-source repository containing links to publicly available GTFS feeds globally, standing as the subsequent version of TransitFeeds \shortcite{mobilitydataOpenMobilityDataPublicTransit2023}.
+This database serves as an open-source repository containing links to publicly available GTFS feeds globally.
 Similarly to the OSM data, we trim the GTFS data to the area of interest plus the buffer.
-The GTFS data is also cleaned and converted into a format more suitable for our algorithm, specifically McRAPTOR, which is part of our algorithm.
+The GTFS data is cleaned and converted into a format that is more suitable for McRAPTOR.
 Specifically, two significant incompatibilities exist between the GTFS specification and RAPTOR's notion of routes and trips.
 Firstly, each trip belonging to a single route in RAPTOR visits the same stops in the same order.
-It is impossible for a trip to skip some stops that another trip of the same route visits, much less use a completely different sequence of routes.
-In GTFS, routes allow that, as they are much more a group of trips presented to the passenger under the same name or identifier.
+It is impossible for two trips of the same route to use a different sequence of stops.
+In GTFS, routes don't pose such restrictions.
+For example, two train lines that go along the same set of stops, but in opposite directions, are considered the same route in GTFS.
 Secondly, GTFS trips allow visiting the same stop multiple times, which is not permitted in RAPTOR.
 To overcome these differences, we split up routes into smaller routes following the same stop sequence.
-Additionally, we also remove circular trips, altogether, as they only in a few cases in Cologne and are not relevant for our analysis.
+Additionally, we also remove circular trips altogether, as they only appear in a few cases in Cologne and are not relevant to our analysis.
 
 
 \subsubsection{Bicycle Sharing}
@@ -143,22 +150,23 @@ To get representative samples of the locations of all bicycles, we employ the fo
 We first discretize the data spatially and temporally.
 For the temporal discretization, we derive the location of each bicycle every hour.
 For the spatial discretization, we use H3 hexagons with a resolution of 9.
-The resulting data shows how many bicycles were at each hexagon at each hour.
+The resulting data is a set of vectors, where each vector corresponds to a certain hour.
+One entry in a vector states how many bicycles are located in the specific hexagon.
 This data is then used as an input for k-medoids clustering \shortcite{rdusseeun1987clustering} with a k of 4.
 K-medoids, also known as PAM (Partitioning Around Medoids) algorithm, is a clustering technique that partitions a dataset into K clusters, where each is assigned a medoid, the most centrally located object in a cluster. 
 Unlike K-means, which uses mean values as cluster centers, K-medoids use an actual data point as the center of a cluster.
-This has the advantage that the centers are part of the dataset and, therefore, are realistic samples.
-We use the resulting medoids as bicycle availability configurations.
+This has the advantage that the centers are part of the original dataset, allowing us to retrieve the unaggregated distribution of bicycles for each center.
+We use the unaggregated distributions of bicycles of each center as an input for our model.
 
 \subsubsection{Land Use}
 \label{subs:land_use}
 
-We use the land use data from the CORINE Land Cover (CLC) project \shortcite{european-environment-agencyCORINELandCover2010} to identify the residential areas.
+We utilize the land use data from the CORINE Land Cover (CLC) project \shortcite{european-environment-agencyCORINELandCover2010} to identify the residential areas.
 The data covers the whole of Europe and is publicly available, making it possible to expand our analysis to other cities in Europe.
 We trimmed the data to the area of interest and then filtered for the land use types "Continuous Urban Fabric" and "Discontinuous Urban Fabric".
-These two land use types represent the residential areas of the city.
+These two land use types represent residential areas with different concentrations of residential buildings.
 The residential areas inside the area of interest are shown in Figure \ref{fig:input_hexagons_residential_areas}.
-Additionally, the Figure shows the hexagons of resolution nine found inside the residential areas.
+Additionally, this Figure shows the hexagons of resolution nine found inside the residential areas.
 
 \begin{figure}
   \begin{center}
@@ -174,8 +182,8 @@ Additionally, the Figure shows the hexagons of resolution nine found inside the 
 
 To calculate our metric, we have to abstract from reality to some degree.
 We do so by making the following plausible assumptions.
-
-Firstly, we assume that traveling along an edge of the street network by walking, cycling, or driving is always proportional to the length of the edge.
+ 
+Firstly, we assume that traveling along an edge of the street network by walking, cycling, or driving is always proportional to the length of the edge, i.e., the travel speed is constant.
 To obtain the time it takes to travel along an edge, we divide the length of the edge by the speed of the mode of transport.
 The different speeds for the different modes of transport are listed in Table \ref{table:speeds}.
 
@@ -204,7 +212,7 @@ To transition from any OSM network-based mode of transport to public transport, 
 As OSM networks contain public transport stops, there should be no difference between the two.
 Similarly, we assume that the bicycles are located at the closest node of the OSM network.
 This assumption is reasonable because the OSM network, especially in the city, is very dense.
-We also assume that bicycles and cars can be parked anywhere on their network for simplicity.
+For simplicity, we also assume that bicycles and cars can be parked anywhere on their network.
 
 
 % \subsubsection{Pricing}
@@ -222,6 +230,6 @@ For any trip that spans more than four stops or any multitude of trips, the KVB 
 To depict this, we add hidden values to the labels processed in McRAPTOR, representing how many stops the traveler has already traversed.
 Because two consecutive trips are considered together, we don't need to nullify the hidden value.
 
-For personal vehicles, we use a cost per minute of 19 cents, which we derived from the average cost per kilometer of 28 cents given by \cite{kieferSpritkostenrechner2023} and an average speed of \SI{40}{\kilo\meter\per\hour}.
+For personal vehicles, we use a cost per minute of \euro{0.19}, which we derived from the average cost per kilometer of \euro{0.28} given by \cite{kieferSpritkostenrechner2023} and an average speed of \SI{40}{\kilo\meter\per\hour}.
 These costs incorporate fuel, repair, insurance, and tax, but not acquisition costs.
 
