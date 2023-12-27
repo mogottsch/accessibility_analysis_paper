@@ -322,7 +322,7 @@ We start by collecting all unique cost values on each label in each bag and then
 For each cost value, we then determine the associated X-minute city metric.
 We check whether every category is reachable given the cost value and an iteratively increasing time value.
 We start with a time value equal to the minimum time across all labels.
-If all categories are reachable, we've found the X-minute city metric, which, together with the cost value, is added to the Pareto set.
+If all categories are reachable, we have found the X-minute city metric, which, together with the cost value, is added to the Pareto set.
 If not, we increase the time value by one minute and check again.
 We repeat this until all cost values are processed.
 The result is a Pareto set for each OSM node.
