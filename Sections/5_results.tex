@@ -43,14 +43,20 @@ However, it should be taken into consideration that our car scenario is very opt
   \caption{Optimal X-minute City Metric Over All Hexagons Disregarding Cost}
   \label{tab:optimal_x_minute_city_metric}
   \begin{center}
-    \begin{tabular}{lrrrr}
-    & mean & 25\% & 50\% & 75\% \\
-    scenario &  &  &  &  \\
+    \begin{tabular}{|l|r|r|r|r|}
+    \hline
+    scenario & mean & 25\% & 50\% & 75\% \\
+    \hline
     Bicycle & 12m 26s & 7m 15s & 10m 45s & 15m 30s \\
+    \hline
     Car & 3m 11s & 2m 00s & 3m 00s & 4m 00s \\
+    \hline
     Combined & 11m 30s & 7m 15s & 10m 17s & 14m 20s \\
+    \hline
     Public Transport & 12m 47s & 9m 00s & 12m 00s & 16m 00s \\
+    \hline
     Walking & 14m 05s & 9m 00s & 12m 00s & 17m 00s \\
+    \hline
     \end{tabular}
   \end{center}
 \end{table}
@@ -147,14 +153,20 @@ Table \ref{tab:required_cost} shows the mean, the 25\%, 50\%, and 75\% quantiles
   \caption{Required Cost for Optimal X-Minute City Over All Hexagons}
   \label{tab:required_cost}
   \begin{center}
-    \begin{tabular}{lrrrrr}
-     & mean & 25\% & 50\% & 75\% & max \\
-    scenario &  &  &  &  &  \\
+    \begin{tabular}{|l|r|r|r|r|r|}
+    \hline
+    Scenario & mean & 25\% & 50\% & 75\% & max \\
+    \hline
     Bicycle & 0.39 & 0.00 & 0.50 & 0.75 & 1.00 \\
+    \hline
     Car & 0.36 & 0.19 & 0.38 & 0.38 & 1.14 \\
+    \hline
     Combined & 0.86 & 0.00 & 0.75 & 1.30 & 3.95 \\
+    \hline
     Public Transport & 0.64 & 0.00 & 0.00 & 1.47 & 3.20 \\
+    \hline
     Walking & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 \\
+    \hline
     \end{tabular}
   \end{center}
 \end{table}
@@ -250,11 +262,16 @@ In addition, we can calculate the benefit in minutes per one euro of cost to mak
   \caption{Steps in Example Hexagon}
   \label{tab:differences_in_example_hexagon}
   \begin{center}
-    \begin{tabular}{lrrrl}
+    \begin{tabular}{|l|r|r|r|l|}
+    \hline
      Scenario & Improvement & At cost (\euro) & Improvement (min/\euro) \\
+    \hline
      Bicycle & 11m 45s & 1.00 & 11.75 \\
+    \hline
      Combined & 11m 45s & 1.00 & 11.75 \\
+    \hline
      Public Transport & 3m 00s & 2.20 & 1.36 \\
+    \hline
     \end{tabular}
   \end{center}
 \end{table}
@@ -433,6 +450,8 @@ We then analyze how sustainable modes of travel can help reduce the X-minute cit
 In total, we find 552 hexagons with a walking time of more than 15 minutes to reach all POI categories, which is 30.98\% of all hexagons.
 \begin{table}[h]
   \centering
+  \caption{Impact of Sustainable Modes on Reducing Walking Time Above 15 Minutes}
+  \label{table:hexagons_with_walking_time_above_15_minutes}
   \begin{tabular}{|l|l|}
     \hline
     \textbf{Category}                                          & \textbf{Data}                \\ \hline
@@ -443,8 +462,6 @@ In total, we find 552 hexagons with a walking time of more than 15 minutes to re
     Not reachable by sustainable modes below 15 mins           & 370 (67.03\%)                \\ \hline
     Sum           & 552 (100\%)                \\ \hline
   \end{tabular}
-  \caption{Impact of Sustainable Modes on Reducing Walking Time Above 15 Minutes}
-  \label{table:hexagons_with_walking_time_above_15_minutes}
 \end{table}
 Table \ref{table:hexagons_with_walking_time_above_15_minutes} presents the distribution of hexagons with a walking time above 15 minutes and how sustainable modes of transport can fix those hexagons.
 By fixing a hexagon, we mean that residents in the hexagon cannot reach all necessities in under 15 minutes by walking, but they can make it in under 15 minutes by some other mode of transport.
@@ -571,11 +588,17 @@ However, to compare these costs, a journey in that time has to be possible, whic
       category & monthly visits \\
       \hline
       groceries & 12 \\
+    \hline
       education & 20 \\
+    \hline
       health & 0.42 \\
+    \hline
       banks & 9 \\
+    \hline
       parks & 2.4 \\
+    \hline
       sustenance & 6.12 \\
+    \hline
       shops & 4 \\
       \hline
     \end{tabular}
