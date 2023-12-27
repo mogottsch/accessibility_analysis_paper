@@ -115,6 +115,7 @@ However, due to the flexibility of Pyrosm, it is easily possible to use data fro
 After retrieving the data, we create a graph representation of the street network trimmed to the buffered area of interest.
 Using the buffered region is important because without it, calculating our metric at the border of the area of interest would result in a higher value than the actual value.
 To be more specific, we calculate our metric only for regions in the original zone but also use POIs and the street network of the buffered zone.
+
 As the last cleaning step, we remove all nodes not part of the largest weakly connected component.
 A weakly connected component is a subgraph in which any two nodes from the subgraph would be connected if all directed edges were treated as undirected.
 Multiple weakly connected components in graphs derived from OSM data, mostly happen at the border of the considered area and can be neglected.
