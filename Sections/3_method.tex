@@ -197,25 +197,27 @@ Conesequently, to restore the Pareto optimality of the labels, we remove all lab
 
 \subsubsection{Enhanced MLC \& McRAPTOR}
 \label{subsubsec:enhanced_mlc_and_mcraptor}
+% intro
+In this Section, we introduce improvements for MLC and McRAPTOR. The first improvement allows us to use a more realistic pricing scheme in both algorithms, while the second improvement drastically reduces the runtime of MLC.
 
-To address the multi-objective optimization involving both time and monetary cost, we introduce enhancements to MLC and McRAPTOR. 
-The standard versions of MLC and McRAPTOR do not adequately capture dynamic pricing models, which is necessary to represent monetary costs realistically.
-
+% what mlc mcraptor can do & what they can't
+\paragraph{Realistic Pricing Scheme}
 The original MLC associates a fixed cost with an edge, which cannot represent variable pricing, such as a bike-sharing tariff that costs \euro{1} per 15-minute increment. 
 Labels are only updated by adding the cost of a given edge to the label's values.
 Similarly, McRAPTOR updates the labels at each stop during route traversal only based on the information of the current trip and stop. 
 With this, McRAPTOR cannot represent a pricing scheme that changes in discrete steps depending on the number of stops, like the one used by the Cologne Transport Authority.
+
+% what we propose
 Our proposed modifications involve the use of hidden values within the labels that are used by these algorithms. 
 These hidden values carry additional information that is not considered when comparing labels, but that may be used to update costs dynamically.
-
 In the case of MLC, the hidden values may be updated along any edge, just like the regular values of the label.
 A hidden value may carry information on how long the current trip with the shared bicycle is.
 We also allow defining a function that updates while traversing an edge and may use the values and hidden values before and after the traversal to do the update.
 With this functionality, it is easy to increment the cost by \euro{1} every time the time spent on the trip exceeds the 15-minute interval.
-
 Similarly, the hidden values may be updated during McRAPTOR after every iteration of a stop.
 We can, therefore, store how many stops the current trip has already traversed, and if that number exceeds four, we can increase the price from \euro{2.20} to \euro{3.20}.
 
+% transferring hidden values across modules
 Additionally, as the concept of hidden values isn't specific to MLC or McRAPTOR, the hidden values can be transferred across iterations and modules.
 To understand the benefit, again consider the example of the pricing of the Cologne Transport Authority.
 The ticket that costs \euro{3.20} allows traveling any number of trips within Cologne, no matter if changing to a different trip is necessary.
@@ -223,7 +225,9 @@ Thus, if we were to first travel to two stops with one trip and then get out to 
 Thus, we can charge \euro{3.20} instead of \euro{2.20} twice, which is more realistic.
 These enhanced versions of MLC and McRAPTOR are used in our modules to use more realistic dynamic pricing schemes.
 
-While running our experiment, we found out that MLC-based modules present a significant computational bottleneck.
+% second improvement for MLC
+\paragraph{MLC Runtime Improvement}
+The necessity for our second improvement stems from the fact that the MLC-based modules prove to be a significant computational bottleneck.
 To calculate our metric, we do not need the labels of every single node but only those that impact the X-minute city and time Pareto front.
 Accordingly, we introduce a runtime optimization into MLC, which eliminates some bags from being processed that are guaranteed not to impact the Pareto front.
 While iterating the unprocessed bags in MLC, we keep track of the minimum time required to reach a POI node of each category for each cost value.
