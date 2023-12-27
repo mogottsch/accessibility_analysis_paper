@@ -193,7 +193,6 @@ We do so by making the following plausible assumptions.
 Firstly, we assume that traveling along an edge of the street network by walking, cycling, or driving is always proportional to the length of the edge, i.e., the travel speed is constant.
 To obtain the time it takes to travel along an edge, we divide the length of the edge by the speed of the mode of transport.
 The different speeds for the different modes of transport are listed in Table \ref{table:speeds}.
-
 \begin{table}[h]
 \centering
 \begin{tabular}{|c|l|}
@@ -210,7 +209,6 @@ Driving & 11.0 \\
 \caption{Speeds for Different Modes of Transport}
 \label{table:speeds}
 \end{table}
-
 The walking speed is consistent with the measurement that \shortciteA{willberg15minuteCityAll2023} made in their study.
 
 We also pose some assumptions on the transitioning between different modes of transport and, in the case of public transport, the transfer time at the stops.
@@ -227,7 +225,6 @@ For simplicity, we also assume that bicycles and cars can be parked anywhere on 
 \paragraph{Pricing}
 
 We implement a pricing scheme in our scenarios that represents the real-world circumstances as closely as possible.
-
 For bicycle sharing, we use the pricing scheme of NextBike, which is \euro{1} every 15 minutes.
 To depict this, we add a hidden value to the labels processed in MLC that shows how long the current bicycle trip is.
 As two consecutive bicycle trips are considered separately, we nullify this hidden value after each run of MLC.
