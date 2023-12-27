@@ -144,7 +144,7 @@ However, one can see that the region is more accessible by public transport than
 % table (mean, quantiles) of required cost
 Table \ref{tab:required_cost} shows the mean, the 25\%, 50\%, and 75\% quantiles and the maximum of the costs that are required to achieve the optimal value for the X-minute city shown in Section \ref{subsec:15_minute_city_metric}.
 \begin{table}
-  \caption{Required Cost for Optimal Over All Hexagons}
+  \caption{Required Cost for Optimal X-Minute City Over All Hexagons}
   \label{tab:required_cost}
   \begin{center}
     \begin{tabular}{lrrrrr}
@@ -418,13 +418,13 @@ The best and worst-case values are calculated using the scenarios that achieve t
   \begin{center}
     \includegraphics[width=0.95\textwidth]{Figures/results/uncertainty/optimal_best_worst_case}
   \end{center}
-  \caption{Best and Worst Case of Optimal Time for each Hexagon}
+  \caption{Best and Worst Case of Optimal Time for Each Hexagon}
   \label{fig:best_and_worst_case_of_optimal_time_for_each_hexagon}
 \end{figure}
 First, we see that the variation for bicycles is spread out over almost all hexagons, in comparison to public transport, where variation mostly occurs only after the 15-minute mark.
 For the combined scenario, we see the expected: The variances of the public transport scenario and the bicycle scenario add up.
 
-\subsection{Impact Of Sustainable Modes on 15-Minute Metric}
+\subsection{Impact of Sustainable Modes on 15-Minute Metric}
 \label{subsec:impact_of_sustainable_modes_on_15_minute_metric}
 
 To analyze the impact of sustainable modes of travel on the 15-minute city metric, we first uncover the problematic areas in which the X-minute city metric is above 15 minutes for the walking mode.
@@ -481,22 +481,22 @@ The positions of outer clusters of fixable hexagons correlate directly with the 
 Figure \ref{fig:fixable_hexagons_examples} shows four zoomed-in excerpts from Figure \ref{fig:fixable_hexagons}, where we have added the location of public transport stops and bicycles.
 \begin{figure}
      \centering
-     \begin{subfigure}[b]{0.45\textwidth}
+     \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{Figures/results/problematic_hexagons/example_1.png}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[b]{0.45\textwidth}
+     \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{Figures/results/problematic_hexagons/example_2.png}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[b]{0.45\textwidth}
+     \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{Figures/results/problematic_hexagons/example_3.png}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[b]{0.45\textwidth}
+     \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{Figures/results/problematic_hexagons/example_4.png}
      \end{subfigure}
@@ -506,7 +506,7 @@ Figure \ref{fig:fixable_hexagons_examples} shows four zoomed-in excerpts from Fi
 Public transport stops are visualized as yellow circles, while bicycles are visualized as orange circles.
 We notice that hexagons fixed by bicycle sharing are always near bicycles.
 In the same way, hexagons fixed by public transport are always close to public transport stops. 
-However, being close to bicycles seems to have a more significant effect than being near public transport stops.
+However, being close to bicycles seems to have a more significant effect than being near public transport stops, as there are multiple yellow (fixed by public transport) hexagons that have bicycles inside of them, but no orange hexagons (fixed by bicycle sharing) that have public transport stops inside of them.
 
 Figure \ref{fig:only_unfixable_hexagons} shows all hexagons that are not 15-minute hexagons by any sustainable mode of transport.
 Figure \ref{fig:unfixable_with_bicycles} and \ref{fig:unfixable_with_stops} show the same map but with additional bicycle locations and public transport stop locations, respectively.
@@ -551,7 +551,7 @@ More than half of those (7 out of 10) are located in the southern district of We
 \end{figure}
 
 
-\subsection{Monthly Costs Per Scenario And Hexagon}
+\subsection{Monthly Costs per Scenario And Hexagon}
 \label{sec:monthly_costs}
 A prevalent measure to incentivize sustainable modes of transport is monthly tickets or subscriptions.
 To measure whether the costs of these subscriptions are worth it, we will calculate the monthly cost incurred by the trips to all necessities.
@@ -603,7 +603,7 @@ Sustenance, education, grocery, and shops all seem similarly accessible.
     \caption{15 Minutes}
     \label{fig:percentage_inf_15}
   \end{subfigure}
-  \caption{Impossible Sub-X-Minute Journeys for each Hexagon and Scenario}
+  \caption{Impossible Sub-X-Minute Journeys for Each Hexagon and Scenario}
   \label{fig:percentage_inf_x}
 \end{figure}
 
@@ -613,30 +613,38 @@ Therefore, we will only look at hexagons and category combinations where a journ
 In addition, we also filter out hexagon category combinations where the cost is zero, i.e. where walking suffices, as those are not interesting for our cost analysis.
 
 \begin{table}
-  \caption{Monthly costs per scenario (<15 minutes)}
+  \caption{Monthly Costs per Scenario (<15 Minutes)}
   \label{tab:monthly_costs_per_scenario_15}
   \begin{center}
-    \begin{tabular}{lrrrrrrr}
-     & mean & std & min & 25\% & 50\% & 75\% & max \\
-    Scenario &  &  &  &  &  &  &  \\
+    \begin{tabular}{|l|r|r|r|r|r|r|r|}
+    \hline
+    Scenario & mean & std & min & 25\% & 50\% & 75\% & max \\
+    \hline
     Bicycle & 5.79 & 5.95 & 0.42 & 0.42 & 4.00 & 9.00 & 29.00 \\
+    \hline
     Combined & 5.79 & 5.95 & 0.42 & 0.42 & 4.00 & 9.00 & 29.00 \\
+    \hline
     Public Transport & 12.93 & 13.26 & 0.93 & 0.93 & 8.80 & 19.80 & 63.80 \\
+    \hline
     \end{tabular}
   \end{center}
 \end{table}
 
 
 \begin{table}
-  \caption{Monthly costs per scenario (<10 minutes)}
+  \caption{Monthly Costs per Scenario (<10 Minutes)}
   \label{tab:monthly_costs_per_scenario_10}
   \begin{center}
-    \begin{tabular}{lrrrrrrr}
-     & mean & std & min & 25\% & 50\% & 75\% & max \\
-    Scenario &  &  &  &  &  &  &  \\
+    \begin{tabular}{|l|r|r|r|r|r|r|r|}
+    \hline
+    Scenario & mean & std & min & 25\% & 50\% & 75\% & max \\
+    \hline
     Bicycle & 10.49 & 7.72 & 0.42 & 2.42 & 9.00 & 20.00 & 24.54 \\
+    \hline
     Combined & 10.49 & 7.72 & 0.42 & 2.42 & 9.00 & 20.00 & 24.54 \\
+    \hline
     Public Transport & 23.08 & 16.98 & 0.93 & 5.32 & 19.80 & 44.00 & 53.98 \\
+    \hline
     \end{tabular}
   \end{center}
 \end{table}
@@ -649,13 +657,17 @@ In the 10-minute benchmark, the average cost is \euro{10.5} for the bicycle and 
 Here, the cost reaches a maximum of \euro{24.54} for the bicycle and combined scenario and \euro{53.98} for the public transport scenario, while the 25\% most expensive hexagons require residents to pay at least \euro{20} for the bicycle and combined scenario and \euro{44} for the public transport scenario.
 
 \begin{table}
-  \caption{Monthly costs for cars}
+  \caption{Monthly Costs for Cars}
   \label{tab:monthly_costs_for_cars}
   \begin{center}
-    \begin{tabular}{lrrrrrrr}
+    \begin{tabular}{|l|r|r|r|r|r|r|r|}
+    \hline
      & mean & std & min & 25\% & 50\% & 75\% & max \\
+    \hline
     Car (15 Minutes) & 1.79 & 1.69 & 0.00 & 0.46 & 1.71 & 1.79 & 7.00 \\
+    \hline
     Car (10 Minutes) & 2.87 & 2.89 & 0.00 & 0.46 & 1.79 & 3.91 & 10.88 \\
+    \hline
     \end{tabular}
   \end{center}
 \end{table}
