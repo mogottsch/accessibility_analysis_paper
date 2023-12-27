@@ -5,7 +5,7 @@
 Our method consists of three parts.
 Initially, we establish a metric based on the concept of the 15-minute city and extend it with cost.
 Following this, we focus on finding a fitting routing algorithm to calculate this metric.
-We do so by clearly stating our requirements for such an algorithm, explaining why existing algorithms don't meet our criteria, and introducing our algorithm, designed to meet our needs. 
+We do so by clearly stating our requirements for such an algorithm, explaining why existing algorithms do not meet our criteria, and introducing our algorithm, designed to meet our needs. 
 The final stage explains how we use our routing algorithm to calculate our metric. 
 This approach allows us to analyze accessibility in urban settings, offering valuable insights for urban planners and decision-makers.
 
@@ -59,7 +59,7 @@ Traditionally, the 15-minute city concept is applied to walking and cycling and 
 In the context of location-based metrics, some researchers even go as far as to only calculate the bee-line distance to the nearest amenity and ignore the street network altogether \shortcite{gastnerOptimalDesignSpatial2006}. At the same time, most only consider walking \shortcite{olivariAreItalianCities2023, nicolettiDisadvantagedCommunitiesHave2023}.
 As explained in Section \ref{subsec:importance_of_multimodality_and_intermodality}, to determine the accessibility of a city accurately, we have to consider all modes of transport.
 To do so, we require a routing algorithm that is capable of including multiple modes of transport, which we develop in this Section.
-First, we define the requirements for our routing algorithm and explain why existing algorithms don't meet our criteria.
+First, we define the requirements for our routing algorithm and explain why existing algorithms do not meet our criteria.
 Next, we explain our algorithm in detail, which is based on a modular approach, where one module represents the usage of one mode of transport for a segment of the trip.
 After that, we explain these modules, which are based on MLC or McRAPTOR.
 Lastly, we explain some enhancements we made to MLC and McRAPTOR to support more dynamic multi-objective optimization.
@@ -140,7 +140,7 @@ The matrix specifies the order in which modules are run and whether they are run
 \end{figure}
 
 Running the framework begins with a start node and time as input.
-It first creates the starting bags from the start node and the start time, as described above.
+It first creates the starting bags from the start node and the start time, as described above  .
 Next, it runs the initial modules given by the initial module matrix.
 To run a module matrix, the first row's modules are run in parallel.
 Their respective outputs are then merged into a single set of bags, which is used as the input for the second row's modules.
@@ -224,7 +224,7 @@ Therefore, we can charge \euro{3.20} instead of \euro{2.20} twice, which is more
 These enhanced versions of MLC and McRAPTOR are used in our modules to use more realistic dynamic pricing schemes.
 
 While running our experiment, we found out that MLC-based modules present a significant computational bottleneck.
-To calculate our metric, we don't need the labels of every single node but only those that impact the X-minute city and time Pareto front.
+To calculate our metric, we do not need the labels of every single node but only those that impact the X-minute city and time Pareto front.
 Therefore, we introduce a runtime optimization into MLC, which eliminates some bags from being processed that are guaranteed not to impact the Pareto front.
 While iterating the unprocessed bags in MLC, we keep track of the minimum time required to reach a POI node of each category for each cost value.
 If we encounter a bag whose time and cost values are greater than the minimum time and cost values for all categories, we can safely discard this bag, as it will not impact the Pareto front.

@@ -22,7 +22,8 @@ Traditional mobility-based planning primarily focuses on reducing congestion and
 However, this approach is becoming increasingly outdated, failing to address modern challenges like reducing greenhouse gas emissions.
 This is where accessibility-based planning comes into play, which focuses on planning cities in a way that provides residents with fast access to all essential services \shortcite{proffittAccessibilityPlanningAmerican2019}.
 Having easy access to all essential services has the potential to reduce the need for car ownership and its frequent usage.
-This shift foregrounds accessibility as the primary goal, rather than merely focusing on mobility, recognizing that mobility is a means to an end and not the ultimate objective in urban planning. 
+This shift foregrounds accessibility as the primary goal rather than merely focusing on mobility. 
+Recognizing that mobility is a means to an end and not the ultimate objective in urban planning. 
 
 \shortciteA{geursAccessibilityEvaluationLanduse2004a} describe four types of accessibility-based planning, seen in Table \ref{tab:accessibility_measures}.
 Infrastructure-based accessibility is an approach that evaluates the performance and service level of transportation infrastructure.
@@ -138,13 +139,14 @@ This consideration is a crucial reason for adopting multi-objective approaches i
 % --- NEXI ---
 Quantitative studies have developed various ways to measure how well cities match the 15-minute city concept by developing metrics that encapsulate this principle.  
 \shortciteA{olivariAreItalianCities2023} contribute to this research by creating the NExt proXimity Index (NEXI), which has two components: the NEXI-Minutes and the NEXI-Global. 
-The NEXI-Minutes looks at the accessibility of various urban amenities, ranging from educational institutions to entertainment venues and grocery stores, by calculating the time needed to reach the closest facility within each category.
+The NEXI-Minutes looks at the accessibility of various urban amenities, split into categories that range from educational institutions to entertainment venues and grocery stores.
+It does so by calculating the time needed to reach the closest facility within each category.
 Complementing this, the NEXI-Global, inspired by the Walk Score method \shortcite{WalkScoreMethodology2023}, combines these individual times through a weighted average into an overall score, giving a holistic view of the accessibility of a city.
 
 NEXI is unique because it is both global and local. 
 Namely, it is globally applicable due to its reliance on OpenStreetMap data, yet sufficiently detailed to assess local conditions.
-This has been proven by applying it all over Italy, where it's showcased on an interactive map through a hexagonal grid that makes it easy to see which areas are doing well and which need improvement.
-The significance of the NEXI, as underscored by \shortciteA{olivariAreItalianCities2023}, is its role in enabling data-driven policy-making to develop cities in the fashion of the 15-minute city framework. 
+This has been proven by applying it all over Italy, where it is showcased on an interactive map through a hexagonal grid that makes it easy to see which areas are doing well and which need improvement.
+The significance of the NEXI, as underscored by \shortciteA{olivariAreItalianCities2023}, is its role in enabling data-driven policy-making to develop 15-minute cities. 
 Therefore, their index enables accessibility-based planning.
 % Despite the potential benefits, \cite{olivariAreItalianCities2023} acknowledge the challenges in realizing the 15-minute city model, notably the substantial investments and strategic planning required. 
 
@@ -163,23 +165,23 @@ The researchers developed an open, data-driven framework to analyze how differen
 The study examined over 50 types of amenities across 54 cities worldwide and found a common pattern: in all cities, access to infrastructure followed a log-normal distribution, indicating that a small number of communities have very high access to amenities, while the majority have moderate to low access. 
 The log-normal distribution suggests that improvements in accessibility are not proportionately distributed across the urban landscape. 
 Instead, there are diminishing returns in accessibility as one moves from the most to the least accessible areas. 
-This skew towards lower accessibility for most communities underscores systemic urban planning and infrastructure development issues that disproportionately affect disadvantaged populations.
+The skew towards lower accessibility for most communities underscores systemic urban planning and infrastructure development issues that disproportionately affect disadvantaged populations.
 This pattern was consistent even when considering various socioeconomic factors.
 
 
-This framework developed by \shortciteA{nicolettiDisadvantagedCommunitiesHave2023} is flexible and adaptable, allowing city planners to tailor it to local needs and priorities. 
+The framework developed by \shortciteA{nicolettiDisadvantagedCommunitiesHave2023} is flexible and adaptable, allowing city planners to tailor it to local needs and priorities. 
 It's a tool that can help identify which groups in a city are most affected by inequality concerning accessibility to services. 
 Similar to \shortciteA{olivariAreItalianCities2023}, they emphasize the role of open data to guide urban planning and policy.
 While \shortciteA{olivariAreItalianCities2023} provide a tool to measure accessibility and leave the analysis and interpretation to practitioners, \shortciteA{nicolettiDisadvantagedCommunitiesHave2023} directly reveal the disparities in accessibility and provide a framework to analyze them.
 
 % --- barcelona
 Another metric introduced by \shortciteA{ferrer-ortizBarcelona15MinuteCity2022} calculates whether a specific area has access to a particular category within 15 minutes for Barcelona.
-They derive their categories from the six 15-minute city "urban social functions" defined by Moreno.
+They derive their categories from the six 15-minute city "urban social functions" defined by \shortcite{morenoIntroducing15MinuteCity2021}.
 However, they only consider a small subset of four categories: care, education, provisioning, and entertainment.
 Their data is taken from a variety of sources, all of which are specific to Spain or Barcelona.
 This makes it challenging to apply their method to other cities.
 To calculate the distances between the amenities and the areas, they use ESRI's ArcGIS Network Analyst, which is proprietary software, making applying their method to other cities difficult.
-Interestingly, the study revealed a high level of service accessibility across Barcelona, with an average of the residents having access to most of the 24 services analyzed within the 15-minute threshold. 
+Interestingly, the study revealed a high level of service accessibility across Barcelona, with residents having, on average, access to 22 of the 24 services within 15 minutes. 
 However, disparities were observed between the city center and suburban areas, indicating spatial inequalities in accessibility.
 The findings underscore the critical role of urban planning in ensuring equitable access to amenities and demonstrate that most of Barcelona's areas align with the 15-Minute City ideal. 
 
@@ -231,8 +233,9 @@ The Pareto set associated with destination node \( v_n \) is often termed as a b
 Domination is defined as follows: \( l' \) dominates \( l \) if \( l'_i \leq l_i \) for all \( i \in \{1, \dots, k\} \) and \( l'_i < l_i \) for at least one \( i \in \{1, \dots, k\} \).
 Intuitively, this means that \(l' \) is at least as good as \( l \) in all objectives and strictly better in at least one objective.
 
-The goal of routing algorithms used in accessibility analysis is finding the distance in the single objective case and the bag in the multi-objective case, often discarding the actual paths.
-Also, specific to accessibility analysis is the altering of routing algorithms to not find the optimal paths between two nodes, referred to as one-to-one query, but the path from a single origin to all other nodes in the network, which we call one-to-all query.
+The goal of routing algorithms used in accessibility analysis is finding the distance in the single objective case and the bag in the multi-objective case, often without saving the actual paths.
+In accessibility analysis, one is often not interested in finding the optimal path between two nodes but between one node and all other nodes.
+The former is known as a one-to-one query, while the latter is called a one-to-all query.
 
 \paragraph{Dijkstra}
 \label{subsubsec:dijkstra}
@@ -260,7 +263,7 @@ Similarly to Dijkstra's algorithm, MLC initializes all nodes with an empty bag, 
 Each iteration extracts the lexicographically smallest label instead of selecting the node with the minimum distance.
 When a label is extracted and \(v\) is its corresponding node, updates are made for all connected edges \( (v, w) \).
 The update process consists of comparing a newly generated tentative label against all labels within the bag of \(w\).
-This new label is only inserted into the bag if any existing label doesn't dominate it.
+This new label is only inserted into the bag if any existing label does not dominate it.
 Conversely, any label now dominated by the new entry is removed.
 Each time a label is inserted into a bag, it is also inserted into the priority queue.
 The algorithm terminates when the priority queue is empty.
@@ -280,7 +283,7 @@ However, public transport networks pose a challenge since they contain time-depe
 To overcome this challenge, two approaches are commonly used, the time-expanded and the time-dependent approach, as explained by \shortciteA{muller-hannemannTimetableInformationModels2007}.
 The idea behind these methods is to artificially craft a graph that represents the public transport network in a way that allows the use of graph-based algorithms.
 While enabling the use of graph-based algorithms to solve routing in time-dependent transport networks, both approaches result in massive graphs and therefore suffer from runtime problems. 
-Because of these runtime problems, we won't go into detail about them but rather introduce algorithms that take advantage of the specifics of time-dependent transport networks, resulting in much better runtimes.
+Because of these runtime problems, we will not go into detail about them but rather introduce algorithms that take advantage of the specifics of time-dependent transport networks, resulting in much better runtimes.
 
 \subsubsection{Schedule-based Algorithms}
 
@@ -301,7 +304,7 @@ A route is associated with a sequence of stops \(stops(r) = \langle p_1, \dots, 
 A route has multiple trips ordered by their departure time \(trips(r) = \langle t_1, \dots, t_m \rangle\).
 One trip associates arrival and departure times with each stop of the route, denoted by \(arrivalTime(t, s) \in \mathbb{N}\) and \(departureTime(t, s) \in \mathbb{N}\) respectively.
 % talk about time representation?
-Trips of the same must not overtake each other, formally:
+Trips of the same route must not overtake each other, formally:
 \[departureTime(t_i, p_j) \leq arrivalTime(t_{i+1}, p_j)\]
 for all \(i \in \{1, \dots, m-1\}\) and \(j \in \{1, \dots, n\}\).
 Each stop \(p\) has a minimal exchange time \(\tau_{ch}(p) \in N\) associated with it.
@@ -412,12 +415,12 @@ However, McRAPTOR still suffers from the same problem as RAPTOR: the transfer gr
 \paragraph{MCR}
 \label{subsubsec:mcr}
 
-To overcome the problem of RAPTOR \shortciteA{dellingComputingMultimodalJourneys2013} introduce Multi-modal Multicriteria RAPTOR (MCR).
+To overcome the problem of RAPTOR, \shortciteA{dellingComputingMultimodalJourneys2013} introduce Multi-modal Multicriteria RAPTOR (MCR).
 MCR modifies McRAPTOR so that the transfer graph must not be transitively closed.
 MCR can use the street network as an input directly, so no preprocessing is necessary.
 Traversing the street network directly during the algorithm has the benefit of allowing it to update the objectives between trips.
 This is important if we want multiple modes of transfer that contain free-floating vehicle-sharing systems.
-For example, consider the following case.
+For example, consider the following case:
 For an optimal journey a passenger has to first walk five minutes to a free-floating bicycle, with which the passenger then travels to the next stop.
 There is no way to represent this in RAPTOR because the specifics of the transfer depend on the current label, which is unknown before running the algorithm.
 Therefore, it is not possible to precompute the transfer graph.
@@ -430,8 +433,8 @@ Therefore, they employ a technique called contraction \shortcite{geisbergerExact
 Contraction is a preprocessing technique that reduces the size of the graph by removing nodes and adding shortcut edges.
 
 As previously mentioned, MCR is able to use the street network as the transfer graph and requires no preprocessing.
-However, when comparing the runtime of a simple query of MCR and McRAPTOR, MCR is slower, as MLC on the street network takes much more time than just checking the neighbors of a stop in the transfer graph.
-Generally, using MCR or McRAPTOR is a trade-off of runtime and preprocessing time.
+However, when comparing the runtime of a simple query of MCR and McRAPTOR, MCR is slower, as MLC on the street network is more time-consuming than checking the neighbors of a stop in the transfer graph.
+Generally, using MCR or McRAPTOR is a trade-off between runtime and preprocessing time.
 
 
 \paragraph{ULTRA}
@@ -473,9 +476,9 @@ On the other hand, GTFS Schedule offers information about routes, schedules, far
 For our study and tool, we focus solely on GTFS Schedule and omit considerations related to GTFS Realtime.
 
 Central to the GTFS format are several core concepts.
-A route defines the overall path a particular public transport service takes, identified by attributes like name, ID, and the mode of transport such as bus or subway.
+A route defines the overall path a particular public transport service takes, identified by attributes like name, identifier, and the mode of transport such as bus or subway.
 A route is not defined by a single path but rather a collection of possible paths.
-For example, in the real world a route often has two paths, one for each direction.
+For example, in the real world, a route often has two paths, one for each direction.
 Similarly, it can happen that a route has to be redirected due to construction work, which would result in a third and fourth path.
 A trip refers to a specific run of a vehicle along a route, distinguishing between different timings or sequences of service on the same route.
 A stop is a specific point along a route where passengers embark or disembark.
@@ -497,7 +500,7 @@ This data captures various features on the Earth's surface, including roads, reg
 In the context of street networks, potentially used by routing algorithms, OSM represents roads and paths using interconnected nodes and ways.
 Nodes specify distinct geographical coordinates, defined by latitude and longitude, while ways connect these nodes to define linear structures or area boundaries.
 Importantly, these ways have meta-data assigned to them containing information about what vehicles can travel along them and how long they are.
-In addition, OSM offers vast amounts of data about points of interest, potentially valuable for accessibility analysis.
+In addition, OSM offers vast amounts of data about points of interest, which are valuable for accessibility analysis.
 OSM is extensive, regularly updated, and, most importantly, freely available, which makes it indispensable for projects seeking reproducibility and generalizability.
 
 
@@ -511,13 +514,13 @@ Their results indicate that bicycles notably reduce average transfer times, the 
 These findings underscore the role of bicycles in optimizing transit network performance.
 Further reinforcing this point, \shortciteA{radzimskiExploringRelationshipBikesharing2021a} identifies a positive correlation between public transport frequency and the number of bicycle trips, particularly for short and medium distances up to 3 km. 
 This suggests that the availability of bicycles can complement public transport, particularly for covering the initial or final segments of a journey.
-\shortciteA{murphyRoleBicyclesharingCity2015} conducted a survey in Dublin that revealed 39\% of bicycle sharing users combined this service with another mode of transport, primarily public transport (91.5\%) \shortciteA{murphyRoleBicyclesharingCity2015}. 
+\shortciteA{murphyRoleBicyclesharingCity2015} conducted a survey in Dublin that revealed 39\% of bicycle-sharing users combined this service with another mode of transport, primarily public transport (91.5\%). 
 This indicates a high synergy between bicycle sharing and public transport, as commuters frequently use them together.
 Similarly, \shortciteA{fishmanBikeShareSynthesis2013} reviewed literature on bicycle sharing and concluded that it is synergistic with public transport.
-This synergy is further elucidated by \shortciteA{maBicycleSharingPublic2015} who, through a linear regression analysis, identified a positive correlation between public transport passenger numbers and bicycle sharing trips \shortciteA{maBicycleSharingPublic2015}. 
+This synergy is further elucidated by \shortciteA{maBicycleSharingPublic2015}, who, through a linear regression analysis, identified a positive correlation between public transport passenger numbers and bicycle sharing trips. 
 They suggest that bicycle sharing effectively addresses the first and last-mile problem, providing a crucial link to and from transit hubs.
 \shortciteA{wagnerPublicTransitRouting2017} also contributes to this discussion by demonstrating that unrestricted walking, as part of a multi-modal transit system, significantly reduces travel times compared to limited walking scenarios.
-However, it's also noted that computing routes with unrestricted walking is more computationally intensive.
+However, it is also noted that computing routes with unrestricted walking is more computationally intensive.
 
 In summary, the interplay between bicycle sharing and public transport is not just complementary but essential for urban planning and transportation.
 Furthermore, incorporating unrestricted walking into transit planning, despite its computational challenges, can substantially reduce overall travel times.

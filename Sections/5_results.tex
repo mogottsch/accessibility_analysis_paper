@@ -282,17 +282,22 @@ We won't analyze the differences in the combined scenario, as prior improvements
   \caption{Steps in Mean Pareto Front}
   \label{tab:differences_in_mean_pareto_front}
   \begin{center}
-    \begin{tabular}{lrrrrl}
-     Scenario & Improvement & At cost (\euro) & Cost diff (\euro) & Improvement (min/\euro) \\
-     Bicycle & 1m 41s & 1.00 & 1.00 & 1.684 \\
-     Public transport & 1m 16s & 2.20 & 2.20 & 0.583 \\
-     Public transport & 0m 04s & 3.20 & 1.00 & 0.074 \\
+    \begin{tabular}{|l|r|r|r|r|l|}
+     \hline
+     Scenario & Improv. & At cost (\euro) & Cost diff. (\euro) & Improv. (min/\euro) \\
+     \hline
+     Bicycle & 1m 41s & 1.00 & 1.00 & 1m 41s \\
+     \hline
+     Public transport & 1m 16s & 2.20 & 2.20 & 0m 34s \\
+     \hline
+     Public transport & 0m 04s & 3.20 & 1.00 & 0m 04s \\
+     \hline
     \end{tabular}
   \end{center}
 \end{table}
 
-We see that the improvements of the bicycle scenario at the cost of \euro{1} are the largest, with an improvement of 1 minute and 41 seconds, and also the most cost-effective, with a value of 1.68 minutes per euro.
-They are followed by the improvements of the public transport scenario at a cost of \euro{2.20} with an improvement of 1 minute and 16 seconds and a value of 0.58 minutes per euro.
+We see that the improvements of the bicycle scenario at the cost of \euro{1} are the largest, with an improvement of 1 minute and 41 seconds, and also the most cost-effective, with a value of 1 minute and 41 seconds per euro.
+They are followed by the improvements of the public transport scenario at a cost of \euro{2.20} with an improvement of 1 minute and 16 seconds and a value of 34 seconds per euro.
 The improvement at a cost of \euro{3.20} is minimal and the least cost-effective.
 
 Next, we are going to look at the quantiles of the aggregated Pareto front.
@@ -325,17 +330,21 @@ Note that because we aggregate all the values of the X-minute city metric for a 
         \caption{Map of Optimal X-minute City Metric per Scenario}
         \label{fig:quantile_time_per_cost}
 \end{figure}
-The 25\% quantile Pareto front shown in Figure \ref{fig:25_quantile_time_per_cost} only contains a single improvement at the cost of \euro{1} for scenarios containing bicycle sharing of 1 minute and 45 seconds with a cost-effectiveness of 1.75 minutes per euro.
+The 25\% quantile Pareto front shown in Figure \ref{fig:25_quantile_time_per_cost} only contains a single improvement at the cost of \euro{1} for scenarios containing bicycle sharing of 1 minute and 45 seconds with a cost-effectiveness of 1 minute and 45 seconds per euro.
 The 75\% quantile Pareto front shown in Figure \ref{fig:75_quantile_time_per_cost} with its steps shown in Table \ref{tab:differences_in_75_quantile_pareto_front} also has a similar improvement of 1 minute and 30 seconds at the cost of \euro{1} for bicycle scenarios.
 In addition to that, it also shows a smaller increase at \euro{2.20} of 1 minute and an even smaller increase at \euro{3.20} for the public transport and combined scenarios.
 \begin{table}
   \caption{Steps in 75\% Quantile Pareto Front}
   \label{tab:differences_in_75_quantile_pareto_front}
   \begin{center}
-    \begin{tabular}{lrrrrl}
+    \begin{tabular}{|l|r|r|r|r|l|}
+    \hline
      Scenario & Improv. & At cost (\euro) & Cost diff (\euro) & Improv. (min/\euro) \\
-     Bicycle & 1m 30s & 1.00 & 1.00 & 1.500 \\
-     Public transport & 1m 00s & 2.00 & 2.20 & 0.455 \\
+     \hline
+     Bicycle & 1m 30s & 1.00 & 1.00 & 1m 30s \\
+     \hline
+     Public transport & 1m 00s & 2.00 & 2.20 & 0m 27s \\
+     \hline
     \end{tabular}
   \end{center}
 \end{table}
@@ -350,11 +359,16 @@ However, it is still less cost-effective than the improvement in the bicycle-sha
   \caption{Steps in 90\% Quantile Pareto Front}
   \label{tab:differences_in_90_quantile_pareto_front}
   \begin{center}
-    \begin{tabular}{lrrrrl}
-     improvement & at cost & cost diff & minute per euro & scenario \\
-     3.000 & 2.200 & 2.200 & 1.364 & public transport \\
-     2.000 & 1.000 & 1.000 & 2.000 & bicycle \\
-     0.033 & 3.200 & 1.000 & 0.033 & public transport \\
+    \begin{tabular}{|l|r|r|r|r|l|}
+    \hline
+     Scenario & Improv. & At cost (\euro) & Cost diff. (\euro) & Improv. (min/\euro) \\
+     \hline
+     Public transport & 3m 0s & 2.20 & 2.20 & 1m 21s \\
+     \hline
+     Bicycle & 2m 0s & 1.00 & 1.00 & 2m 0s \\
+     \hline
+     Public transport & 0m 1s & 3.20 & 1.00 & 0m 1s \\
+     \hline
     \end{tabular}
   \end{center}
 \end{table}
@@ -372,25 +386,29 @@ Note that we only display the average standard deviations of the bicycle, public
   \caption{Average Standard Deviation of Optimal Value for X-Minute City Metric}
   \label{tab:average_standard_deviation_of_optimal_value_for_x_minute_city_metric}
   \begin{center}
-    \begin{tabular}{lrrrrrrr}
-     & mean & min & 25\% & 50\% & 75\% & max & CV \\
-    scenario &  &  &  &  &  &  &  \\
-    bicycle & 1.16 & 0.00 & 0.00 & 0.50 & 1.73 & 13.15 & 0.093403 \\
-    bicycle public transport & 0.94 & 0.00 & 0.00 & 0.74 & 1.48 & 6.73 & 0.082027 \\
-    public transport & 0.27 & 0.00 & 0.00 & 0.00 & 0.00 & 8.66 & 0.021151 \\
+    \begin{tabular}{|l|r|r|r|r|r|r|r|}
+    \hline
+    Scenario & mean & min & 25\% & 50\% & 75\% & max & CV (\%) \\
+    \hline
+    Bicycle & 1m 10s & 0m 00s & 0m 00s & 0m 32s & 1m 43s & 13m 08s & 9.38 \\
+    \hline
+    Combined & 0m 56s & 0m 00s & 0m 00s & 0m 44s & 1m 31s & 6m 43s & 8.25 \\
+    \hline
+    Public Transport & 0m 16s & 0m 00s & 0m 00s & 0m 00s & 0m 00s & 8m 39s & 2.12 \\
+    \hline
     \end{tabular}
   \end{center}
 \end{table}
 
 
-The mean average standard deviation for bicycle scenarios is 1 minute and 10 seconds, while it is 16 seconds for the public transport scenario.
+The mean average standard deviation is the highest for the bicycle scenario with 1 minute and 10 seconds, followed by the combined scenario with 56 seconds and the public transport scenario with 16 seconds.
 We can also see that for the bicycle-related scenarios, the uncertainty does not affect the 25\% most accessible hexagons, while for public transport, the 75\% most accessible hexagons are not affected.
-In addition, outliers exist with more than 10 minutes of deviation for the pure bicycle scenario and more than 5 minutes for the public transport-related scenarios.
+In addition, outliers exist with more than 10 minutes of deviation for the bicycle scenario and more than 5 minutes for the combined and public transport scenario.
 Relating the standard deviation to the mean, we also calculated the Coefficient of Variation (CV) in the table, which helps to grasp the relative size of the standard deviation.
 It is defined as
 $$ CV = \frac{\sigma}{\mu} $$
 where $\mu$ is the mean and $\sigma$ is the standard deviation.
-We see that it is approximately 9\% for the bicycle-related scenarios and 2\% for the public transport scenario.
+We see that it is approximately 9\% for the bicycle scenario, 8\% for the combined scenario and 2\% for the public transport scenario.
 
 To further investigate the effects of uncertainty on a more granular level, we plot the best and worst case distribution of the optimal X-minute city for each hexagon in Figure \ref{fig:best_and_worst_case_of_optimal_time_for_each_hexagon}.
 These plots are essentially the upper and lower bounds of the graph seen in Figure \ref{fig:optimal_x_minute_city_metric}.
@@ -403,7 +421,7 @@ The best and worst-case values are calculated using the scenarios that achieve t
   \caption{Best and Worst Case of Optimal Time for each Hexagon}
   \label{fig:best_and_worst_case_of_optimal_time_for_each_hexagon}
 \end{figure}
-First, we see that the variation for bicycles is spread out over almost all hexagons, in comparison to public transport where the variation only really begins to happen after the 15-minute mark.
+First, we see that the variation for bicycles is spread out over almost all hexagons, in comparison to public transport, where the variation only really begins to happen after the 15-minute mark.
 For the combined scenario, we see the expected: The variances of the public transport scenario and the bicycle scenario add up.
 
 \subsection{Impact Of Sustainable Modes on 15-Minute Metric}
