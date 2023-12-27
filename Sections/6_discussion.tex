@@ -4,7 +4,7 @@
 
 The aim of this discussion is to embed the results and implications of our paper into the broader context of urban planning and accessibility.
 We do so by first interpreting our results and deriving implications that are relevant to the city of Cologne, as well as urban planning in general.
-We then also discuss the limitations of our study and conclude by providing an outlook on future research.
+We also discuss the limitations of our study and conclude by providing an outlook on future research.
 
 \subsection{Interpretation of Results}
 \label{subsec:interpretation_of_results}
@@ -66,10 +66,10 @@ When looking at Table \ref{table:hexagons_with_walking_time_above_15_minutes} we
 In addition, when looking at the spatial distribution of those hexagons in Figure \ref{fig:fixable_hexagons}, we see that the yellow hexagons, which are those that become valid in terms of the 15-minute city only through public transport, are primarily located outside the city in remote areas (I\ref{item:pt_effective_in_remote_areas}).
 
 % pt only better at 90% Pareto front
-In addition, when investigating the cost and X-minute city metric Pareto fronts in Figure \ref{fig:quantile_time_per_cost}, we see that public transport is only able to yield more significant improvements than bicycle sharing when considering only the 10\% worst accessible hexagons (I\ref{item:pt_effective_in_areas_with_low_accessibility}).
+In addition, when investigating the cost and X-minute city metric Pareto fronts in Figure \ref{fig:quantile_time_per_cost}, we see that public transport is only able to yield more significant improvements than bicycle sharing when considering only the 10\% least accessible hexagons (I\ref{item:pt_effective_in_areas_with_low_accessibility}).
 
 % cost stuff
-Table \ref{tab:required_cost} and Figure \ref{fig:maximum_required_cost_for_x_minute_city} show that public transport's advantage at the least accessible hexagons comes at a cost (I\ref{item:pt_costlier_than_bicycle_sharing}).
+Table \ref{tab:required_cost} and Figure \ref{fig:maximum_required_cost_for_x_minute_city} show that the advantage of public transport at the least accessible hexagons comes at a cost (I\ref{item:pt_costlier_than_bicycle_sharing}).
 As soon as the benefits of public transport manifest, the cost also increases to \euro{2.20}, which is obvious as public transport rides are always charged.
 We can see, however, that it is rarely necessary to travel more than four stops, as the corresponding cost of \euro{3.20} is only reached for the few least accessible hexagons.
 The different sub-scenarios can explain the three- or four-step increases to the cost of \euro{2.20} and \euro{3.20}.
@@ -78,7 +78,7 @@ In some scenarios, it might be beneficial to use public transport is fewer hexag
 Looking at Figure \ref{fig:public_transport_cost_map} also clearly reveals the spatial usage pattern of public transport.
 As already conjectured previously, we see that public transport is mainly used in remote locations outside the city, which we know have lower accessibility in general (I\ref{item:pt_effective_in_remote_areas} \& I\ref{item:pt_effective_in_areas_with_low_accessibility}).
 
-The isolated hexagons inside the cities seen in Figure \ref{fig:maximum_required_cost_for_x_minute_city} are most likely located very close to a public transport stop, enabling residents to use the public transport system without any loss of time.
+The isolated hexagons inside the city seen in Figure \ref{fig:maximum_required_cost_for_x_minute_city} are most likely located very close to a public transport stop, enabling residents to use the public transport system without any loss of time.
 Inside the city, it seems only beneficial to use the public transport system to reach necessities when living near a stop.
 However, outside the city, the larger groups of hexagons indicate that using the public transport system is often faster than walking to the necessities, even though walking to the next stop requires some time (I\ref{item:pt_effective_in_remote_areas}).
 This may be because the density of the POIs is lower outside the city.
@@ -94,7 +94,7 @@ Only when investigating the 90\% quantile Pareto front is the benefit visible.
 This indicates that long-distance trips are only used for the least accessible hexagons located outside the city \ref{item:pt_effective_in_remote_areas}.
 
 % Rath/Neumar
-In Figure \ref{fig:public_transport_optimal_map}, we see that while the district of Rath/Neumar shows bad accessibility for all three scenarios, the accessibility in the public transport scenario is better than in the walking and bicycle sharing scenarios(I\ref{item:pt_effective_in_remote_areas}).
+In Figure \ref{fig:public_transport_optimal_map}, we see that while the district of Rath/Neumar shows low accessibility for all three scenarios, the accessibility in the public transport scenario is higher than in the walking and bicycle sharing scenarios(I\ref{item:pt_effective_in_remote_areas}).
 Also, we know that the high-frequency city train line 9 runs through this region, which explains the effectiveness of public transport in this region (I\ref{item:pt_effective_in_areas_with_low_accessibility}).
 It also shows us that a high-frequency public transport line from the city center to less accessible areas can significantly improve accessibility.
 
@@ -150,13 +150,13 @@ Also, the unfixable regions, marked in red,  mostly don't have bicycles near the
 This suggests that bicycles are more effective than public transport in helping a region to become a sub-15-minute region (I\ref{item:bicycle_where_available}\&I\ref{item:bicycle_improves_accessibility}).
 
 % pt only better at 90% Pareto front
-Investigating the cost and X-minute city metric Pareto fronts in Figures \ref{fig:mean_time_per_cost} and \ref{fig:quantile_time_per_cost}, as well as the corresponding steps in Tables \ref{tab:differences_in_mean_pareto_front}, \ref{tab:differences_in_75_quantile_pareto_front} and \ref{tab:differences_in_90_quantile_pareto_front} shows that using a bicycle always yields more significant time gains than public transport except for the 10\% worst accessible hexagons (I\ref{item:bicycle_improves_accessibility} \& I\ref{item:pt_costlier_than_bicycle_sharing}).
+Investigating the cost and X-minute city metric Pareto fronts in Figures \ref{fig:mean_time_per_cost} and \ref{fig:quantile_time_per_cost}, as well as the corresponding steps in Tables \ref{tab:differences_in_mean_pareto_front}, \ref{tab:differences_in_75_quantile_pareto_front} and \ref{tab:differences_in_90_quantile_pareto_front} shows that using a bicycle always yields more significant time gains than public transport except for the 10\% least accessible hexagons (I\ref{item:bicycle_improves_accessibility} \& I\ref{item:pt_costlier_than_bicycle_sharing}).
 This is a clear indicator of the superiority of bicycle sharing over public transport in terms of accessibility improvements, especially, when considering that the bicycle-sharing infrastructure does not cover all of the considered area.
 
 % cost stuff
-Table \ref{tab:required_cost} and Figure \ref{fig:maximum_required_cost_for_x_minute_city} show that bicycle sharing never costs more than public transport if both are used (\ref{item:bicycle_more_cost_efficient_than_pt}).
+Table \ref{tab:required_cost} and Figure \ref{fig:maximum_required_cost_for_x_minute_city} show that bicycle sharing never costs more than public transport if both are used (I\ref{item:bicycle_more_cost_efficient_than_pt}).
 We can also deduct this from the price of both and the fact that bicycles are never used for more than 15 minutes.
-Meanwhile, the shortest possible public transport trip costs \euro{2.20}, as soon as public transport is used, it always costs more than bicycles.
+Meanwhile, the shortest possible public transport trip costs \euro{2.20}, which is always more than the cost of a bicycle trip.
 Nevertheless, this shows that bicycle sharing is cheaper than public transport. 
 
 In addition, knowing that bicycles are never used for more than 15 minutes tells us that at any location where bicycles are available, Cologne is a 15-minute city.
@@ -217,7 +217,7 @@ We think that this contradicts complement I as the public transport costs surpas
 
 
 % complement II
-The only finding that suggests the presence of complement II can be found in table \ref{table:hexagons_with_walking_time_above_15_minutes}, which shows that the combined scenario fixes around 2\% of hexagons.
+The only finding that suggests the presence of complement II can be found in Table \ref{table:hexagons_with_walking_time_above_15_minutes}, which shows that the combined scenario fixes around 2\% of hexagons.
 However, compared to the effect that bicycle sharing and public transport have alone, this is not very significant.
 Nevertheless, we see that the effect of complement II is present.
 
@@ -239,10 +239,11 @@ It is, therefore, necessary to analyze each region separately to maximize the po
 Table \ref{tab:differences_in_mean_pareto_front} shows how much a minute of saved time costs for cycling and public transport, respectively.
 The most cost-efficient variant, bicycle sharing, enables users to save 1 minute and 40 seconds per euro, which might not be worth it for most people.
 The 1 minute and 40 seconds per euro spent, in other words, means that to save a minute, people have to spend around 60 cents.
-Comparing this to the minimum wage in Germany of \euro{12} per hour in 2022 \shortcite{federalstatisticalofficegermanyMinimumWages}, which is 20 cents per minute, shows that it takes around three minutes to make enough money to save one minute, which is obviously not worth it.
+Comparing this to the minimum wage in Germany of \euro{12} per hour in 2022 \shortcite{federalstatisticalofficegermanyMinimumWages}, which is 20 cents per minute, shows that it takes around three minutes to make enough money to save one minute, which is not a worthwhile tradeoff in our opinion.
 This means that, on average, the sustainable modes of travel are currently too expensive.
 
-Even when looking at the least accessible regions (90\% quantile) separately in Figure \ref{fig:90_quantile_time_per_cost}, where we have the most significant improvement, the most cost-efficient mode of transport, which is bicycle, only yields an improvement of two minutes per euro, which again does not result in a net positive for people who earn the minimum wage.
+Even when looking at the least accessible regions (90\% quantile) separately in Figure \ref{fig:90_quantile_time_per_cost}, where we have the most significant improvement, the most cost-efficient mode of transport, which is bicycle sharing, only yields an improvement of two minutes per euro.
+Consequently, this again does not result in a net positive for people who earn the minimum wage.
 
 With the help of the monthly cost depicted in Tables \ref{tab:monthly_costs_per_scenario_15} and \ref{tab:monthly_costs_per_scenario_10}, we can derive recommendations for the price of a monthly ticket or subscription that is appealing to residents, that have to use public transport or bicycle sharing in order to reach certain amenities in under 10 or 15 minutes.
 We make an assumption that there are no extra costs occurring per trip when a monthly ticket is purchased.
@@ -253,7 +254,7 @@ In order to appeal to at least 50\% of the population, a monthly public transpor
 In the 15-minute benchmark, this means that the monthly public transport ticket should cost less than \euro{8.80}, while a bicycle-sharing subscription should cost less than \euro{4}.
 The 10-minute benchmark shows a similar pattern: the median cost for the bicycle and combined scenario is \euro{9}, while the median cost for the public transport scenario is \euro{19.80}.
 Currently, a NextBike subscription costs \euro{10} per month, while the most common public transport ticket, the "Deutschlandticket", costs \euro{49} per month.
-Both of these prices are significantly higher than the median cost for the bicycle and combined scenario, which means that a monthly ticket is not worth it for at least half of the affected hexagons.
+Both of these prices are significantly higher than the median cost for the bicycle and combined scenario, which means that based on our assumptions, a monthly ticket is not worth it for at least half of the affected hexagons.
 
 Table \ref{tab:monthly_costs_for_cars} shows the monthly car cost, excluding acquisition costs.
 With the difference between the monthly car cost and the monthly cost of the bicycle, combined and public transport scenario, we can calculate how significant acquisition costs for a car can be, so that it is still cheaper than the sustainable modes of travel.
@@ -261,8 +262,7 @@ In the case of the 15-minute benchmark, the average car costs are \euro{1.69}, w
 This difference compared to the usual acquisition cost of a car is so low that it is not monetarily worth it to buy a car if the same journey can be made with bicycle sharing or public transport.
 In addition, we have to keep in mind that our estimates for the speed of cars are very optimistic, as we assume that there is no traffic and that parking is always available.
 To sum up, it is not worth investing in a private car, but only in the areas where sustainable modes of transport are sufficient.
-From table \ref{table:hexagons_with_walking_time_above_15_minutes}, we know that 67\% of hexagons in which walking alone is not sufficient, only cars can make all amenities accessible in under 15 minutes.
-
+As indicated in Table \ref{table:hexagons_with_walking_time_above_15_minutes}, it is evident that in 67\% of the hexagons where walking alone fails to provide access to all amenities within 15 minutes, the use of cars is the only way to achieve this accessibility within the specified time frame.
 
 \subsubsection{Uncertainty}
 

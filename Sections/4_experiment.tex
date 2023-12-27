@@ -31,7 +31,7 @@ It is essential to understand the effectiveness and accessibility of urban trans
 This scenario evaluates how well-connected and time-efficient public transportation networks are and their role in reducing reliance on personal vehicles. 
 It also investigates the impact of public transport on urban mobility and its potential to contribute to a more sustainable urban environment. 
 Specifically, it assesses whether public transport is a viable alternative to the personal car and whether it offers significant advantages over walking, considering the X-minute city metric.
-In contrast to the previous scenarios the public transport scenario also incorporates uncertainty.
+In contrast to the previous scenarios, the public transport scenario also incorporates uncertainty.
 As the public transport network is scheduled, i.e. time-dependent, we have to consider multiple different starting times, so that we achieve a holistic assessment of this mode.
 We call the instantiation of this scenario with a specific starting time a sub-scenario.
 
@@ -118,7 +118,7 @@ To be more specific, we calculate our metric only for regions in the original zo
 
 As the last cleaning step, we remove all nodes not part of the largest weakly connected component.
 A weakly connected component is a subgraph in which any two nodes from the subgraph would be connected if all directed edges were treated as undirected.
-Multiple weakly connected components in graphs derived from OSM data, mostly happen at the border of the considered area and can be neglected.
+Multiple weakly connected components in graphs derived from OSM data mostly occur at the border of the considered area and can be neglected.
 
 Because we consider multiple different modes of transport in the network, it is essential to filter out all edges that are not accessible by the respective mode of transport.
 To do so, we use Pyrosm's built-in filtering functionality.
@@ -139,10 +139,10 @@ Specifically, two significant incompatibilities exist between the GTFS specifica
 Firstly, each trip belonging to a single route in RAPTOR visits the same stops in the same order.
 It is impossible for two trips of the same route to use a different sequence of stops.
 In GTFS, routes do not pose such restrictions.
-For example, two train lines that go along the same set of stops, but in opposite directions, are considered the same route in GTFS.
+For example, two train lines that go along the same set of stops but in opposite directions are considered the same route in GTFS.
 Secondly, GTFS trips allow visiting the same stop multiple times, which is not permitted in RAPTOR.
 To overcome these differences, we split up routes into smaller routes following the same stop sequence.
-Additionally, we also remove circular trips altogether, as they only appear in a few cases in Cologne and are not relevant to our analysis.
+Additionally, we remove circular trips altogether, as they only appear in a few cases in Cologne and are not relevant to our analysis.
 
 As we previously said, the public transport scenario is subject to uncertainty and therefore, we will run three different sub-scenarios with starting times of 08:00, 12:00, and 18:00, respectively.
 
@@ -173,7 +173,7 @@ The data covers the whole of Europe and is publicly available, making it possibl
 We trimmed the data to the area of interest and then filtered for the land use types "Continuous Urban Fabric" and "Discontinuous Urban Fabric".
 These two land use types represent residential areas with different concentrations of residential buildings.
 The residential areas inside the area of interest are shown in Figure \ref{fig:input_hexagons_residential_areas}.
-Additionally, this Figure shows the hexagons of resolution nine found inside the residential areas.
+Additionally, this Figure shows the hexagons of resolution 9 found inside the residential areas.
 
 \begin{figure}
   \begin{center}
