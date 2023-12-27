@@ -137,7 +137,7 @@ The GTFS data is cleaned and converted into a format that is more suitable for M
 Specifically, two significant incompatibilities exist between the GTFS specification and RAPTOR's notion of routes and trips.
 Firstly, each trip belonging to a single route in RAPTOR visits the same stops in the same order.
 It is impossible for two trips of the same route to use a different sequence of stops.
-In GTFS, routes don't pose such restrictions.
+In GTFS, routes do not pose such restrictions.
 For example, two train lines that go along the same set of stops, but in opposite directions, are considered the same route in GTFS.
 Secondly, GTFS trips allow visiting the same stop multiple times, which is not permitted in RAPTOR.
 To overcome these differences, we split up routes into smaller routes following the same stop sequence.
@@ -234,7 +234,7 @@ As two consecutive bicycle trips are considered separately, we nullify this hidd
 For public transport, we use the pricing scheme of the Cologne Transport Authority (KVB), which is \euro{2.20} for trips that span four stops or less.
 For any trip that spans more than four stops or any multitude of trips, the KVB charges \euro{3.20}.
 To depict this, we add hidden values to the labels processed in McRAPTOR, representing how many stops the traveler has already traversed.
-Because two consecutive trips are considered together, we don't need to nullify the hidden value.
+Because two consecutive trips are considered together, we do not need to nullify the hidden value.
 
 For personal vehicles, we use a cost per minute of \euro{0.19}, which we derived from the average cost per kilometer of \euro{0.28} given by \cite{kieferSpritkostenrechner2023} and an average speed of \SI{40}{\kilo\meter\per\hour}.
 These costs incorporate fuel, repair, insurance, and tax, but not acquisition costs.
