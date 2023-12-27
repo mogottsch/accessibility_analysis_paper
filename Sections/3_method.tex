@@ -31,14 +31,14 @@ This approach yields a singular measure that reflects the least accessible categ
 We think that it is beneficial to focus on the least accessible category, as measuring accessibility in cities by averaging accessibility across all categories can mask disparities. 
 Our approach ensures that the metric is targeted at areas of greatest need. 
 In addition, our metric can directly reflect the original definition of a 15-minute city: if the X-minute city metric is below 15 minutes, the city can be considered a 15-minute city.
-By leveraging this metric, we aim to help city planners create urban environments that prioritize sustainability, enhance the well-being of residents, and reduce dependency on motorized transport, thus contributing to the broader goals of efficient urban planning and improved quality of urban life.
+By leveraging this metric, we aim to help city planners create urban environments that prioritize sustainability, enhance the well-being of residents, and reduce dependency on motorized transport.
+Thus, we aid in contributing to the broader goals of efficient urban planning and improved quality of urban life.
 
 % --- comparison to NEXI
 Our metric presents several advantages compared to the NEXI-minutes and NEXI-global, as outlined by \shortciteA{olivariAreItalianCities2023}.
 Firstly, unlike the NEXI-minutes, which calculates separate metrics for each of the seven categories, our metric evaluates all categories together. 
 This unified approach is more straightforward to understand. 
-In contrast, while NEXI-global considers all categories in one assessment, it converts the results into a 0-100 score. 
-This scoring system can obscure the actual value of the data, making it more challenging to interpret.
+In contrast, while NEXI-global considers all categories in one assessment, it converts the results into a 0-100 score, making it more challenging to interpret.
 
 Moreover, the NEXI-global's practice of assigning different weights to each category complicates its analysis. 
 By focusing on the lowest-performing category across all areas, our metric simplifies the understanding and highlights where improvement is most needed. 
@@ -49,14 +49,15 @@ As we want to incorporate more modes than just walking, some of which may have a
 We recognize that time and cost are measures of different units and cannot be combined sensibly.
 Therefore, we draw upon Pareto optimality to create a multi-objective metric considering time and cost.
 We define a Pareto set as a set of tuples where each tuple contains a time value and a cost value.
-A tuple can be considered the time needed to reach all categories given the cost value.
+A tuple can be considered as the time needed to reach all categories given the cost value.
 The Pareto set will allow answering questions in the form of "What is the fastest time I can reach any categories given a certain cost?" or "What is the lowest price I need to pay to reach all categories given a certain time?".
 
 
 \subsection{Routing Algorithm}
 \label{subs:routing_algorithm}
 Traditionally, the 15-minute city concept is applied to walking and cycling and ignores other modes of transport.
-In the context of location-based metrics, some researchers even go as far as to only calculate the bee-line distance to the nearest amenity and ignore the street network altogether \shortcite{gastnerOptimalDesignSpatial2006}. At the same time, most only consider walking \shortcite{olivariAreItalianCities2023, nicolettiDisadvantagedCommunitiesHave2023}.
+For example, most researchers only consider walking when calculating metrics based on the 15-minute city \shortcite{olivariAreItalianCities2023, nicolettiDisadvantagedCommunitiesHave2023}.
+Some researchers even go as far as to only calculate the bee-line distance to the nearest amenity and ignore the street network altogether \shortcite{gastnerOptimalDesignSpatial2006}.
 As explained in Section \ref{subsec:importance_of_multimodality_and_intermodality}, to determine the accessibility of a city accurately, we have to consider all modes of transport.
 To do so, we require a routing algorithm that is capable of including multiple modes of transport, which we develop in this Section.
 First, we define the requirements for our routing algorithm and explain why existing algorithms do not meet our criteria.
@@ -92,7 +93,7 @@ Next, we explain why the algorithm introduced in Section \ref{subsec:routing_alg
 Both Dijkstra and MLC are not considered due to their impractical runtime.
 Furthermore, the need for multi-objective solutions excludes Dijkstra, RAPTOR, and ULTRA.
 The requirement for unrestricted inter-modal travel makes RAPTOR and McRAPTOR unsuitable in practical scenarios.
-To explain this, let's examine a straightforward example.
+To explain this, we examine a straightforward example.
 Consider the OSM graph of the key regions in Cologne, which comprises 125,176 nodes and 142,074 edges.
 For RAPTOR to compute a transitively closed graph requires calculating the walking distance between each node.
 This computation would yield \(125,176^2 = 15,669,030,976\) edges, vastly greater than the original 142,074 edges.
@@ -116,7 +117,7 @@ One module, for example, would be walking, and running the walking module would 
 % explanation of bags & need for common network 
 A module always takes bags as an input and returns bags as an output.
 As explained in Section \ref{sec:related_work}, a bag is a set of Pareto optimal labels attributing specific values to each objective.
-In our work, a bag is additionally associated with a node on some network.
+In our work, a bag is additionally associated with a node in some network.
 For the bags that are the input and output of the modules, we further require that they are associated with the common network.
 This is necessary to feed the output bags of one module into the input bags of another module.
 The most reasonable choice for the common network is the walking graph, which has a real-world interpretation because walking between different modes of transport is very common.
@@ -140,7 +141,7 @@ The matrix specifies the order in which modules are run and whether they are run
 \end{figure}
 
 Running the framework begins with a start node and time as input.
-It first creates the starting bags from the start node and the start time, as described above  .
+It first creates the starting bags from the start node and the start time, as described above.
 Next, it runs the initial modules given by the initial module matrix.
 To run a module matrix, the first row's modules are run in parallel.
 Their respective outputs are then merged into a single set of bags, which is used as the input for the second row's modules.
@@ -168,7 +169,7 @@ The module can also define cost depending on the time spent on the trip.
 For the personal vehicle module, we assume that there is only one personal vehicle and that it is located at the starting node.
 Therefore, the module filters out all bags not located at the starting node.
 Obviously, this module is intended to be used before any other module is used, i.e., for the first segment of the trip.
-Therefore, it should only appear in the first row of the initial module matrix.
+Hence, it should only appear in the first row of the initial module matrix.
 After that, MLC is run on the personal vehicle graph, augmented with the walking graph.
 As this module is also based on MLC, it can define costs like the free-floating bicycle-sharing module.
 
@@ -185,15 +186,14 @@ The cost may depend on the number of stops traversed during the trip.
 
 The merging of bags after running multiple modules in parallel is quite simple.
 Each bag represents a set of Pareto optimal labels, and each bag is associated with a node.
-We, therefore, merge node-wise.
-We differentiate between two cases:
+We, therefore, merge node-wise and differentiate between two cases:
 \begin{enumerate}
     \item There is only one bag associated with a node.
     \item There are multiple bags associated with the same node.
 \end{enumerate}
 In the first case, we directly put the bag into the output bags.
 In the second case, we create a new bag that contains all labels of all bags associated with the node, which might break the Pareto optimality of the labels.
-Therefore, to restore the Pareto optimality of the labels, we remove all labels dominated by another label.
+Conesequently, to restore the Pareto optimality of the labels, we remove all labels dominated by another label.
 
 \subsubsection{Enhanced MLC \& McRAPTOR}
 \label{subsubsec:enhanced_mlc_and_mcraptor}
@@ -219,13 +219,13 @@ We can, therefore, store how many stops the current trip has already traversed, 
 Additionally, as the concept of hidden values isn't specific to MLC or McRAPTOR, the hidden values can be transferred across iterations and modules.
 To understand the benefit, again consider the example of the pricing of the Cologne Transport Authority.
 The ticket that costs \euro{3.20} allows traveling any number of trips within Cologne, no matter if changing to a different trip is necessary.
-Therefore, if we were to first travel to two stops with one trip and then get out to catch another trip that consists of five stops, we would still have the information that we already commuted two stops.
-Therefore, we can charge \euro{3.20} instead of \euro{2.20} twice, which is more realistic.
+Thus, if we were to first travel to two stops with one trip and then get out to catch another trip that consists of five stops, we would still have the information that we already commuted two stops.
+Thus, we can charge \euro{3.20} instead of \euro{2.20} twice, which is more realistic.
 These enhanced versions of MLC and McRAPTOR are used in our modules to use more realistic dynamic pricing schemes.
 
 While running our experiment, we found out that MLC-based modules present a significant computational bottleneck.
 To calculate our metric, we do not need the labels of every single node but only those that impact the X-minute city and time Pareto front.
-Therefore, we introduce a runtime optimization into MLC, which eliminates some bags from being processed that are guaranteed not to impact the Pareto front.
+Accordingly, we introduce a runtime optimization into MLC, which eliminates some bags from being processed that are guaranteed not to impact the Pareto front.
 While iterating the unprocessed bags in MLC, we keep track of the minimum time required to reach a POI node of each category for each cost value.
 If we encounter a bag whose time and cost values are greater than the minimum time and cost values for all categories, we can safely discard this bag, as it will not impact the Pareto front.
 
@@ -288,12 +288,12 @@ Our accessibility analysis routine consists of three parts: the input routine, t
     \label{fig:input_routine}
 \end{figure}
 In the input routine, depicted in Figure \ref{fig:input_routine}, we first create an even grid that covers the whole area of interest, for example, a city.
-We use H3 \shortcite{H3H32023}, which uses hexagons to discretize an area to create such a grid evenly.
+We use H3 \shortcite{H3H32023}, which uses hexagons to discretize an area, resulting in such a grid.
 Our goal is to calculate our metric for each hexagon to get detailed spatial information about the accessibility in the area of interest.
 Thus, selecting the right H3 resolution requires careful consideration of the tradeoff between finer detail and the impact on computation time.
 We recommend a resolution of nine, corresponding to a hexagon edge length of roughly 200 meters, as it is a good compromise between accuracy and computation time when running the algorithm on consumer hardware. 
 The input routine also filters out uninteresting hexagons.
-For example, we filter out hexagons containing no residential areas, as no people are living there.
+For example, we filter out hexagons containing no residential areas, as they are irrelevant to the 15-minute city concept.
 Next, the input routine retrieves the centroid of each hexagon and then calculates the Euclidean distance between the centroids and the OSM nodes to assign the closest OSM node to each centroid.
 The result of the input routine is a set of OSM nodes for which we want to compute the accessibility.
 
@@ -317,7 +317,7 @@ This results in a set of bags for each node.
 \end{figure}
 The metrics routine, depicted in Figure \ref{fig:metric_routine}, processes the bags into Pareto sets, where one entry in the Pareto set is a tuple of the X-minute city metric and the related cost.
 To do so, we process each collection of bags separately - one co-routine for each OSM node/collection.
-The co-routine is depicted in Figure \ref{fig:metric_co_routine} and works as follows.
+The co-routine is depicted in Figure \ref{fig:metric_co_routine} and works as follows:
 We start by collecting all unique cost values on each label in each bag and then sorting them in ascending order.
 For each cost value, we then determine the associated X-minute city metric.
 We check whether every category is reachable given the cost value and an iteratively increasing time value.
